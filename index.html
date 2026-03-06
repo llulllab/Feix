@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Site Generator</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, sans-serif; background: #f5f5f5; color: #1a1a1a; line-height: 1.5; padding: 24px; }
+
+  .container { max-width: 960px; margin: 0 auto; }
+
+  h1 { font-size: 1.5rem; margin-bottom: 16px; }
+
+  /* Input area */
+  .input-area { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  textarea { width: 100%; min-height: 120px; border: 1px solid #ccc; border-radius: 6px; padding: 12px; font-size: 0.95rem; font-family: inherit; resize: vertical; }
+  textarea:focus { outline: 2px solid #2563eb; border-color: transparent; }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border: none; border-radius: 6px; font-size: 0.95rem; cursor: pointer; margin-top: 12px; }
+  .btn-primary { background: #2563eb; color: #fff; }
+  .btn-primary:hover { background: #1d4ed8; }
+  .btn-primary:disabled { background: #93c5fd; cursor: not-allowed; }
+  .btn-secondary { background: #e5e7eb; color: #1a1a1a; }
+  .btn-secondary:hover { background: #d1d5db; }
+
+  /* Steps */
+  .steps { display: flex; gap: 8px; margin-bottom: 16px; }
+  .step { flex: 1; padding: 10px 12px; border-radius: 6px; background: #e5e7eb; font-size: 0.85rem; text-align: center; transition: background 0.3s; }
+  .step.active { background: #fbbf24; color: #1a1a1a; font-weight: 600; }
+  .step.done { background: #22c55e; color: #fff; }
+  .step.waiting { background: #e5e7eb; color: #888; }
+
+  /* Loading */
+  .loading-area { display: none; margin-bottom: 16px; }
+  .loading-area.visible { display: block; }
+  .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid #ccc; border-top-color: #2563eb; border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 8px; vertical-align: middle; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Results */
+  .results { display: none; }
+  .results.visible { display: block; }
+
+  /* Report */
+  .report-section { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  .report-section h2 { font-size: 1.1rem; margin-bottom: 12px; }
+  .report-line { padding: 4px 0; font-size: 0.9rem; font-family: monospace; }
+  .report-line.pass { color: #16a34a; }
+  .report-line.warn { color: #ca8a04; }
+  .report-line.error { color: #dc2626; }
+  .report-line.info { color: #555; }
+
+  /* Preview */
+  .preview-section { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  .preview-section h2 { font-size: 1.1rem; margin-bottom: 12px; }
+  .preview-frame { width: 100%; height: 500px; border: 1px solid #ccc; border-radius: 4px; background: #fff; }
+  .actions { display: flex; gap: 8px; margin-top: 12px; }
+
+  /* Error */
+  .error-box { display: none; background: #fef2f2; border: 1px solid #fca5a5; border-radius: 8px; padding: 16px; margin-bottom: 16px; color: #991b1b; }
+  .error-box.visible { display: block; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Web Site Generator</h1>
+
+  <!-- Input -->
+  <div class="input-area">
+    <label for="prompt"><strong>Ne tür bir web sitesi istiyorsunuz?</strong></label>
+    <textarea id="prompt" placeholder="Örn: Bir kahve dükkanı için modern landing page, iletişim formu ve menü bölümü olsun..."></textarea>
+    <button class="btn btn-primary" id="generateBtn" onclick="generate()">Oluştur</button>
+  </div>
+
+  <!-- Steps -->
+  <div class="loading-area" id="loadingArea">
+    <div class="steps">
+      <div class="step waiting" id="step1">1. İstek gönderiliyor</div>
+      <div class="step waiting" id="step2">2. Üretici Ajan çalışıyor</div>
+      <div class="step waiting" id="step3">3. Kontrol Ajanı çalışıyor</div>
+      <div class="step waiting" id="step4">4. Sonuç hazırlanıyor</div>
+    </div>
+    <p id="loadingText"><span class="spinner"></span>İşleniyor...</p>
+  </div>
+
+  <!-- Error -->
+  <div class="error-box" id="errorBox"></div>
+
+  <!-- Results -->
+  <div class="results" id="results">
+
+    <!-- Report -->
+    <div class="report-section">
+      <h2>Kontrol Raporu</h2>
+      <div id="reportContent"></div>
+    </div>
+
+    <!-- Preview -->
+    <div class="preview-section">
+      <h2>Önizleme</h2>
+      <iframe class="preview-frame" id="previewFrame" sandbox="allow-scripts allow-same-origin"></iframe>
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="copyCode()">Kodu Kopyala</button>
+        <button class="btn btn-secondary" onclick="downloadCode()">HTML İndir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const WEBHOOK_URL = 'https://n8n.tropus.io/webhook/generate-website';
+
+let generatedCode = '';
+
+async function generate() {
+  const prompt = document.getElementById('prompt').value.trim();
+  if (!prompt) { alert('Lütfen bir istek yazın.'); return; }
+
+  // Reset UI
+  document.getElementById('results').classList.remove('visible');
+  document.getElementById('errorBox').classList.remove('visible');
+  document.getElementById('loadingArea').classList.add('visible');
+  document.getElementById('generateBtn').disabled = true;
+  generatedCode = '';
+
+  setStep(1);
+
+  try {
+    // Simulate step progression with timers since we can't get real progress from a single request
+    const stepTimer2 = setTimeout(() => setStep(2), 2000);
+    const stepTimer3 = setTimeout(() => setStep(3), 30000);
+
+    const response = await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: prompt })
+    });
+
+    clearTimeout(stepTimer2);
+    clearTimeout(stepTimer3);
+
+    if (!response.ok) {
+      throw new Error('Sunucu hatası: ' + response.status);
+    }
+
+    setStep(4);
+    const data = await response.json();
+
+    if (!data.code && !data.report) {
+      throw new Error('Sunucudan geçerli bir yanıt alınamadı.');
+    }
+
+    generatedCode = data.code || '';
+    renderReport(data.report || '');
+    renderPreview(generatedCode);
+
+    document.getElementById('results').classList.add('visible');
+
+  } catch (err) {
+    document.getElementById('errorBox').textContent = 'Hata: ' + err.message;
+    document.getElementById('errorBox').classList.add('visible');
+  } finally {
+    document.getElementById('loadingArea').classList.remove('visible');
+    document.getElementById('generateBtn').disabled = false;
+    resetSteps();
+  }
+}
+
+function setStep(n) {
+  for (let i = 1; i <= 4; i++) {
+    const el = document.getElementById('step' + i);
+    if (i < n) el.className = 'step done';
+    else if (i === n) el.className = 'step active';
+    else el.className = 'step waiting';
+  }
+}
+
+function resetSteps() {
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById('step' + i).className = 'step waiting';
+  }
+}
+
+function renderReport(report) {
+  const container = document.getElementById('reportContent');
+  container.innerHTML = '';
+
+  const lines = report.split('\n');
+  lines.forEach(line => {
+    const div = document.createElement('div');
+    div.className = 'report-line';
+    const trimmed = line.trim();
+
+    if (/^GEÇTİ/i.test(trimmed) || /^GEÇTI/i.test(trimmed)) {
+      div.className += ' pass';
+    } else if (/^UYARI/i.test(trimmed)) {
+      div.className += ' warn';
+    } else if (/^HATA/i.test(trimmed)) {
+      div.className += ' error';
+    } else {
+      div.className += ' info';
+    }
+
+    div.textContent = trimmed;
+    if (trimmed) container.appendChild(div);
+  });
+}
+
+function renderPreview(code) {
+  const iframe = document.getElementById('previewFrame');
+  const blob = new Blob([code], { type: 'text/html' });
+  iframe.src = URL.createObjectURL(blob);
+}
+
+function copyCode() {
+  if (!generatedCode) return;
+  navigator.clipboard.writeText(generatedCode).then(() => {
+    alert('Kod panoya kopyalandı.');
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = generatedCode;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert('Kod panoya kopyalandı.');
+  });
+}
+
+function downloadCode() {
+  if (!generatedCode) return;
+  const blob = new Blob([generatedCode], { type: 'text/html' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'generated-site.html';
+  a.click();
+}
+</script>
+
+</body>
+</html>
