@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feix — AI Studio</title>
+<title>Feix v2 — Workflow & Frontend Generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -364,6 +364,12 @@ a:hover{text-decoration:underline}
 
 .results-grid{
   display:grid;gap:var(--space-xl);
+  grid-template-columns:1fr;
+}
+
+/* Desktop: two-column results */
+@media (min-width:1024px){
+  .results-grid{ grid-template-columns:1fr 1fr; }
 }
 
 .report-card{
@@ -727,8 +733,7 @@ a:hover{text-decoration:underline}
   </div>
   <ul class="nav-links" id="navLinks" role="list" aria-hidden="true">
     <li><a href="#features">How it works</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#create" class="nav-cta">Start a Project</a></li>
+    <li><a href="#create" class="nav-cta">Generate</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -740,78 +745,54 @@ a:hover{text-decoration:underline}
   <div class="hero-orb" aria-hidden="true"></div>
   <div class="hero-badge">
     <span class="hero-badge-dot" aria-hidden="true"></span>
-    Describe · Build · Deliver
+    Describe · Generate · Deploy
   </div>
   <h1>
-    Your full-stack product,<br>
-    <span class="gradient-text">designed and delivered.</span>
+    Your full-stack workflow,<br>
+    <span class="gradient-text">generated and delivered.</span>
   </h1>
   <p class="hero-desc">
-    Describe what you need. We handle everything and deliver the finished product straight to your inbox.
+    Describe what you need. We generate a complete n8n workflow JSON and its matching frontend HTML — ready to import and deploy.
   </p>
-  <a href="#create" class="hero-cta" aria-label="Go to project submission">
-    Start a project
+  <a href="#create" class="hero-cta" aria-label="Go to generator">
+    Start generating
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
   </a>
 </header>
 
 <!-- FEATURES -->
 <section class="features-section fade-in" id="features" aria-labelledby="features-title">
-  <span class="section-label">How Feix works</span>
-  <h2 id="features-title">You describe it.<br>We build and deliver it.</h2>
+  <span class="section-label">How Feix v2 works</span>
+  <h2 id="features-title">You describe it.<br>We generate everything.</h2>
   <div class="features-grid">
     <article class="feature-card">
       <div class="feature-icon blue" aria-hidden="true">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
       </div>
-      <h3>Describe Your Project</h3>
-      <p>Tell us what you need — a website, an online store, a booking system, anything. Plain language, no technical jargon required.</p>
+      <h3>Describe Your App</h3>
+      <p>Tell us what you need — a chatbot, an analysis tool, a booking system, anything. Plain language, no technical jargon required.</p>
     </article>
     <article class="feature-card">
       <div class="feature-icon amber" aria-hidden="true">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
       </div>
-      <h3>We Build It</h3>
-      <p>Our studio takes your brief and produces a complete, ready-to-use product — fully built, wired together, and tested.</p>
+      <h3>We Generate It</h3>
+      <p>Four AI agents work in sequence: two generate your n8n workflow JSON and frontend HTML, two quality-check everything before delivery.</p>
     </article>
     <article class="feature-card">
       <div class="feature-icon green" aria-hidden="true">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
       </div>
-      <h3>Delivered to Your Inbox</h3>
-      <p>Within 6–12 hours you receive your finished product — ready to go live, with everything you need to get started.</p>
-    </article>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="features-section fade-in" id="pricing" aria-labelledby="pricing-title">
-  <span class="section-label">Pricing</span>
-  <h2 id="pricing-title">Simple, transparent pricing.<br>No surprises.</h2>
-  <div class="features-grid" style="grid-template-columns:1fr;max-width:700px;margin-left:auto;margin-right:auto">
-    <article class="feature-card pricing-two-col">
-      <div>
-        <div class="feature-icon blue" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
-        </div>
-        <h3>Bring Your Own Keys</h3>
-        <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.65">You provide your service accounts, hosting, and domain. We handle the build and delivery. Lower cost, full ownership.</p>
-      </div>
-      <div>
-        <div class="feature-icon amber" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.91 8.84L8.56 21.19a1 1 0 0 1-.71.29h-4a1 1 0 0 1-1-1v-4a1 1 0 0 1 .29-.71L15.49 3.42"/><path d="M15.49 3.42a3.89 3.89 0 0 1 5.5 5.5"/><line x1="12" y1="8" x2="2" y2="18"/></svg>
-        </div>
-        <h3>Fully Managed</h3>
-        <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.65">We provide everything — service accounts, hosting, domain setup. You just describe what you want. Higher cost, zero hassle.</p>
-      </div>
+      <h3>Import & Deploy</h3>
+      <p>Download your workflow JSON, import it into n8n, and deploy the matching HTML frontend. Everything is wired together and ready to go.</p>
     </article>
   </div>
 </section>
 
 <!-- PROJECT SUBMISSION -->
 <section class="prompt-section fade-in" id="create" aria-labelledby="create-title">
-  <span class="section-label">Start a project</span>
-  <h2 id="create-title">Tell us what you need.<br>We'll take it from here.</h2>
+  <span class="section-label">Generate</span>
+  <h2 id="create-title">Describe your app.<br>We'll generate everything.</h2>
   <div class="prompt-card-wrapper locked" id="promptWrapper">
 
     <!-- GATE OVERLAY -->
@@ -886,46 +867,24 @@ a:hover{text-decoration:underline}
 
     <!-- ORIGINAL PROMPT CARD -->
     <div class="prompt-card">
-      <label for="promptInput">Describe your project — what should it do, who is it for, any specifics.</label>
+      <label for="promptInput">Describe your application — what should the workflow do, what should the frontend look like.</label>
       <textarea
         class="prompt-textarea"
         id="promptInput"
-        placeholder="Example: I need a portfolio website for a freelance photographer. Clean, minimal design with a gallery, contact form, and automatic email replies to visitors who reach out..."
+        placeholder="Example: I need a customer feedback collector. The workflow should receive feedback via webhook, analyze sentiment with Claude, save to Postgres, and email a summary to the admin. The frontend should have a clean feedback form with a text area, rating stars, and a submit button..."
         maxlength="10000"
         aria-describedby="charCounter"
       ></textarea>
 
-      <!-- CREDENTIAL CHOICE -->
-      <fieldset class="credential-fieldset" id="credentialFieldset">
-        <legend class="credential-legend">Infrastructure setup</legend>
-        <div class="credential-options">
-          <label class="credential-option">
-            <input type="radio" name="credentialChoice" value="own" checked>
-            <span class="credential-radio-mark"></span>
-            <span class="credential-option-content">
-              <span class="credential-option-title">I'll provide my own credentials</span>
-              <span class="credential-option-desc">We'll contact you for your service accounts and hosting details after submission.</span>
-            </span>
-          </label>
-          <label class="credential-option">
-            <input type="radio" name="credentialChoice" value="managed">
-            <span class="credential-radio-mark"></span>
-            <span class="credential-option-content">
-              <span class="credential-option-title">Use fully managed setup</span>
-              <span class="credential-option-desc">We provide all service accounts, hosting, and domain — additional fee applies.</span>
-            </span>
-          </label>
-        </div>
-      </fieldset>
 
       <div class="prompt-footer">
-        <span class="char-count" id="charCounter" aria-live="polite">0 / 2000</span>
+        <span class="char-count" id="charCounter" aria-live="polite">0 / 10000</span>
         <span class="usage-badge hidden" id="usageBadge" aria-live="polite">
           <span class="usage-dot" aria-hidden="true"></span>
           <span id="usageText"></span>
         </span>
         <button class="btn-generate" id="btnGenerate" type="button">
-          <span class="btn-text">Submit Project</span>
+          <span class="btn-text">Generate</span>
           <span class="spinner" aria-hidden="true"></span>
         </button>
       </div>
@@ -943,8 +902,8 @@ a:hover{text-decoration:underline}
         <div class="step-line"></div>
       </div>
       <div class="step-content">
-        <h3>Project Received</h3>
-        <p>Your brief has been securely submitted. We're on it.</p>
+        <h3>Request Received</h3>
+        <p>Your brief has been securely submitted.</p>
       </div>
     </div>
     <div class="step" data-step="1" role="listitem">
@@ -953,8 +912,8 @@ a:hover{text-decoration:underline}
         <div class="step-line"></div>
       </div>
       <div class="step-content">
-        <h3>Build in Progress</h3>
-        <p>Your project is being built and assembled.</p>
+        <h3>Generating Workflow</h3>
+        <p>AI is building your n8n workflow JSON with all nodes and connections.</p>
       </div>
     </div>
     <div class="step" data-step="2" role="listitem">
@@ -963,8 +922,8 @@ a:hover{text-decoration:underline}
         <div class="step-line"></div>
       </div>
       <div class="step-content">
-        <h3>Quality Review</h3>
-        <p>Everything is being tested and polished to make sure it works flawlessly.</p>
+        <h3>Workflow QA</h3>
+        <p>Checking node connections, credentials, and structure.</p>
       </div>
     </div>
     <div class="step" data-step="3" role="listitem">
@@ -973,31 +932,75 @@ a:hover{text-decoration:underline}
         <div class="step-line"></div>
       </div>
       <div class="step-content">
-        <h3>Delivered to You</h3>
-        <p>Your finished product will arrive in your inbox within 24–48 hours.</p>
+        <h3>Generating Frontend</h3>
+        <p>AI is building your HTML frontend matched to the workflow endpoints.</p>
+      </div>
+    </div>
+    <div class="step" data-step="4" role="listitem">
+      <div class="step-indicator">
+        <div class="step-dot">5</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <h3>Frontend QA</h3>
+        <p>Checking design quality, accessibility, dark mode, and mobile layout.</p>
+      </div>
+    </div>
+    <div class="step" data-step="5" role="listitem">
+      <div class="step-indicator">
+        <div class="step-dot">6</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <h3>Complete</h3>
+        <p>Your workflow and frontend are ready to download.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONFIRMATION -->
+<!-- RESULTS -->
 <section class="results-section" id="resultsSection" aria-labelledby="results-title">
-  <div class="results-grid" style="max-width:700px;margin:0 auto">
-    <div class="report-card" style="text-align:center;padding:var(--space-2xl) var(--space-xl)">
-      <div class="confirmation-icon" aria-hidden="true">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+  <div class="results-grid">
+
+    <!-- JSON Workflow Output -->
+    <div class="report-card">
+      <div class="report-card-header">
+        <div class="feature-icon blue" aria-hidden="true" style="width:36px;height:36px;margin-bottom:0">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>n8n Workflow</h3>
       </div>
-      <h3 style="font-family:var(--font-display);font-weight:700;font-size:1.4rem;margin:var(--space-lg) 0 var(--space-md);letter-spacing:-0.02em">Project Submitted Successfully</h3>
-      <p style="font-size:1rem;color:var(--text-secondary);line-height:1.7;max-width:50ch;margin:0 auto var(--space-lg)">
-        Your project has been submitted successfully. Our team is on it.
-      </p>
-      <div class="report-card" style="background:var(--neon-blue-dim);border-color:rgba(56,189,248,0.2);text-align:left;padding:var(--space-lg)">
-        <p style="font-size:0.9rem;color:var(--neon-blue);line-height:1.6;margin:0">
-          <strong>What happens next:</strong> You'll receive an email within 24–48 hours with your finished product, ready to go live.
-        </p>
+      <div class="report-body" id="jsonReportBody" style="margin-bottom:var(--space-lg)"></div>
+      <div style="display:flex;gap:var(--space-md);flex-wrap:wrap">
+        <button class="gate-btn" id="btnCopyJson" type="button" style="width:auto;margin:0;padding:var(--space-sm) var(--space-lg);font-size:0.85rem">
+          <span class="gate-btn-text">Copy JSON</span>
+        </button>
+        <button class="gate-btn secondary" id="btnDownloadJson" type="button" style="width:auto;margin:0;padding:var(--space-sm) var(--space-lg);font-size:0.85rem">
+          <span class="gate-btn-text">Download .json</span>
+        </button>
       </div>
-      <div id="reportBody" style="display:none"></div>
     </div>
+
+    <!-- HTML Frontend Output -->
+    <div class="report-card">
+      <div class="report-card-header">
+        <div class="feature-icon amber" aria-hidden="true" style="width:36px;height:36px;margin-bottom:0">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3>Frontend HTML</h3>
+      </div>
+      <div class="report-body" id="htmlReportBody" style="margin-bottom:var(--space-lg)"></div>
+      <div style="display:flex;gap:var(--space-md);flex-wrap:wrap">
+        <button class="gate-btn" id="btnCopyHtml" type="button" style="width:auto;margin:0;padding:var(--space-sm) var(--space-lg);font-size:0.85rem">
+          <span class="gate-btn-text">Copy HTML</span>
+        </button>
+        <button class="gate-btn secondary" id="btnDownloadHtml" type="button" style="width:auto;margin:0;padding:var(--space-sm) var(--space-lg);font-size:0.85rem">
+          <span class="gate-btn-text">Download .html</span>
+        </button>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1006,7 +1009,7 @@ a:hover{text-decoration:underline}
 
 <!-- FOOTER -->
 <footer class="site-footer">
-  <p>© 2026 <a href="https://llulllab.com" target="_blank" rel="noopener">Llull Lab</a> · Feix AI Studio</p>
+  <p>© 2026 <a href="https://llulllab.com" target="_blank" rel="noopener">Llull Lab</a> · Feix v2 — Workflow & Frontend Generator</p>
 </footer>
 
 <script>
@@ -1016,7 +1019,7 @@ a:hover{text-decoration:underline}
   // ─── ENDPOINTS ───
   const API_BASE = 'https://n8n.tropus.io/webhook';
   const ENDPOINTS = {
-    generate: API_BASE + '/generate-website',
+    generate: API_BASE + '/generate-workflow-and-frontend',
     validate: API_BASE + '/invite-validate',
     request: API_BASE + '/hrz-access-request'
   };
@@ -1029,9 +1032,19 @@ a:hover{text-decoration:underline}
   const btnGenerate = document.getElementById('btnGenerate');
   const stepperSection = document.getElementById('stepperSection');
   const resultsSection = document.getElementById('resultsSection');
-  const reportBody = document.getElementById('reportBody');
+  const jsonReportBody = document.getElementById('jsonReportBody');
+  const htmlReportBody = document.getElementById('htmlReportBody');
   const errorToast = document.getElementById('errorToast');
   const steps = document.querySelectorAll('.step');
+
+  // Download/copy buttons
+  const btnCopyJson = document.getElementById('btnCopyJson');
+  const btnDownloadJson = document.getElementById('btnDownloadJson');
+  const btnCopyHtml = document.getElementById('btnCopyHtml');
+  const btnDownloadHtml = document.getElementById('btnDownloadHtml');
+
+  // Store last generation result
+  let lastResult = null;
 
   // Gate elements
   const promptWrapper = document.getElementById('promptWrapper');
@@ -1279,7 +1292,7 @@ a:hover{text-decoration:underline}
 
   // ─── CHAR COUNTER ───
   promptInput.addEventListener('input', () => {
-    charCounter.textContent = promptInput.value.length + ' / 2000';
+    charCounter.textContent = promptInput.value.length + ' / 10000';
   });
 
   // ─── FADE IN OBSERVER ───
@@ -1329,7 +1342,7 @@ a:hover{text-decoration:underline}
 
     const prompt = promptInput.value.trim();
     if (!prompt) {
-      showError('Please describe your project.');
+      showError('Please describe your application.');
       promptInput.focus();
       return;
     }
@@ -1339,10 +1352,6 @@ a:hover{text-decoration:underline}
       return;
     }
 
-    // Read credential choice
-    const credentialChoice = document.querySelector('input[name="credentialChoice"]:checked');
-    const credentials = credentialChoice ? credentialChoice.value : 'own';
-
     btnGenerate.classList.add('loading');
     btnGenerate.disabled = true;
     resultsSection.classList.remove('visible');
@@ -1351,9 +1360,13 @@ a:hover{text-decoration:underline}
 
     resetStepper();
 
+    // Animate stepper progressively
     setStep(0);
     const stepTimers = [];
-    stepTimers.push(setTimeout(() => setStep(1), 1200));
+    stepTimers.push(setTimeout(() => setStep(1), 1500));
+    stepTimers.push(setTimeout(() => setStep(2), 8000));
+    stepTimers.push(setTimeout(() => setStep(3), 15000));
+    stepTimers.push(setTimeout(() => setStep(4), 22000));
 
     try {
       const response = await fetch(ENDPOINTS.generate, {
@@ -1361,8 +1374,7 @@ a:hover{text-decoration:underline}
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           prompt: prompt,
-          token: sessionToken,
-          credentials: credentials
+          token: sessionToken
         })
       });
 
@@ -1380,18 +1392,23 @@ a:hover{text-decoration:underline}
       }
 
       const data = await response.json();
+      lastResult = data;
 
       // Complete stepper animation
       stepTimers.forEach(clearTimeout);
-      setStep(1);
-      await new Promise(r => setTimeout(r, 600));
-      setStep(2);
-      await new Promise(r => setTimeout(r, 600));
-      setStep(3);
-      steps[3].classList.remove('active');
-      steps[3].classList.add('completed');
+      for (let i = 0; i <= 4; i++) {
+        setStep(i);
+        await new Promise(r => setTimeout(r, 300));
+      }
+      setStep(5);
+      steps[5].classList.remove('active');
+      steps[5].classList.add('completed');
 
-      // Show confirmation
+      // Populate reports
+      jsonReportBody.textContent = data.jsonReport || 'No report available.';
+      htmlReportBody.textContent = data.htmlReport || 'No report available.';
+
+      // Show results
       resultsSection.classList.add('visible');
       setTimeout(() => {
         resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1414,6 +1431,50 @@ a:hover{text-decoration:underline}
       btnGenerate.classList.remove('loading');
       btnGenerate.disabled = false;
     }
+  });
+
+  // ─── COPY & DOWNLOAD HELPERS ───
+  function downloadFile(content, filename, mimeType) {
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function flashButton(btn, text) {
+    const orig = btn.querySelector('.gate-btn-text').textContent;
+    btn.querySelector('.gate-btn-text').textContent = text;
+    setTimeout(() => { btn.querySelector('.gate-btn-text').textContent = orig; }, 1500);
+  }
+
+  btnCopyJson.addEventListener('click', () => {
+    if (!lastResult || !lastResult.workflowJson) return;
+    navigator.clipboard.writeText(JSON.stringify(lastResult.workflowJson, null, 2))
+      .then(() => flashButton(btnCopyJson, 'Copied!'))
+      .catch(() => showError('Copy failed.'));
+  });
+
+  btnDownloadJson.addEventListener('click', () => {
+    if (!lastResult || !lastResult.workflowJson) return;
+    const name = (lastResult.workflowJson.name || 'workflow').replace(/[^a-zA-Z0-9_-]/g, '_');
+    downloadFile(JSON.stringify(lastResult.workflowJson, null, 2), name + '.json', 'application/json');
+  });
+
+  btnCopyHtml.addEventListener('click', () => {
+    if (!lastResult || !lastResult.htmlCode) return;
+    navigator.clipboard.writeText(lastResult.htmlCode)
+      .then(() => flashButton(btnCopyHtml, 'Copied!'))
+      .catch(() => showError('Copy failed.'));
+  });
+
+  btnDownloadHtml.addEventListener('click', () => {
+    if (!lastResult || !lastResult.htmlCode) return;
+    downloadFile(lastResult.htmlCode, 'frontend.html', 'text/html');
   });
 
   // ─── KEYBOARD SHORTCUT ───
