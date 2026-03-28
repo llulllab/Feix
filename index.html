@@ -1505,27 +1505,27 @@ a:hover{text-decoration:underline}
   }
 
   btnCopyJson.addEventListener('click', () => {
-    if (!lastResult || !lastResult.workflowJson) return;
+    if (!lastResult || !lastResult.workflowJson) { showError('Backend JSON is not available to copy.'); return; }
     navigator.clipboard.writeText(JSON.stringify(lastResult.workflowJson, null, 2))
       .then(() => flashButton(btnCopyJson, 'Copied!'))
       .catch(() => showError('Copy failed.'));
   });
 
   btnDownloadJson.addEventListener('click', () => {
-    if (!lastResult || !lastResult.workflowJson) return;
+    if (!lastResult || !lastResult.workflowJson) { showError('Backend JSON is not available. The workflow may have failed to generate.'); return; }
     const name = (lastResult.workflowJson.name || 'workflow').replace(/[^a-zA-Z0-9_-]/g, '_');
     downloadFile(JSON.stringify(lastResult.workflowJson, null, 2), name + '.json', 'application/json');
   });
 
   btnCopyHtml.addEventListener('click', () => {
-    if (!lastResult || !lastResult.htmlCode) return;
+    if (!lastResult || !lastResult.htmlCode) { showError('Frontend HTML is not available to copy.'); return; }
     navigator.clipboard.writeText(lastResult.htmlCode)
       .then(() => flashButton(btnCopyHtml, 'Copied!'))
       .catch(() => showError('Copy failed.'));
   });
 
   btnDownloadHtml.addEventListener('click', () => {
-    if (!lastResult || !lastResult.htmlCode) return;
+    if (!lastResult || !lastResult.htmlCode) { showError('Frontend HTML is not available. The frontend may have failed to generate.'); return; }
     downloadFile(lastResult.htmlCode, 'frontend.html', 'text/html');
   });
 
