@@ -920,27 +920,62 @@ a:hover{text-decoration:underline}
         aria-describedby="charCounter"
       ></textarea>
 
-      <!-- CREDENTIAL CHOICE -->
-      <fieldset class="credential-fieldset" id="credentialFieldset">
-        <legend class="credential-legend">Infrastructure setup</legend>
+      <!-- PACKAGE CHOICE -->
+      <fieldset class="credential-fieldset" id="packageFieldset">
+        <legend class="credential-legend">Infrastructure package</legend>
         <div class="credential-options">
           <label class="credential-option">
-            <input type="radio" name="credentialChoice" value="own" checked>
+            <input type="radio" name="packageChoice" value="managed" checked>
             <span class="credential-radio-mark"></span>
             <span class="credential-option-content">
-              <span class="credential-option-title">I'll provide my own credentials</span>
-              <span class="credential-option-desc">We'll contact you for your service accounts and hosting details after submission.</span>
+              <span class="credential-option-title">Managed</span>
+              <span class="credential-option-desc">We handle all service accounts, hosting, and domain configuration. Describe what you need, we deliver it ready to use.</span>
             </span>
           </label>
           <label class="credential-option">
-            <input type="radio" name="credentialChoice" value="managed">
+            <input type="radio" name="packageChoice" value="byo">
             <span class="credential-radio-mark"></span>
             <span class="credential-option-content">
-              <span class="credential-option-title">Use fully managed setup</span>
-              <span class="credential-option-desc">We provide all service accounts, hosting, and domain — additional fee applies.</span>
+              <span class="credential-option-title">Bring your own</span>
+              <span class="credential-option-desc">Use your own service accounts and hosting. Provide the details below and we'll set everything up on your infrastructure.</span>
             </span>
           </label>
         </div>
+      </fieldset>
+
+      <!-- BYO INFRASTRUCTURE DETAILS (hidden unless "byo" selected) -->
+      <fieldset class="credential-fieldset hidden" id="byoFieldset" style="margin-top:var(--space-md)">
+        <legend class="credential-legend">Your infrastructure details</legend>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space-md)">
+          <label style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:0.75rem;color:var(--text-secondary);font-weight:500;text-transform:uppercase;letter-spacing:0.05em">Hosting</span>
+            <input type="text" id="byoHosting" class="gate-input" placeholder="e.g. Vercel, your VPS" style="margin:0">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:0.75rem;color:var(--text-secondary);font-weight:500;text-transform:uppercase;letter-spacing:0.05em">Domain</span>
+            <input type="text" id="byoDomain" class="gate-input" placeholder="e.g. mybusiness.com" style="margin:0">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:0.75rem;color:var(--text-secondary);font-weight:500;text-transform:uppercase;letter-spacing:0.05em">Database</span>
+            <input type="text" id="byoDatabase" class="gate-input" placeholder="e.g. Supabase, your Postgres" style="margin:0">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:0.75rem;color:var(--text-secondary);font-weight:500;text-transform:uppercase;letter-spacing:0.05em">Email provider</span>
+            <input type="text" id="byoEmail" class="gate-input" placeholder="e.g. Resend, Mailgun" style="margin:0">
+          </label>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:6px;margin-top:var(--space-md)">
+          <span style="font-size:0.75rem;color:var(--text-secondary);font-weight:500;text-transform:uppercase;letter-spacing:0.05em">Other services or notes</span>
+          <textarea id="byoNotes" rows="3" placeholder="Any other APIs, integrations, or details. We'll contact you for actual credentials after submission." style="padding:var(--space-sm) var(--space-md);background:var(--bg-tertiary,#0d1117);border:1px solid var(--border,rgba(56,189,248,0.15));border-radius:6px;color:var(--text-primary);font-family:inherit;font-size:0.9rem;resize:vertical"></textarea>
+        </label>
+        <p style="margin:var(--space-md) 0 0;font-size:0.8rem;color:var(--text-secondary)">Describe what you already have. We'll reach out for actual API keys and access details after your request is received.</p>
+      </fieldset>
+
+      <!-- DELIVERY EMAIL -->
+      <fieldset class="credential-fieldset" id="deliveryFieldset" style="margin-top:var(--space-md)">
+        <legend class="credential-legend">Delivery email</legend>
+        <input type="email" id="deliveryEmailInput" class="gate-input" placeholder="your@email.com" autocomplete="email" style="margin:0">
+        <p style="margin:var(--space-sm) 0 0;font-size:0.8rem;color:var(--text-secondary)">We'll send the link and usage guide to this address once your application is ready.</p>
       </fieldset>
 
       <div class="prompt-footer">
@@ -978,8 +1013,8 @@ a:hover{text-decoration:underline}
         <div class="step-line"></div>
       </div>
       <div class="step-content">
-        <h3>Building Backend</h3>
-        <p>Your application logic is being designed and assembled.</p>
+        <h3>Designing Your Application</h3>
+        <p>The computational pipeline is turning your brief into a working design.</p>
       </div>
     </div>
     <div class="step" data-step="2" role="listitem">
@@ -988,8 +1023,8 @@ a:hover{text-decoration:underline}
         <div class="step-line"></div>
       </div>
       <div class="step-content">
-        <h3>Backend Review</h3>
-        <p>Checking connections, structure, and reliability.</p>
+        <h3>Building</h3>
+        <p>Your application is being assembled end to end.</p>
       </div>
     </div>
     <div class="step" data-step="3" role="listitem">
@@ -998,8 +1033,8 @@ a:hover{text-decoration:underline}
         <div class="step-line"></div>
       </div>
       <div class="step-content">
-        <h3>Building Frontend</h3>
-        <p>Your user interface is being designed and assembled.</p>
+        <h3>Quality Review</h3>
+        <p>Checking structure, reliability, and accessibility.</p>
       </div>
     </div>
     <div class="step" data-step="4" role="listitem">
@@ -1008,8 +1043,8 @@ a:hover{text-decoration:underline}
         <div class="step-line"></div>
       </div>
       <div class="step-content">
-        <h3>Frontend Review</h3>
-        <p>Polishing design, accessibility, and responsiveness.</p>
+        <h3>Final Pass</h3>
+        <p>Polishing the last details before hand-off.</p>
       </div>
     </div>
     <div class="step" data-step="5" role="listitem">
@@ -1018,55 +1053,28 @@ a:hover{text-decoration:underline}
         <div class="step-line"></div>
       </div>
       <div class="step-content">
-        <h3>Ready for You</h3>
-        <p>Your product is complete and ready to download.</p>
+        <h3>Handed to Our Team</h3>
+        <p>Your application is now with our team for review, setup, and deployment.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- RESULTS -->
-<section class="results-section" id="resultsSection" aria-labelledby="results-title">
-  <div class="results-grid">
-
-    <!-- Backend Output -->
-    <div class="report-card">
-      <div class="report-card-header">
-        <div class="feature-icon blue" aria-hidden="true" style="width:36px;height:36px;margin-bottom:0">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        </div>
-        <h3>Backend</h3>
-      </div>
-      <div class="report-body" id="jsonReportBody" style="margin-bottom:var(--space-lg)"></div>
-      <div style="display:flex;gap:var(--space-md);flex-wrap:wrap">
-        <button class="gate-btn" id="btnCopyJson" type="button" style="width:auto;margin:0;padding:var(--space-sm) var(--space-lg);font-size:0.85rem">
-          <span class="gate-btn-text">Copy</span>
-        </button>
-        <button class="gate-btn secondary" id="btnDownloadJson" type="button" style="width:auto;margin:0;padding:var(--space-sm) var(--space-lg);font-size:0.85rem">
-          <span class="gate-btn-text">Download</span>
-        </button>
-      </div>
+<!-- CONFIRMATION -->
+<section class="results-section" id="confirmationSection" aria-labelledby="confirmation-title">
+  <div class="report-card" style="max-width:560px;margin:0 auto;text-align:center">
+    <div class="feature-icon blue" aria-hidden="true" style="width:56px;height:56px;margin:0 auto var(--space-lg)">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
     </div>
-
-    <!-- Frontend Output -->
-    <div class="report-card">
-      <div class="report-card-header">
-        <div class="feature-icon amber" aria-hidden="true" style="width:36px;height:36px;margin-bottom:0">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </div>
-        <h3>Frontend</h3>
-      </div>
-      <div class="report-body" id="htmlReportBody" style="margin-bottom:var(--space-lg)"></div>
-      <div style="display:flex;gap:var(--space-md);flex-wrap:wrap">
-        <button class="gate-btn" id="btnCopyHtml" type="button" style="width:auto;margin:0;padding:var(--space-sm) var(--space-lg);font-size:0.85rem">
-          <span class="gate-btn-text">Copy</span>
-        </button>
-        <button class="gate-btn secondary" id="btnDownloadHtml" type="button" style="width:auto;margin:0;padding:var(--space-sm) var(--space-lg);font-size:0.85rem">
-          <span class="gate-btn-text">Download</span>
-        </button>
-      </div>
-    </div>
-
+    <h3 id="confirmation-title" style="margin:0 0 var(--space-md)">Request received</h3>
+    <p style="color:var(--text-secondary);margin:0 0 var(--space-lg);line-height:1.6">
+      Our team will review your project, complete the setup, and deploy it. You'll receive a link and usage guide at
+      <strong id="confirmationEmail" style="color:var(--text-primary)">your email</strong>
+      once everything is ready.
+    </p>
+    <button class="gate-btn secondary" id="btnNewRequest" type="button" style="width:auto;margin:0 auto;padding:var(--space-sm) var(--space-xl);font-size:0.9rem">
+      <span class="gate-btn-text">Submit another project</span>
+    </button>
   </div>
 </section>
 
@@ -1099,20 +1107,21 @@ a:hover{text-decoration:underline}
   const charCounter = document.getElementById('charCounter');
   const btnGenerate = document.getElementById('btnGenerate');
   const stepperSection = document.getElementById('stepperSection');
-  const resultsSection = document.getElementById('resultsSection');
-  const jsonReportBody = document.getElementById('jsonReportBody');
-  const htmlReportBody = document.getElementById('htmlReportBody');
+  const confirmationSection = document.getElementById('confirmationSection');
+  const confirmationEmail = document.getElementById('confirmationEmail');
+  const btnNewRequest = document.getElementById('btnNewRequest');
   const errorToast = document.getElementById('errorToast');
   const steps = document.querySelectorAll('.step');
 
-  // Download/copy buttons
-  const btnCopyJson = document.getElementById('btnCopyJson');
-  const btnDownloadJson = document.getElementById('btnDownloadJson');
-  const btnCopyHtml = document.getElementById('btnCopyHtml');
-  const btnDownloadHtml = document.getElementById('btnDownloadHtml');
-
-  // Store last generation result
-  let lastResult = null;
+  // Submission form fields
+  const packageRadios = document.querySelectorAll('input[name="packageChoice"]');
+  const byoFieldset = document.getElementById('byoFieldset');
+  const byoHosting = document.getElementById('byoHosting');
+  const byoDomain = document.getElementById('byoDomain');
+  const byoDatabase = document.getElementById('byoDatabase');
+  const byoEmail = document.getElementById('byoEmail');
+  const byoNotes = document.getElementById('byoNotes');
+  const deliveryEmailInput = document.getElementById('deliveryEmailInput');
 
   // Gate elements
   const promptWrapper = document.getElementById('promptWrapper');
@@ -1396,6 +1405,56 @@ a:hover{text-decoration:underline}
     errorTimeout = setTimeout(() => errorToast.classList.remove('visible'), 5000);
   }
 
+  // ─── PACKAGE TOGGLE (show BYO fields only when "byo" selected) ───
+  function updateByoVisibility() {
+    const selected = document.querySelector('input[name="packageChoice"]:checked');
+    const isByo = selected && selected.value === 'byo';
+    byoFieldset.classList.toggle('hidden', !isByo);
+  }
+  packageRadios.forEach(r => r.addEventListener('change', updateByoVisibility));
+  updateByoVisibility();
+
+  // ─── BUILD CREDENTIALS OBJECT FROM BYO FIELDS ───
+  function collectByoCredentials() {
+    const fields = {
+      hosting: byoHosting.value.trim(),
+      domain: byoDomain.value.trim(),
+      database: byoDatabase.value.trim(),
+      email_provider: byoEmail.value.trim(),
+      notes: byoNotes.value.trim()
+    };
+    // Drop empty fields so the server-side "non-empty object" check is meaningful
+    const clean = {};
+    for (const [k, v] of Object.entries(fields)) {
+      if (v) clean[k] = v;
+    }
+    return clean;
+  }
+
+  // ─── RESET FORM TO INITIAL STATE ───
+  function resetSubmissionForm() {
+    promptInput.value = '';
+    charCounter.textContent = '0 / 10000';
+    byoHosting.value = '';
+    byoDomain.value = '';
+    byoDatabase.value = '';
+    byoEmail.value = '';
+    byoNotes.value = '';
+    deliveryEmailInput.value = '';
+    const managedRadio = document.querySelector('input[name="packageChoice"][value="managed"]');
+    if (managedRadio) managedRadio.checked = true;
+    updateByoVisibility();
+    confirmationSection.classList.remove('visible');
+    stepperSection.classList.remove('visible');
+    resetStepper();
+  }
+
+  btnNewRequest.addEventListener('click', () => {
+    resetSubmissionForm();
+    promptInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => promptInput.focus(), 400);
+  });
+
   // ─── SUBMIT PROJECT ───
   btnGenerate.addEventListener('click', async () => {
     if (!sessionToken) {
@@ -1420,9 +1479,32 @@ a:hover{text-decoration:underline}
       return;
     }
 
+    // Package selection
+    const selectedPackage = document.querySelector('input[name="packageChoice"]:checked');
+    const pkg = selectedPackage ? selectedPackage.value : 'managed';
+
+    // Delivery email
+    const deliveryEmail = deliveryEmailInput.value.trim();
+    if (!deliveryEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(deliveryEmail)) {
+      showError('Please provide a valid delivery email address.');
+      deliveryEmailInput.focus();
+      return;
+    }
+
+    // BYO credentials
+    let credentials = null;
+    if (pkg === 'byo') {
+      credentials = collectByoCredentials();
+      if (Object.keys(credentials).length === 0) {
+        showError('Please provide at least one infrastructure detail for the Bring Your Own package.');
+        byoHosting.focus();
+        return;
+      }
+    }
+
     btnGenerate.classList.add('loading');
     btnGenerate.disabled = true;
-    resultsSection.classList.remove('visible');
+    confirmationSection.classList.remove('visible');
     stepperSection.classList.add('visible');
     stepperSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
@@ -1437,18 +1519,18 @@ a:hover{text-decoration:underline}
     stepTimers.push(setTimeout(() => setStep(4), 22000));
 
     try {
-      // Read credential choice
-      const credentialChoice = document.querySelector('input[name="credentialChoice"]:checked');
-      const credentials = credentialChoice ? credentialChoice.value : 'own';
+      const payload = {
+        token: sessionToken,
+        prompt: prompt,
+        package: pkg,
+        deliveryEmail: deliveryEmail
+      };
+      if (pkg === 'byo') payload.credentials = credentials;
 
       const response = await fetch(ENDPOINTS.generate, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          prompt: prompt,
-          token: sessionToken,
-          credentials: credentials
-        })
+        body: JSON.stringify(payload)
       });
 
       if (!response.ok) {
@@ -1465,7 +1547,6 @@ a:hover{text-decoration:underline}
       }
 
       const data = await response.json();
-      lastResult = data;
 
       // Complete stepper animation
       stepTimers.forEach(clearTimeout);
@@ -1477,14 +1558,11 @@ a:hover{text-decoration:underline}
       steps[5].classList.remove('active');
       steps[5].classList.add('completed');
 
-      // Populate reports
-      jsonReportBody.textContent = data.jsonReport || 'No report available.';
-      htmlReportBody.textContent = data.htmlReport || 'No report available.';
-
-      // Show results
-      resultsSection.classList.add('visible');
+      // Show confirmation
+      confirmationEmail.textContent = data.deliveryEmail || deliveryEmail;
+      confirmationSection.classList.add('visible');
       setTimeout(() => {
-        resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        confirmationSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 400);
 
       remainingUses = Math.max(0, remainingUses - 1);
@@ -1504,50 +1582,6 @@ a:hover{text-decoration:underline}
       btnGenerate.classList.remove('loading');
       btnGenerate.disabled = false;
     }
-  });
-
-  // ─── COPY & DOWNLOAD HELPERS ───
-  function downloadFile(content, filename, mimeType) {
-    const blob = new Blob([content], { type: mimeType });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }
-
-  function flashButton(btn, text) {
-    const orig = btn.querySelector('.gate-btn-text').textContent;
-    btn.querySelector('.gate-btn-text').textContent = text;
-    setTimeout(() => { btn.querySelector('.gate-btn-text').textContent = orig; }, 1500);
-  }
-
-  btnCopyJson.addEventListener('click', () => {
-    if (!lastResult || !lastResult.workflowJson) { showError('Backend JSON is not available to copy.'); return; }
-    navigator.clipboard.writeText(JSON.stringify(lastResult.workflowJson, null, 2))
-      .then(() => flashButton(btnCopyJson, 'Copied!'))
-      .catch(() => showError('Copy failed.'));
-  });
-
-  btnDownloadJson.addEventListener('click', () => {
-    if (!lastResult || !lastResult.workflowJson) { showError('Backend JSON is not available. The workflow may have failed to generate.'); return; }
-    const name = (lastResult.workflowJson.name || 'workflow').replace(/[^a-zA-Z0-9_-]/g, '_');
-    downloadFile(JSON.stringify(lastResult.workflowJson, null, 2), name + '.json', 'application/json');
-  });
-
-  btnCopyHtml.addEventListener('click', () => {
-    if (!lastResult || !lastResult.htmlCode) { showError('Frontend HTML is not available to copy.'); return; }
-    navigator.clipboard.writeText(lastResult.htmlCode)
-      .then(() => flashButton(btnCopyHtml, 'Copied!'))
-      .catch(() => showError('Copy failed.'));
-  });
-
-  btnDownloadHtml.addEventListener('click', () => {
-    if (!lastResult || !lastResult.htmlCode) { showError('Frontend HTML is not available. The frontend may have failed to generate.'); return; }
-    downloadFile(lastResult.htmlCode, 'frontend.html', 'text/html');
   });
 
   // ─── KEYBOARD SHORTCUT ───
