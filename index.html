@@ -3,687 +3,528 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feix AI Studio | Build Full-Stack Apps with AI</title>
-<meta name="description" content="Feix is an AI-powered studio that generates full-stack applications from a single prompt. Describe your app idea and get production-ready backend workflows and frontend code instantly.">
+<title>Feix — Complex operations. Custom systems.</title>
+<meta name="description" content="We build complete digital systems for complex operations. From brief to live product, in hours. You evaluate before you pay.">
 <link rel="canonical" href="https://feix.app/">
-<link rel="icon" type="image/jpeg" href="logo.jpg">
-<link rel="apple-touch-icon" href="logo.jpg">
+<link rel="icon" type="image/jpeg" href="https://feix.app/logo.jpg">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://feix.app/">
-<meta property="og:title" content="Feix AI Studio | Build Full-Stack Apps with AI">
-<meta property="og:description" content="Describe your app idea and Feix generates production-ready backend workflows and frontend code instantly. AI-powered full-stack development studio.">
+<meta property="og:title" content="Feix — Complex operations. Custom systems.">
+<meta property="og:description" content="We build complete digital systems for complex operations. From brief to live product, in hours. You evaluate before you pay.">
 <meta property="og:image" content="https://feix.app/logo.jpg">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Feix AI Studio | Build Full-Stack Apps with AI">
-<meta name="twitter:description" content="Describe your app idea and Feix generates production-ready backend workflows and frontend code instantly.">
-<meta name="twitter:image" content="https://feix.app/logo.jpg">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Feix",
-  "url": "https://feix.app",
-  "applicationCategory": "DeveloperApplication",
-  "operatingSystem": "Web",
-  "description": "AI-powered studio that generates full-stack web applications from a plain-language description. Interface, automation, and hosting delivered within hours.",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "creator": { "@type": "Organization", "name": "Llull Lab", "url": "https://llulllab.com" }
-}
-</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,300;0,400;1,200;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root{
-  --bg-deep:#0a0a0a;
-  --bg-card:rgba(255,255,255,0.03);
-  --bg-card-border:rgba(255,255,255,0.09);
-  --bg-surface:rgba(255,255,255,0.05);
-  --text-primary:#ffffff;
-  --text-secondary:rgba(255,255,255,0.45);
-  --text-muted:rgba(255,255,255,0.25);
-  --accent:#a78bfa;
-  --accent-dim:rgba(167,139,250,0.12);
-  --accent-border:rgba(167,139,250,0.35);
-  --accent-featured:rgba(167,139,250,0.05);
-  --green:#4ade80;
-  --green-dim:rgba(74,222,128,0.12);
+  --navy:#0a1628;
+  --navy-mid:#0f2040;
+  --navy-light:#16335a;
+  --border:#1e3355;
+  --border-light:rgba(255,255,255,0.08);
+  --text-1:#e8f0fc;
+  --text-2:rgba(232,240,252,0.55);
+  --text-3:rgba(232,240,252,0.30);
+  --accent:#6bb8ff;
+  --accent-warm:#e8c97a;
+  --accent-dim:rgba(107,184,255,0.10);
+  --accent-border:rgba(107,184,255,0.25);
+  --green:#52d17c;
+  --green-dim:rgba(82,209,124,0.10);
   --red:#f87171;
-  --radius-sm:6px;
-  --radius-md:10px;
-  --radius-lg:12px;
-  --radius-xl:16px;
-  --space-xs:4px;
-  --space-sm:8px;
-  --space-md:16px;
-  --space-lg:24px;
-  --space-xl:32px;
-  --space-2xl:48px;
-  --space-3xl:64px;
-  --space-4xl:96px;
-  --space-5xl:128px;
-  --font-display:'Space Grotesk',sans-serif;
-  --font-body:'Space Grotesk',sans-serif;
-  --shadow-card:0 0 0 1px var(--bg-card-border);
-  --transition-bounce:cubic-bezier(0.34,1.56,0.64,1);
-  --transition-smooth:cubic-bezier(0.4,0,0.2,1);
+  --r-sm:4px;
+  --r-md:8px;
+  --r-lg:12px;
+  --r-xl:16px;
 }
 
 html{scroll-behavior:smooth;font-size:16px}
 body{
-  font-family:var(--font-body);
-  background:var(--bg-deep);
-  color:var(--text-primary);
+  font-family:'DM Sans',sans-serif;
+  background:var(--navy);
+  color:var(--text-1);
   line-height:1.6;
   overflow-x:hidden;
-  min-height:100vh;
   -webkit-font-smoothing:antialiased;
 }
-
 ::selection{background:var(--accent-dim);color:var(--accent)}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:var(--radius-sm)}
-
 a{color:var(--accent);text-decoration:none}
 a:hover{text-decoration:underline}
 
 /* NAV */
 .nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:var(--space-md) var(--space-xl);
-  background:rgba(10,10,10,0.85);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(255,255,255,0.07);
+  background:rgba(10,22,40,0.90);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  padding:0 48px;
+  height:64px;
   display:flex;align-items:center;justify-content:space-between;
-  transition:background 300ms var(--transition-smooth);
 }
 .nav-logo{
-  font-family:var(--font-display);font-weight:700;font-size:1.15rem;
-  letter-spacing:-0.03em;display:flex;align-items:center;gap:var(--space-sm);
+  font-family:'DM Sans',sans-serif;font-weight:600;font-size:1.05rem;
+  letter-spacing:0.04em;color:var(--text-1);
+  display:flex;align-items:center;gap:10px;
 }
-.nav-logo .logo-icon{
-  width:28px;height:28px;border-radius:var(--radius-sm);
-  overflow:hidden;display:grid;place-items:center;
+.nav-logo-mark{
+  width:26px;height:26px;border-radius:5px;overflow:hidden;
 }
-.nav-logo .logo-icon img{
-  width:100%;height:100%;object-fit:cover;display:block;
-}
-.nav-links{display:flex;gap:var(--space-xl);align-items:center;list-style:none}
+.nav-logo-mark img{width:100%;height:100%;object-fit:cover;display:block}
+.nav-links{display:flex;gap:32px;align-items:center;list-style:none}
 .nav-links a{
-  font-size:0.88rem;color:var(--text-muted);font-weight:400;
-  transition:color 200ms var(--transition-smooth);
+  font-size:0.82rem;color:var(--text-2);font-weight:400;
+  transition:color 200ms ease;
 }
-.nav-links a:hover{color:var(--text-primary);text-decoration:none}
+.nav-links a:hover{color:var(--text-1);text-decoration:none}
 .nav-cta{
-  background:var(--accent);color:#0a0a0a;
-  border:none;
-  padding:var(--space-sm) var(--space-lg);border-radius:var(--radius-sm);
-  font-weight:600;font-size:0.82rem;cursor:pointer;letter-spacing:-0.01em;
-  transition:opacity 200ms var(--transition-smooth),transform 200ms var(--transition-smooth);
+  font-size:0.82rem;font-weight:500;
+  background:var(--accent);color:var(--navy);
+  border:none;border-radius:var(--r-sm);
+  padding:8px 20px;cursor:pointer;
+  transition:opacity 200ms ease,transform 200ms ease;
+  text-decoration:none;
 }
 .nav-cta:hover{opacity:0.88;transform:translateY(-1px);text-decoration:none}
 
 .hamburger{
   display:none;background:none;border:none;cursor:pointer;
-  width:44px;height:44px;flex-direction:column;align-items:center;
-  justify-content:center;gap:5px;
+  width:44px;height:44px;flex-direction:column;align-items:center;justify-content:center;gap:5px;
 }
-.hamburger span{
-  display:block;width:22px;height:2px;background:var(--text-primary);
-  border-radius:2px;transition:transform 300ms var(--transition-smooth),opacity 200ms var(--transition-smooth);
-}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text-2);border-radius:2px;transition:all 300ms ease}
 .hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .hamburger.active span:nth-child(2){opacity:0}
 .hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
 /* HERO */
 .hero{
-  position:relative;min-height:100vh;display:flex;flex-direction:column;
-  align-items:flex-start;justify-content:center;
-  padding:var(--space-5xl) var(--space-xl) var(--space-4xl);
-  max-width:1280px;margin:0 auto;
+  padding:64px 0 0;
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  border-bottom:1px solid var(--border);
 }
-.hero-badge{
-  display:inline-flex;align-items:center;gap:var(--space-sm);
+.hero-left{
+  padding:80px 64px 80px 48px;
+  display:flex;flex-direction:column;justify-content:center;
+  border-right:1px solid var(--border);
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
   background:var(--accent-dim);border:1px solid var(--accent-border);
-  border-radius:999px;padding:5px var(--space-md) 5px 5px;
-  font-size:0.75rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:var(--space-xl);
+  border-radius:999px;padding:4px 14px 4px 8px;
+  font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:32px;width:fit-content;
 }
-.hero-badge-dot{
-  width:7px;height:7px;border-radius:50%;background:var(--accent);
-  animation:pulse 2s ease-in-out infinite;
-}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.4)}}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.5)}}
 
 .hero h1{
-  font-family:var(--font-display);font-weight:700;
-  font-size:clamp(2.8rem,6vw,5rem);line-height:1.0;
-  letter-spacing:-0.04em;max-width:14ch;margin-bottom:var(--space-lg);
-  position:relative;z-index:1;
+  font-family:'Fraunces',serif;
+  font-weight:300;font-size:clamp(2.8rem,5vw,4.5rem);
+  line-height:1.0;letter-spacing:-0.02em;
+  margin-bottom:24px;color:var(--text-1);
 }
-.hero-desc{
-  font-size:clamp(1rem,2vw,1.15rem);color:var(--text-secondary);
-  max-width:48ch;line-height:1.7;margin-bottom:var(--space-2xl);
-  position:relative;z-index:1;font-weight:400;
+.hero-sub{
+  font-size:1rem;color:var(--text-2);
+  line-height:1.75;margin-bottom:40px;font-weight:300;max-width:44ch;
 }
-.hero-cta-row{
-  position:relative;z-index:1;
-  display:flex;align-items:center;gap:var(--space-xl);flex-wrap:wrap;
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:500;
+  background:var(--accent);color:var(--navy);border:none;border-radius:var(--r-md);
+  padding:13px 28px;cursor:pointer;text-decoration:none;
+  transition:opacity 200ms ease,transform 200ms ease;
 }
-.hero-cta{
-  display:inline-flex;align-items:center;gap:var(--space-sm);
-  background:var(--accent);color:#0a0a0a;
-  font-family:var(--font-display);font-weight:700;
-  font-size:1rem;border:none;border-radius:var(--radius-md);
-  padding:var(--space-md) var(--space-2xl);cursor:pointer;
-  text-decoration:none;letter-spacing:-0.01em;
-  transition:opacity 250ms var(--transition-smooth),transform 250ms var(--transition-bounce);
+.btn-primary:hover{opacity:0.88;transform:translateY(-1px);text-decoration:none}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:0.88rem;font-weight:400;
+  color:var(--text-2);border:1px solid var(--border-light);border-radius:var(--r-md);
+  padding:13px 28px;cursor:pointer;text-decoration:none;
+  transition:all 200ms ease;
 }
-.hero-cta:hover{opacity:0.88;transform:translateY(-2px);text-decoration:none}
-.hero-cta:active{transform:translateY(0)}
-.hero-cta svg{transition:transform 300ms var(--transition-smooth)}
-.hero-cta:hover svg{transform:translateX(4px)}
-.hero-cta-note{font-size:0.82rem;color:var(--text-muted);font-weight:400}
+.btn-outline:hover{border-color:rgba(255,255,255,0.2);color:var(--text-1);text-decoration:none}
 
-.hero-trust{
-  position:relative;z-index:1;
-  display:flex;margin-top:var(--space-3xl);
-  border-top:1px solid rgba(255,255,255,0.07);
-  flex-wrap:wrap;
+.hero-right{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:80px 48px 80px 64px;
 }
-.hero-trust-item{
-  padding:var(--space-lg) var(--space-2xl) var(--space-lg) 0;
-  margin-right:var(--space-2xl);
-  border-right:1px solid rgba(255,255,255,0.07);
+.hero-right-label{
+  font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--text-3);margin-bottom:32px;font-weight:400;
 }
-.hero-trust-item:last-child{border-right:none;margin-right:0}
-.hero-trust-val{font-size:0.9rem;font-weight:600;color:var(--text-primary);margin-bottom:3px;letter-spacing:-0.01em}
-.hero-trust-label{font-size:0.75rem;color:var(--text-muted);font-weight:400}
+.industry-list{list-style:none;display:flex;flex-direction:column;gap:0}
+.industry-item{
+  padding:18px 0;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;transition:background 200ms ease;
+}
+.industry-item:first-child{border-top:1px solid var(--border)}
+.industry-name{
+  font-family:'Fraunces',serif;font-weight:200;
+  font-size:1.1rem;color:var(--text-1);letter-spacing:-0.01em;
+}
+.industry-example{
+  font-size:0.74rem;color:var(--text-3);font-weight:300;
+  text-align:right;max-width:22ch;line-height:1.4;
+}
 
-/* PROMPT SECTION */
-.prompt-section{
-  padding:var(--space-4xl) var(--space-xl);
-  max-width:860px;margin:0 auto;position:relative;
+/* PROMISE BANNER */
+.promise{
+  background:var(--navy-mid);
+  border-bottom:1px solid var(--border);
+  padding:56px 48px;
+  text-align:center;
+}
+.promise h2{
+  font-family:'Fraunces',serif;font-weight:200;
+  font-size:clamp(1.8rem,4vw,3.2rem);letter-spacing:-0.02em;
+  color:var(--text-1);margin-bottom:16px;
+}
+.promise p{font-size:1rem;color:var(--text-2);max-width:56ch;margin:0 auto;line-height:1.75;font-weight:300}
+
+/* OFFER SECTION */
+.offer{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-bottom:1px solid var(--border);
+}
+.offer-left{
+  padding:72px 48px;border-right:1px solid var(--border);
+}
+.offer-right{
+  padding:72px 48px;
+  background:var(--navy-mid);
 }
 .section-label{
-  font-family:var(--font-display);font-size:0.72rem;font-weight:600;
-  text-transform:uppercase;letter-spacing:0.16em;color:var(--text-muted);
-  margin-bottom:var(--space-md);display:block;
-  padding-bottom:var(--space-md);border-bottom:1px solid rgba(255,255,255,0.07);
+  font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--text-3);font-weight:400;margin-bottom:24px;display:block;
 }
-.prompt-section h2{
-  font-family:var(--font-display);font-weight:700;
-  font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-0.03em;
-  margin-bottom:var(--space-2xl);line-height:1.1;margin-top:var(--space-lg);
+.offer-left h2{
+  font-family:'Fraunces',serif;font-weight:300;
+  font-size:clamp(2rem,3.5vw,2.8rem);line-height:1.1;letter-spacing:-0.02em;
+  margin-bottom:28px;color:var(--text-1);
 }
+.offer-left p{font-size:0.9rem;color:var(--text-2);line-height:1.8;font-weight:300;margin-bottom:20px}
+.offer-left p:last-child{margin-bottom:0}
 
-.prompt-card{
-  background:var(--bg-card);
-  border:1px solid var(--bg-card-border);
-  border-radius:var(--radius-lg);
-  padding:var(--space-xl);
+.offer-steps{display:flex;flex-direction:column;gap:0}
+.offer-step{
+  display:flex;gap:20px;align-items:flex-start;
+  padding:24px 0;border-bottom:1px solid var(--border);
 }
-.prompt-card:focus-within{border-color:rgba(167,139,250,0.3)}
+.offer-step:last-child{border-bottom:none;padding-bottom:0}
+.offer-step-num{
+  font-family:'Fraunces',serif;font-weight:200;
+  font-size:2.2rem;color:var(--border-light);line-height:1;flex-shrink:0;
+  width:48px;text-align:center;padding-top:4px;
+}
+.offer-step-body h3{
+  font-family:'DM Sans',sans-serif;font-weight:500;
+  font-size:0.95rem;margin-bottom:8px;color:var(--text-1);
+}
+.offer-step-body p{font-size:0.82rem;color:var(--text-2);line-height:1.7;font-weight:300}
 
-.prompt-card label{
-  display:block;font-weight:500;font-size:0.9rem;
-  margin-bottom:var(--space-md);color:var(--text-secondary);
+/* USE CASES */
+.usecases{padding:72px 48px;border-bottom:1px solid var(--border)}
+.usecases-inner{max-width:1100px;margin:0 auto}
+.usecases h2{
+  font-family:'Fraunces',serif;font-weight:200;
+  font-size:clamp(1.8rem,3.5vw,2.6rem);letter-spacing:-0.02em;
+  color:var(--text-1);margin-bottom:48px;margin-top:24px;
 }
+.usecase-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--border);border:1px solid var(--border);
+  border-radius:var(--r-lg);overflow:hidden;
+}
+.usecase-card{
+  background:var(--navy);padding:32px 28px;
+  transition:background 200ms ease;
+}
+.usecase-card:hover{background:var(--navy-mid)}
+.usecase-industry{
+  font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--accent);font-weight:500;margin-bottom:14px;
+}
+.usecase-card h3{
+  font-family:'Fraunces',serif;font-weight:300;
+  font-size:1.15rem;letter-spacing:-0.01em;
+  margin-bottom:12px;color:var(--text-1);line-height:1.2;
+}
+.usecase-card p{font-size:0.8rem;color:var(--text-2);line-height:1.7;font-weight:300}
 
-.prompt-examples{
-  display:flex;flex-wrap:wrap;gap:var(--space-sm);
-  margin-bottom:var(--space-md);
+/* PRICING */
+.pricing{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-bottom:1px solid var(--border);
 }
-.prompt-example-btn{
-  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
-  border-radius:999px;padding:5px var(--space-md);
-  font-family:var(--font-body);font-size:0.78rem;color:var(--text-secondary);
-  cursor:pointer;transition:all 150ms var(--transition-smooth);
-  white-space:nowrap;
+.pricing-intro{padding:72px 48px;border-right:1px solid var(--border)}
+.pricing-intro h2{
+  font-family:'Fraunces',serif;font-weight:200;
+  font-size:clamp(1.8rem,3.5vw,2.6rem);letter-spacing:-0.02em;
+  color:var(--text-1);margin-bottom:24px;margin-top:24px;
 }
-.prompt-example-btn:hover{background:rgba(167,139,250,0.1);border-color:rgba(167,139,250,0.3);color:var(--accent)}
+.pricing-intro p{font-size:0.9rem;color:var(--text-2);line-height:1.8;font-weight:300;margin-bottom:16px}
+.pricing-cards{padding:72px 48px;display:flex;flex-direction:column;gap:16px;justify-content:center}
+.pricing-card{
+  background:var(--navy-mid);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:24px 28px;
+}
+.pricing-card.featured{border-color:var(--accent-border);background:rgba(107,184,255,0.05)}
+.pricing-card-name{font-family:'Fraunces',serif;font-weight:300;font-size:1.2rem;margin-bottom:8px;color:var(--text-1)}
+.pricing-card-desc{font-size:0.8rem;color:var(--text-2);line-height:1.6;font-weight:300;margin-bottom:16px}
+.pricing-card-cta{
+  font-size:0.78rem;font-weight:500;
+  color:var(--accent);border:1px solid var(--accent-border);
+  border-radius:var(--r-sm);padding:9px 20px;
+  display:inline-flex;cursor:pointer;text-decoration:none;
+  transition:all 200ms ease;
+}
+.pricing-card-cta:hover{background:var(--accent-dim);text-decoration:none}
+.pricing-card.featured .pricing-card-cta{background:var(--accent);color:var(--navy);border-color:var(--accent)}
+.pricing-card.featured .pricing-card-cta:hover{opacity:0.88}
 
-.prompt-textarea{
-  width:100%;min-height:160px;resize:vertical;
-  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
-  border-radius:var(--radius-md);padding:var(--space-lg);
-  font-family:var(--font-body);font-size:0.95rem;color:var(--text-primary);
-  line-height:1.6;
-  transition:border-color 250ms var(--transition-smooth);
+/* BRIEF FORM */
+.brief-outer{padding:72px 48px;border-bottom:1px solid var(--border)}
+.brief-inner{max-width:760px;margin:0 auto}
+.brief-inner h2{
+  font-family:'Fraunces',serif;font-weight:200;
+  font-size:clamp(2rem,4vw,3rem);letter-spacing:-0.02em;
+  color:var(--text-1);margin-bottom:12px;margin-top:24px;
 }
-.prompt-textarea::placeholder{color:var(--text-muted)}
-.prompt-textarea:focus{outline:none;border-color:rgba(167,139,250,0.4)}
-
-.prompt-footer{
+.brief-inner .sub{
+  font-size:0.9rem;color:var(--text-2);line-height:1.7;font-weight:300;
+  margin-bottom:36px;max-width:50ch;
+}
+.form-group{margin-bottom:16px}
+.form-group label{
+  display:block;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--text-3);font-weight:400;margin-bottom:10px;
+}
+.form-textarea{
+  width:100%;min-height:180px;resize:vertical;
+  background:rgba(255,255,255,0.03);border:1px solid var(--border);
+  border-radius:var(--r-md);padding:18px 20px;
+  font-family:'DM Sans',sans-serif;font-size:0.92rem;
+  color:var(--text-1);line-height:1.7;font-weight:300;
+  transition:border-color 250ms ease;
+}
+.form-textarea::placeholder{color:var(--text-3)}
+.form-textarea:focus{outline:none;border-color:var(--accent-border)}
+.form-input{
+  width:100%;
+  background:rgba(255,255,255,0.03);border:1px solid var(--border);
+  border-radius:var(--r-md);padding:13px 20px;
+  font-family:'DM Sans',sans-serif;font-size:0.92rem;
+  color:var(--text-1);font-weight:300;
+  transition:border-color 250ms ease;
+}
+.form-input::placeholder{color:var(--text-3)}
+.form-input:focus{outline:none;border-color:var(--accent-border)}
+.form-footer{
   display:flex;align-items:center;justify-content:space-between;
-  margin-top:var(--space-lg);gap:var(--space-md);flex-wrap:wrap;
+  margin-top:20px;flex-wrap:wrap;gap:12px;
 }
-.char-count{font-size:0.78rem;color:var(--text-muted)}
+.form-note{font-size:0.75rem;color:var(--text-3);font-weight:300}
+.char-count{font-size:0.75rem;color:var(--text-3)}
 
-.btn-generate{
-  display:inline-flex;align-items:center;gap:var(--space-sm);
-  background:var(--accent);color:#0a0a0a;
-  font-family:var(--font-display);font-weight:700;
-  font-size:0.95rem;border:none;border-radius:var(--radius-md);
-  padding:var(--space-md) var(--space-2xl);cursor:pointer;
-  min-height:48px;letter-spacing:-0.01em;
-  transition:opacity 200ms var(--transition-smooth),transform 200ms var(--transition-bounce);
-  position:relative;overflow:hidden;
+.btn-submit{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:500;
+  background:var(--accent);color:var(--navy);border:none;border-radius:var(--r-md);
+  padding:12px 28px;cursor:pointer;
+  transition:opacity 200ms ease,transform 200ms ease;
 }
-.btn-generate:hover{opacity:0.88;transform:translateY(-1px)}
-.btn-generate:active{transform:translateY(0)}
-.btn-generate:disabled{opacity:0.4;cursor:not-allowed;transform:none}
-
-.btn-generate .spinner{
-  width:18px;height:18px;border:2.5px solid rgba(10,10,10,0.2);
-  border-top-color:#0a0a0a;border-radius:50%;
+.btn-submit:hover{opacity:0.88;transform:translateY(-1px)}
+.btn-submit:disabled{opacity:0.35;cursor:not-allowed;transform:none}
+.btn-submit .spinner{
+  width:14px;height:14px;border:2px solid rgba(10,22,40,0.2);
+  border-top-color:var(--navy);border-radius:50%;
   animation:spin 0.7s linear infinite;display:none;
 }
-.btn-generate.loading .spinner{display:block}
-.btn-generate.loading .btn-text{display:none}
+.btn-submit.loading .spinner{display:block}
+.btn-submit.loading .btn-text{display:none}
 @keyframes spin{to{transform:rotate(360deg)}}
 
+.usage-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent-dim);border:1px solid var(--accent-border);
+  border-radius:999px;padding:4px 14px;
+  font-size:0.72rem;color:var(--accent);font-weight:400;
+}
+.usage-badge.hidden{display:none}
+.usage-dot{width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0}
+.usage-badge.warning{color:#fbbf24;background:rgba(251,191,36,0.08);border-color:rgba(251,191,36,0.2)}
+.usage-badge.warning .usage-dot{background:#fbbf24}
+.usage-badge.depleted{color:var(--red);background:rgba(248,113,113,0.07);border-color:rgba(248,113,113,0.2)}
+.usage-badge.depleted .usage-dot{background:var(--red)}
+
 /* STEPPER */
-.stepper-section{
-  padding:var(--space-3xl) var(--space-xl);
-  max-width:860px;margin:0 auto;
-  display:none;
-}
-.stepper-section.visible{display:block}
-.stepper{display:flex;flex-direction:column;gap:0;position:relative}
-.step{
-  display:flex;align-items:flex-start;gap:var(--space-lg);
-  position:relative;padding-bottom:var(--space-2xl);
-}
+.stepper-outer{padding:40px 48px 72px;border-bottom:1px solid var(--border);display:none}
+.stepper-outer.visible{display:block}
+.stepper-inner{max-width:760px;margin:0 auto}
+.stepper{display:flex;flex-direction:column}
+.step{display:flex;align-items:flex-start;gap:20px;padding-bottom:28px;position:relative}
 .step:last-child{padding-bottom:0}
 .step-indicator{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
 .step-dot{
-  width:36px;height:36px;border-radius:50%;
-  background:var(--bg-deep);border:1px solid rgba(255,255,255,0.12);
-  display:grid;place-items:center;position:relative;z-index:2;
-  transition:all 400ms var(--transition-smooth);
-  font-size:0.8rem;font-weight:600;color:var(--text-muted);
+  width:32px;height:32px;border-radius:50%;
+  background:var(--navy);border:1px solid var(--border);
+  display:grid;place-items:center;font-size:0.78rem;color:var(--text-3);
+  transition:all 400ms ease;position:relative;z-index:2;
 }
-.step-line{
-  width:1px;flex:1;min-height:32px;background:rgba(255,255,255,0.07);
-  transition:background 400ms var(--transition-smooth);
-}
+.step-line{width:1px;flex:1;min-height:20px;background:var(--border);transition:background 400ms ease}
 .step:last-child .step-line{display:none}
-.step.active .step-dot{
-  border-color:var(--accent);color:var(--accent);
-  box-shadow:0 0 20px rgba(167,139,250,0.25);
-  animation:stepPulse 2s ease-in-out infinite;
-}
-@keyframes stepPulse{
-  0%,100%{box-shadow:0 0 20px rgba(167,139,250,0.2)}
-  50%{box-shadow:0 0 32px rgba(167,139,250,0.4)}
-}
-.step.completed .step-dot{
-  border-color:var(--green);background:var(--green-dim);
-  color:var(--green);box-shadow:none;animation:none;
-}
+.step.active .step-dot{border-color:var(--accent);color:var(--accent);box-shadow:0 0 16px rgba(107,184,255,0.2)}
+.step.completed .step-dot{border-color:var(--green);background:var(--green-dim);color:var(--green)}
 .step.completed .step-line{background:var(--green)}
-.step.active .step-line{background:linear-gradient(to bottom,var(--accent),rgba(167,139,250,0.1))}
-.step-content h3{
-  font-family:var(--font-display);font-size:1rem;font-weight:600;
-  margin-bottom:var(--space-xs);
-  transition:color 300ms var(--transition-smooth);
-}
+.step-content h3{font-size:0.88rem;font-weight:500;margin-bottom:3px;transition:color 300ms ease}
 .step.active .step-content h3{color:var(--accent)}
 .step.completed .step-content h3{color:var(--green)}
-.step-content p{font-size:0.85rem;color:var(--text-muted);max-width:45ch}
+.step-content p{font-size:0.78rem;color:var(--text-3);font-weight:300}
 
-/* RESULTS */
-.results-section{
-  padding:var(--space-4xl) var(--space-xl);
-  max-width:1280px;margin:0 auto;
-  display:none;
+/* CONFIRMATION */
+.confirm-outer{padding:40px 48px 72px;border-bottom:1px solid var(--border);display:none}
+.confirm-outer.visible{display:block}
+.confirm-card{
+  max-width:560px;margin:0 auto;
+  background:var(--navy-mid);border:1px solid var(--border);
+  border-radius:var(--r-xl);padding:48px 40px;text-align:center;
 }
-.results-section.visible{display:block}
-.report-card{
-  background:var(--bg-card);border:1px solid var(--bg-card-border);
-  border-radius:var(--radius-lg);padding:var(--space-xl);
-}
-.report-card-header{display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-lg)}
-.report-card-header h3{font-family:var(--font-display);font-weight:600;font-size:1.1rem}
-.report-body{font-size:0.9rem;color:var(--text-secondary);line-height:1.8;max-width:72ch;white-space:pre-wrap}
+.confirm-card h3{font-family:'Fraunces',serif;font-weight:300;font-size:1.8rem;margin-bottom:12px}
+.confirm-card p{font-size:0.88rem;color:var(--text-2);line-height:1.8;font-weight:300;margin-bottom:24px}
 
-/* ERROR */
+/* GATE MODAL */
+.gate-overlay{
+  display:none;position:fixed;inset:0;z-index:200;
+  align-items:center;justify-content:center;padding:24px;
+  background:rgba(10,22,40,0.88);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.gate-overlay.visible{display:flex}
+.gate-box{
+  background:#0d1e35;border:1px solid var(--border);
+  border-radius:var(--r-xl);padding:36px;
+  width:100%;max-width:420px;
+}
+.gate-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.gate-title{font-family:'Fraunces',serif;font-weight:300;font-size:1.25rem;color:var(--text-1)}
+.gate-close{background:none;border:none;cursor:pointer;color:var(--text-3);width:28px;height:28px;display:grid;place-items:center;border-radius:4px;transition:color 200ms ease}
+.gate-close:hover{color:var(--text-1)}
+.gate-tabs{display:flex;margin-bottom:24px;border-bottom:1px solid var(--border)}
+.gate-tab{
+  flex:1;background:none;border:none;
+  padding:11px 8px;
+  font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:400;
+  color:var(--text-3);cursor:pointer;
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:color 200ms ease,border-color 200ms ease;
+}
+.gate-tab:hover{color:var(--text-2)}
+.gate-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.gate-panel{display:none}
+.gate-panel.active{display:block}
+.gate-input{
+  width:100%;
+  background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  border-radius:var(--r-md);padding:12px 18px;
+  font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--text-1);
+  transition:border-color 250ms ease;font-weight:300;
+}
+.gate-input::placeholder{color:var(--text-3)}
+.gate-input:focus{outline:none;border-color:var(--accent-border)}
+.gate-input.code-input{text-align:center;letter-spacing:0.12em;text-transform:uppercase}
+.gate-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;margin-top:12px;
+  font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;
+  border-radius:var(--r-md);padding:12px 24px;
+  cursor:pointer;min-height:44px;
+  transition:opacity 200ms ease,transform 200ms ease;
+}
+.gate-btn.primary{background:var(--accent);color:var(--navy);border:none}
+.gate-btn.primary:hover{opacity:0.88;transform:translateY(-1px)}
+.gate-btn.secondary{background:transparent;color:var(--text-2);border:1px solid var(--border)}
+.gate-btn.secondary:hover{border-color:rgba(255,255,255,0.18);color:var(--text-1)}
+.gate-btn:disabled{opacity:0.35;cursor:not-allowed;transform:none}
+.gate-spinner{width:14px;height:14px;border:2px solid rgba(10,22,40,0.2);border-top-color:var(--navy);border-radius:50%;animation:spin 0.7s linear infinite;display:none}
+.gate-btn.secondary .gate-spinner{border-color:rgba(255,255,255,0.12);border-top-color:var(--text-2)}
+.gate-btn.loading .gate-spinner{display:block}
+.gate-btn.loading .gate-btn-text{display:none}
+.gate-msg{margin-top:10px;padding:10px 14px;border-radius:var(--r-sm);font-size:0.78rem;text-align:center;display:none}
+.gate-msg.success{display:block;background:var(--green-dim);color:var(--green);border:1px solid rgba(82,209,124,0.18)}
+.gate-msg.error{display:block;background:rgba(248,113,113,0.07);color:var(--red);border:1px solid rgba(248,113,113,0.18)}
+.gate-hint{font-size:0.72rem;color:var(--text-3);margin-top:10px;text-align:center;line-height:1.6;font-weight:300}
+.exhausted-box-inner{width:100%;max-width:420px}
+.exhausted-box-inner.hidden{display:none}
+
+/* ERROR TOAST */
 .error-toast{
-  position:fixed;bottom:var(--space-xl);left:50%;transform:translateX(-50%) translateY(120px);
-  background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.25);
-  color:var(--red);border-radius:var(--radius-md);
-  padding:var(--space-md) var(--space-xl);
-  font-size:0.88rem;font-weight:500;z-index:200;
+  position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(120px);
+  background:rgba(248,113,113,0.09);border:1px solid rgba(248,113,113,0.22);
+  color:var(--red);border-radius:var(--r-md);
+  padding:12px 24px;font-size:0.82rem;z-index:300;
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  transition:transform 400ms var(--transition-bounce),opacity 400ms var(--transition-smooth);
-  opacity:0;pointer-events:none;
+  transition:transform 400ms ease,opacity 400ms ease;opacity:0;pointer-events:none;
 }
 .error-toast.visible{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
 
 /* FOOTER */
 .site-footer{
-  padding:var(--space-3xl) var(--space-xl) var(--space-xl);
-  text-align:center;
-  border-top:1px solid rgba(255,255,255,0.07);
-  margin-top:var(--space-4xl);
+  padding:32px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
 }
-.site-footer p{font-size:0.8rem;color:var(--text-muted);margin-bottom:var(--space-sm)}
+.footer-brand{font-size:0.8rem;color:var(--text-3);font-weight:300}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:0.75rem;color:var(--text-3)}
+.footer-links a:hover{color:var(--text-2);text-decoration:none}
 
-/* FEATURES SECTION */
-.features-section{
-  padding:var(--space-4xl) var(--space-xl);
-  max-width:1100px;margin:0 auto;
-}
-.features-grid{
-  display:grid;grid-template-columns:1fr;
-  gap:1px;margin-top:var(--space-2xl);
-  background:rgba(255,255,255,0.07);
-  border:1px solid rgba(255,255,255,0.07);
-  border-radius:var(--radius-lg);overflow:hidden;
-}
-.feature-card{
-  background:var(--bg-deep);
-  padding:var(--space-xl);
-  transition:background 200ms var(--transition-smooth);
-}
-.feature-card:hover{background:rgba(255,255,255,0.02)}
-.feature-icon{
-  width:40px;height:40px;border-radius:var(--radius-sm);
-  display:grid;place-items:center;font-size:1.1rem;margin-bottom:var(--space-lg);
-}
-.feature-icon.blue{background:var(--accent-dim);color:var(--accent)}
-.feature-icon.amber{background:rgba(251,191,36,0.1);color:#fbbf24}
-.feature-icon.green{background:var(--green-dim);color:var(--green)}
-.feature-card h3{
-  font-family:var(--font-display);font-weight:600;font-size:1rem;
-  margin-bottom:var(--space-sm);letter-spacing:-0.02em;
-}
-.feature-card p{font-size:0.85rem;color:var(--text-secondary);line-height:1.65}
-.feature-num{
-  font-size:0.7rem;font-weight:600;letter-spacing:0.1em;
-  color:var(--accent);margin-bottom:var(--space-md);
-}
-
-/* PRICING CARDS */
-.pricing-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:var(--space-md);margin-top:var(--space-2xl);
-  max-width:820px;margin-left:auto;margin-right:auto;
-}
-@media(max-width:680px){.pricing-grid{grid-template-columns:1fr}}
-.pricing-card{
-  background:var(--bg-card);border:1px solid var(--bg-card-border);
-  border-radius:var(--radius-lg);padding:var(--space-xl);
-  display:flex;flex-direction:column;gap:var(--space-lg);
-}
-.pricing-card.featured{
-  border-color:var(--accent-border);
-  background:var(--accent-featured);
-}
-.pricing-card-header{display:flex;flex-direction:column;gap:var(--space-xs)}
-.pricing-tag{
-  font-size:0.68rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--text-muted);margin-bottom:var(--space-xs);
-}
-.pricing-card.featured .pricing-tag{color:var(--accent)}
-.pricing-name{
-  font-family:var(--font-display);font-weight:700;font-size:1.25rem;
-  letter-spacing:-0.03em;
-}
-.pricing-sub{font-size:0.85rem;color:var(--text-secondary);line-height:1.65}
-.pricing-includes{list-style:none;padding:0;display:flex;flex-direction:column;gap:var(--space-sm);flex:1}
-.pricing-includes li{
-  display:flex;align-items:flex-start;gap:var(--space-sm);
-  font-size:0.82rem;color:var(--text-secondary);line-height:1.5;
-}
-.pricing-includes li::before{
-  content:'';display:block;width:5px;height:5px;flex-shrink:0;
-  margin-top:6px;border-radius:50%;background:rgba(167,139,250,0.4);
-}
-.pricing-cta-btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:var(--space-sm);
-  font-family:var(--font-display);font-weight:600;font-size:0.88rem;
-  border-radius:var(--radius-sm);padding:var(--space-md) var(--space-xl);
-  cursor:pointer;text-decoration:none;border:none;
-  transition:all 200ms var(--transition-smooth);letter-spacing:-0.01em;
-}
-.pricing-cta-btn.primary{
-  background:var(--accent);color:#0a0a0a;
-}
-.pricing-cta-btn.primary:hover{opacity:0.88;text-decoration:none}
-.pricing-cta-btn.secondary{
-  background:transparent;color:var(--text-secondary);
-  border:1px solid rgba(255,255,255,0.12);
-}
-.pricing-cta-btn.secondary:hover{border-color:rgba(255,255,255,0.25);color:var(--text-primary);text-decoration:none}
-.pricing-note-small{font-size:0.75rem;color:var(--text-muted);text-align:center;margin-top:var(--space-md)}
-
-/* PROMPT EXAMPLES CSS */
-.prompt-examples{
-  display:flex;flex-wrap:wrap;gap:var(--space-sm);
-  margin-bottom:var(--space-md);
-}
-.prompt-example-btn{
-  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
-  border-radius:999px;padding:5px var(--space-md);
-  font-family:var(--font-body);font-size:0.78rem;color:var(--text-secondary);
-  cursor:pointer;transition:all 150ms var(--transition-smooth);
-  white-space:nowrap;
-}
-.prompt-example-btn:hover{background:var(--accent-dim);border-color:rgba(167,139,250,0.3);color:var(--accent)}
-
-/* GATE MODAL */
-.prompt-card-wrapper{position:relative}
-.gate-overlay{
-  display:none;position:fixed;inset:0;z-index:200;
-  align-items:center;justify-content:center;
-  padding:var(--space-lg);
-  background:rgba(10,10,10,0.8);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-}
-.gate-overlay.visible{display:flex}
-.gate-overlay.hidden{display:none}
-
-.gate-box{
-  background:#111111;
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:var(--radius-lg);
-  padding:var(--space-xl) var(--space-xl) var(--space-lg);
-  width:100%;max-width:440px;
-}
-.gate-tabs{
-  display:flex;gap:0;margin-bottom:var(--space-xl);
-  border-bottom:1px solid rgba(255,255,255,0.08);
-}
-.gate-tab{
-  flex:1;background:none;border:none;
-  padding:var(--space-md) var(--space-sm);
-  font-family:var(--font-display);font-size:0.85rem;font-weight:600;
-  color:var(--text-muted);cursor:pointer;
-  border-bottom:2px solid transparent;
-  transition:color 200ms var(--transition-smooth),border-color 200ms var(--transition-smooth);
-  min-height:44px;
-}
-.gate-tab:hover{color:var(--text-secondary)}
-.gate-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-.gate-panel{display:none}
-.gate-panel.active{display:block}
-
-.gate-input{
-  width:100%;
-  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
-  border-radius:var(--radius-md);padding:var(--space-md) var(--space-lg);
-  font-family:var(--font-body);font-size:1rem;color:var(--text-primary);
-  transition:border-color 250ms var(--transition-smooth);
-}
-.gate-input::placeholder{color:var(--text-muted)}
-.gate-input:focus{outline:none;border-color:rgba(167,139,250,0.4)}
-.gate-input.code-input{
-  text-align:center;font-family:var(--font-display);font-size:1.15rem;
-  letter-spacing:0.08em;text-transform:uppercase;
-}
-
-.gate-btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:var(--space-sm);
-  width:100%;margin-top:var(--space-lg);
-  background:var(--accent);color:#0a0a0a;
-  font-family:var(--font-display);font-weight:700;
-  font-size:0.92rem;border:none;border-radius:var(--radius-md);
-  padding:var(--space-md) var(--space-xl);cursor:pointer;
-  min-height:48px;letter-spacing:-0.01em;
-  transition:opacity 200ms var(--transition-smooth),transform 200ms var(--transition-bounce);
-  position:relative;overflow:hidden;
-}
-.gate-btn:hover{opacity:0.88;transform:translateY(-1px)}
-.gate-btn:active{transform:translateY(0)}
-.gate-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none}
-.gate-btn.secondary{
-  background:transparent;color:var(--text-secondary);
-  border:1px solid rgba(255,255,255,0.12);
-}
-.gate-btn.secondary:hover{border-color:rgba(255,255,255,0.2);color:var(--text-primary)}
-
-.gate-msg{
-  margin-top:var(--space-md);padding:var(--space-md);
-  border-radius:var(--radius-sm);font-size:0.82rem;
-  text-align:center;display:none;
-}
-.gate-msg.success{display:block;background:var(--green-dim);color:var(--green);border:1px solid rgba(74,222,128,0.2)}
-.gate-msg.error{display:block;background:rgba(248,113,113,0.08);color:var(--red);border:1px solid rgba(248,113,113,0.2)}
-
-.gate-hint{font-size:0.75rem;color:var(--text-muted);margin-top:var(--space-md);text-align:center;line-height:1.5}
-
-/* USAGE BADGE */
-.usage-badge{
-  display:inline-flex;align-items:center;gap:var(--space-sm);
-  background:var(--accent-dim);border:1px solid rgba(167,139,250,0.2);
-  border-radius:999px;padding:4px var(--space-md);
-  font-size:0.75rem;font-weight:500;color:var(--accent);
-  white-space:nowrap;
-}
-.usage-badge.hidden{display:none}
-.usage-badge .usage-dot{width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0}
-.usage-badge.warning{color:#fbbf24;background:rgba(251,191,36,0.1);border-color:rgba(251,191,36,0.2)}
-.usage-badge.warning .usage-dot{background:#fbbf24}
-.usage-badge.depleted{color:var(--red);background:rgba(248,113,113,0.08);border-color:rgba(248,113,113,0.2)}
-.usage-badge.depleted .usage-dot{background:var(--red)}
-
-/* EXHAUSTED */
-.exhausted-box-inner{width:100%;max-width:440px}
-.exhausted-box-inner.hidden{display:none}
-
-/* GATE SPINNER */
-.gate-btn .gate-spinner{
-  width:16px;height:16px;border:2px solid rgba(10,10,10,0.2);
-  border-top-color:#0a0a0a;border-radius:50%;
-  animation:spin 0.7s linear infinite;display:none;
-}
-.gate-btn.secondary .gate-spinner{border-color:rgba(255,255,255,0.15);border-top-color:var(--text-secondary)}
-.gate-btn.loading .gate-spinner{display:block}
-.gate-btn.loading .gate-btn-text{display:none}
-
-/* CREDENTIAL CHOICE */
-.credential-fieldset{border:none;padding:0;margin:var(--space-xl) 0 0}
-.credential-legend{
-  font-family:var(--font-display);font-weight:600;font-size:0.85rem;
-  color:var(--text-secondary);margin-bottom:var(--space-md);display:block;
-}
-.credential-options{display:flex;flex-direction:column;gap:var(--space-md)}
-.credential-option{
-  display:flex;align-items:flex-start;gap:var(--space-md);
-  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);
-  border-radius:var(--radius-md);padding:var(--space-lg);
-  cursor:pointer;position:relative;
-  transition:border-color 250ms var(--transition-smooth),background 250ms var(--transition-smooth);
-}
-.credential-option:hover{border-color:rgba(255,255,255,0.15)}
-.credential-option input[type="radio"]{position:absolute;opacity:0;width:0;height:0}
-.credential-radio-mark{
-  width:18px;height:18px;border-radius:50%;flex-shrink:0;margin-top:2px;
-  border:1px solid rgba(255,255,255,0.2);
-  transition:border-color 200ms var(--transition-smooth);
-  position:relative;
-}
-.credential-radio-mark::after{
-  content:'';position:absolute;top:50%;left:50%;
-  width:8px;height:8px;border-radius:50%;
-  background:var(--accent);
-  transform:translate(-50%,-50%) scale(0);
-  transition:transform 200ms var(--transition-bounce);
-}
-.credential-option input[type="radio"]:checked ~ .credential-radio-mark{border-color:var(--accent)}
-.credential-option input[type="radio"]:checked ~ .credential-radio-mark::after{transform:translate(-50%,-50%) scale(1)}
-.credential-option-content{display:flex;flex-direction:column;gap:2px}
-.credential-option-title{font-family:var(--font-display);font-weight:600;font-size:0.9rem;color:var(--text-primary)}
-.credential-option-desc{font-size:0.8rem;color:var(--text-muted);line-height:1.5}
-
-/* CONFIRMATION ICON */
-.confirmation-icon{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:56px;height:56px;border-radius:50%;
-  background:var(--green-dim);
+/* MOBILE */
+@media(max-width:1023px){
+  .nav{padding:0 24px}
+  .hamburger{display:flex}
+  .nav-links{
+    display:none;position:fixed;top:0;left:0;right:0;bottom:0;
+    background:rgba(10,22,40,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    flex-direction:column;align-items:center;justify-content:center;gap:36px;z-index:99;
+  }
+  .nav-links.open{display:flex}
+  .nav-links a,.nav-cta{font-size:1rem}
+  .hero{grid-template-columns:1fr;padding-top:64px}
+  .hero-left{border-right:none;border-bottom:1px solid var(--border);padding:56px 24px}
+  .hero-right{padding:40px 24px}
+  .offer{grid-template-columns:1fr}
+  .offer-left{border-right:none;border-bottom:1px solid var(--border)}
+  .pricing{grid-template-columns:1fr}
+  .pricing-intro{border-right:none;border-bottom:1px solid var(--border)}
+  .usecase-grid{grid-template-columns:1fr}
+  .brief-outer,.usecases,.pricing-intro,.pricing-cards,.offer-left,.offer-right,.stepper-outer,.confirm-outer,.site-footer{padding-left:24px;padding-right:24px}
+  .promise{padding:40px 24px}
 }
 
 /* FADE IN */
-.fade-in{opacity:0;transform:translateY(20px);transition:opacity 600ms var(--transition-smooth),transform 600ms var(--transition-smooth)}
+.fade-in{opacity:0;transform:translateY(16px);transition:opacity 700ms ease,transform 700ms ease}
 .fade-in.visible{opacity:1;transform:translateY(0)}
-
-/* MOBILE */
-.hamburger{display:flex}
-.nav-links{
-  display:none;position:fixed;top:0;left:0;right:0;bottom:0;
-  background:rgba(10,10,10,0.97);backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  flex-direction:column;align-items:center;justify-content:center;
-  gap:var(--space-2xl);z-index:99;
-}
-.nav-links.open{display:flex}
-.nav-links a{font-size:1.2rem}
-.hero-trust{flex-wrap:wrap}
-.hero-trust-item{border-right:none;margin-right:0;padding-right:var(--space-xl);margin-right:var(--space-xl)}
-
-@media (min-width:768px){
-  .features-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media (min-width:1024px){
-  .nav-links{
-    display:flex;position:static;
-    background:none;backdrop-filter:none;-webkit-backdrop-filter:none;
-    flex-direction:row;gap:var(--space-xl);
-  }
-  .nav-links a{font-size:0.88rem}
-  .hamburger{display:none}
-  .features-grid{grid-template-columns:repeat(3,1fr)}
-}
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}
-  html{scroll-behavior:auto}
-}
-
-
-/* SCROLLBAR */
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:var(--bg-deep)}
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:3px}
-::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.18)}
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav class="nav" role="navigation" aria-label="Main navigation">
+<nav class="nav" role="navigation">
   <div class="nav-logo">
-    <div class="logo-icon" aria-hidden="true"><img src="logo.jpg" alt="Feix logo"></div>
-    <span>Feix</span>
+    <div class="nav-logo-mark"><img src="https://feix.app/logo.jpg" alt="Feix"></div>
+    Feix
   </div>
-  <ul class="nav-links" id="navLinks" role="list" aria-hidden="true">
-    <li><a href="#features">How it works</a></li>
+  <ul class="nav-links" id="navLinks" aria-hidden="true" role="list">
+    <li><a href="#offer">How it works</a></li>
+    <li><a href="#usecases">Use cases</a></li>
     <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#create" class="nav-cta">Generate</a></li>
+    <li><a href="#brief" class="nav-cta">Start a project</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -691,881 +532,319 @@ a:hover{text-decoration:underline}
 </nav>
 
 <!-- HERO -->
-<header class="hero" id="hero">
-  <div class="hero-badge">
-    <span class="hero-badge-dot" aria-hidden="true"></span>
-    AI Studio
-  </div>
-  <h1>Your product,<br>built and<br>delivered.</h1>
-  <p class="hero-desc">
-    Describe what you need in plain language. We build and deploy the complete application and deliver it to your inbox.
-  </p>
-  <div class="hero-cta-row">
-    <a href="#create" class="hero-cta" aria-label="Start a project">
-      Start a project
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-    </a>
-    <span class="hero-cta-note">No technical knowledge required</span>
-  </div>
-  <div class="hero-trust" aria-label="Key facts">
-    <div class="hero-trust-item">
-      <div class="hero-trust-val">Hours</div>
-      <div class="hero-trust-label">not weeks</div>
+<section class="hero" id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">
+      <span class="hero-tag-dot"></span>
+      Custom systems. Ready to use.
     </div>
-    <div class="hero-trust-item">
-      <div class="hero-trust-val">Working URL</div>
-      <div class="hero-trust-label">not just code</div>
-    </div>
-    <div class="hero-trust-item">
-      <div class="hero-trust-val">Reviewed</div>
-      <div class="hero-trust-label">before every delivery</div>
-    </div>
-    <div class="hero-trust-item">
-      <div class="hero-trust-val">Hosting</div>
-      <div class="hero-trust-label">included</div>
+    <h1>Complex operations.<br>Custom systems.</h1>
+    <p class="hero-sub">Standard software is built for everyone. We build yours: a complete digital system, designed around how your operation actually works, delivered ready to use.</p>
+    <div class="hero-actions">
+      <a href="#brief" class="btn-primary">Start a project</a>
+      <a href="#offer" class="btn-outline">See how it works</a>
     </div>
   </div>
-</header>
+  <div class="hero-right">
+    <p class="hero-right-label">Built for operations like these</p>
+    <ul class="industry-list">
+      <li class="industry-item">
+        <span class="industry-name">Private fleet management</span>
+        <span class="industry-example">Yachts, aircraft, vehicles</span>
+      </li>
+      <li class="industry-item">
+        <span class="industry-name">Luxury hospitality</span>
+        <span class="industry-example">Reservation and concierge systems</span>
+      </li>
+      <li class="industry-item">
+        <span class="industry-name">Exclusive membership services</span>
+        <span class="industry-example">Member portals and booking platforms</span>
+      </li>
+      <li class="industry-item">
+        <span class="industry-name">Bespoke manufacturing</span>
+        <span class="industry-example">Order tracking and client portals</span>
+      </li>
+      <li class="industry-item">
+        <span class="industry-name">Premium professional services</span>
+        <span class="industry-example">Client management and scheduling</span>
+      </li>
+    </ul>
+  </div>
+</section>
 
-<!-- FEATURES -->
-<section class="features-section fade-in" id="features" aria-labelledby="features-title">
-  <span class="section-label">How it works</span>
-  <h2 id="features-title" style="font-family:var(--font-display);font-weight:700;font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-0.03em;margin-bottom:var(--space-2xl);line-height:1.1;margin-top:var(--space-lg)">You describe it.<br>We build and deliver it.</h2>
-  <div class="features-grid">
-    <article class="feature-card">
-      <div class="feature-num">01</div>
-      <h3>Describe</h3>
-      <p>Tell us what you need: a website, an online store, a booking system, anything. Plain language, no technical jargon required.</p>
-    </article>
-    <article class="feature-card">
-      <div class="feature-num">02</div>
-      <h3>We build</h3>
-      <p>Our studio produces your complete application: interface and automation together. A human team reviews before delivery.</p>
-    </article>
-    <article class="feature-card">
-      <div class="feature-num">03</div>
-      <h3>Delivered</h3>
-      <p>A working URL delivered to your inbox. Ready to use from day one.</p>
-    </article>
+<!-- PROMISE BANNER -->
+<div class="promise fade-in">
+  <h2>From brief to live product. In hours.</h2>
+  <p>Tell us what your operation needs. We design and build a complete, working system. You evaluate it. Only if it meets your requirements do you pay for it.</p>
+</div>
+
+<!-- OFFER / HOW IT WORKS -->
+<section class="offer fade-in" id="offer">
+  <div class="offer-left">
+    <span class="section-label">The model</span>
+    <h2>A system built to your brief. Evaluated before you commit.</h2>
+    <p>Most software vendors ask you to subscribe before you know if the product fits your operation. We work differently. You describe what you need. We build it. You receive a working system and evaluate it in context.</p>
+    <p>If the system meets your requirements, you purchase it. If it doesn't, it's removed and the matter is closed. No invoices, no further contact, no obligations.</p>
+    <p>We prefer to show you a working system rather than describe one. This approach works because our production pipeline delivers complete systems in hours, not weeks.</p>
+  </div>
+  <div class="offer-right">
+    <span class="section-label">How it works</span>
+    <div class="offer-steps">
+      <div class="offer-step">
+        <div class="offer-step-num">1</div>
+        <div class="offer-step-body">
+          <h3>You describe your operation</h3>
+          <p>Tell us what your business does, what you need the system to handle, and how your team and clients work. Plain language. No technical knowledge required.</p>
+        </div>
+      </div>
+      <div class="offer-step">
+        <div class="offer-step-num">2</div>
+        <div class="offer-step-body">
+          <h3>We design and build it</h3>
+          <p>Our production pipeline turns your brief into a complete system: the interface your team or clients will use, and the automation running behind it. A human review is completed before delivery.</p>
+        </div>
+      </div>
+      <div class="offer-step">
+        <div class="offer-step-num">3</div>
+        <div class="offer-step-body">
+          <h3>You receive a working system</h3>
+          <p>A live URL, delivered to your email. Not a demo, not a prototype. A complete system with active infrastructure, ready to use.</p>
+        </div>
+      </div>
+      <div class="offer-step">
+        <div class="offer-step-num">4</div>
+        <div class="offer-step-body">
+          <h3>You evaluate, then decide</h3>
+          <p>Test it with your team or clients. If it meets your needs, we agree on a price and you take it. If it doesn't, it's removed. No payment until you're satisfied.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="usecases fade-in" id="usecases">
+  <div class="usecases-inner">
+    <span class="section-label">What we build</span>
+    <h2>Systems for operations where precision matters.</h2>
+    <div class="usecase-grid">
+      <div class="usecase-card">
+        <div class="usecase-industry">Private fleet</div>
+        <h3>Vessel and aircraft management portal</h3>
+        <p>Maintenance scheduling, crew assignments, client dispatch, voyage logs, fuel records. A single system for everything a private fleet operator needs to track.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-industry">Luxury hospitality</div>
+        <h3>Reservation and concierge platform</h3>
+        <p>Guest booking, room configuration, concierge request routing, supplier coordination, morning briefings by email. Built around your specific service standards.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-industry">Membership services</div>
+        <h3>Private member portal</h3>
+        <p>Member onboarding, event booking, exclusive content access, communications platform. Designed for clubs and networks with their own operating logic.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-industry">Bespoke manufacturing</div>
+        <h3>Order and production tracking system</h3>
+        <p>Client order intake, production stage tracking, supplier coordination, delivery notifications, client-facing status portal. Each order followed from brief to delivery.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-industry">Professional services</div>
+        <h3>Client management and scheduling</h3>
+        <p>Appointment booking, client file management, document delivery, billing workflows, automated follow-ups. For practices where each client relationship is individual.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-industry">Event operations</div>
+        <h3>Event coordination platform</h3>
+        <p>Guest management, vendor coordination, logistics tracking, on-site check-in, post-event reporting. The infrastructure behind events where no detail can be missed.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- PRICING -->
-<section class="features-section fade-in" id="pricing" aria-labelledby="pricing-title">
-  <span class="section-label">Pricing</span>
-  <h2 id="pricing-title">Two paths.<br>Same build quality.</h2>
-  <div class="pricing-grid">
-
-    <article class="pricing-card">
-      <div class="pricing-card-header">
-        <span class="pricing-tag">Bring Your Own</span>
-        <div class="pricing-name">BYO Infrastructure</div>
-        <p class="pricing-sub">You provide hosting, domain, and service accounts. We build and deliver everything on your infrastructure. Full ownership from day one.</p>
-      </div>
-      <ul class="pricing-includes" aria-label="What's included">
-        <li>Complete web application, interface and logic</li>
-        <li>Everything deployed and live on your infrastructure</li>
-        <li>Working URL delivered to your inbox</li>
-        <li>Full ownership: your accounts, your data</li>
-      </ul>
-      <ul class="pricing-includes pricing-excludes" aria-label="What you provide">
-        <li>Your hosting and domain</li>
-        <li>Your service accounts</li>
-      </ul>
-      <a href="mailto:growth.business@llulllab.com" class="pricing-cta-btn secondary">Get a quote →</a>
-    </article>
-
-    <article class="pricing-card featured">
-      <div class="pricing-card-header">
-        <span class="pricing-tag">Zero Hassle</span>
-        <div class="pricing-name">Fully Managed</div>
-        <p class="pricing-sub">We handle everything: hosting, domain, accounts, deployment. You describe your project and receive a working URL. Nothing to set up.</p>
-      </div>
-      <ul class="pricing-includes" aria-label="What's included">
-        <li>Complete web application, interface and logic</li>
-        <li>Everything provisioned, deployed, and live</li>
-        <li>Working URL delivered to your inbox</li>
-        <li>Hosting included for the duration agreed</li>
-      </ul>
-      <a href="mailto:growth.business@llulllab.com" class="pricing-cta-btn primary">Get a quote →</a>
-    </article>
-
+<section class="pricing fade-in" id="pricing">
+  <div class="pricing-intro">
+    <span class="section-label">Pricing</span>
+    <h2>You pay when you're satisfied.</h2>
+    <p>We build your system as a working pilot. No pricing conversation until you've evaluated the result in context.</p>
+    <p>If the system meets your requirements, we agree on a project price based on scope. If it doesn't, no invoice is issued. Two infrastructure paths available, depending on your preference for ownership and hosting.</p>
   </div>
-  <p class="pricing-note-small">Pricing depends on project scope. We'll send a quote after reviewing your brief.</p>
+  <div class="pricing-cards">
+    <div class="pricing-card featured">
+      <div class="pricing-card-name">Fully managed</div>
+      <p class="pricing-card-desc">We handle everything: hosting, domain, infrastructure, and deployment. You receive a working URL. Nothing to configure.</p>
+      <a href="#brief" class="pricing-card-cta">Start a project</a>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-card-name">Self-hosted</div>
+      <p class="pricing-card-desc">We build and deploy on your own infrastructure. You provide hosting, domain, and service accounts. Full ownership from day one.</p>
+      <a href="mailto:growth.business@llulllab.com" class="pricing-card-cta">Get in touch</a>
+    </div>
+  </div>
 </section>
 
-<!-- PROJECT SUBMISSION -->
-<section class="prompt-section fade-in" id="create" aria-labelledby="create-title">
-  <span class="section-label">Start a project</span>
-  <h2 id="create-title">Tell us what you need.<br>We'll take it from here.</h2>
-  <div class="prompt-card-wrapper" id="promptWrapper">
-
-    <!-- GATE MODAL (shown on submit if no token) -->
-    <div class="gate-overlay hidden" id="gateOverlay" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
-      <div class="gate-box">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-lg)">
-          <span id="gateTitle" style="font-family:var(--font-display);font-weight:700;font-size:1rem">Access required</span>
-          <button id="btnCloseGate" type="button" aria-label="Close" style="background:none;border:none;cursor:pointer;color:var(--text-muted);padding:4px;line-height:1">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-          </button>
-        </div>
-        <div class="gate-tabs">
-          <button class="gate-tab active" data-panel="code" type="button">I have an invite code</button>
-          <button class="gate-tab" data-panel="request" type="button">Request access</button>
-        </div>
-        <!-- Code Panel -->
-        <div class="gate-panel active" id="panelCode">
-          <input
-            class="gate-input code-input"
-            id="inviteCodeInput"
-            type="text"
-            placeholder="HRZ-XXXX-XXXX"
-            maxlength="14"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Invite code"
-          >
-          <button class="gate-btn" id="btnValidateCode" type="button">
-            <span class="gate-btn-text">Validate Code</span>
-            <span class="gate-spinner" aria-hidden="true"></span>
-          </button>
-          <div class="gate-msg" id="codeFeedback"></div>
-        </div>
-        <!-- Request Panel -->
-        <div class="gate-panel" id="panelRequest">
-          <input
-            class="gate-input"
-            id="requestEmailInput"
-            type="email"
-            placeholder="your@email.com"
-            autocomplete="email"
-            aria-label="Email address"
-          >
-          <button class="gate-btn secondary" id="btnRequestAccess" type="button">
-            <span class="gate-btn-text">Send Request</span>
-            <span class="gate-spinner" aria-hidden="true"></span>
-          </button>
-          <div class="gate-msg" id="requestFeedback"></div>
-          <p class="gate-hint">We'll review your request and send an invite code to your email.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- EXHAUSTED PANEL (inside gate modal) -->
-    <div class="gate-box exhausted-box-inner hidden" id="exhaustedBox">
-      <div style="text-align:center;padding:var(--space-md) 0">
-        <div style="font-size:2rem;margin-bottom:var(--space-md)" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
-        <h3 style="font-family:var(--font-display);font-weight:600;font-size:1.1rem;margin-bottom:var(--space-sm)">No projects remaining</h3>
-        <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:var(--space-lg);line-height:1.6">You've used all your available submissions. Request a new invite code to continue.</p>
-        <input class="gate-input" id="exhaustedEmailInput" type="email" placeholder="your@email.com" autocomplete="email" aria-label="Email address for new access request" style="margin-bottom:0">
-        <button class="gate-btn secondary" id="btnExhaustedRequest" type="button">
-          <span class="gate-btn-text">Request New Access</span>
-          <span class="gate-spinner" aria-hidden="true"></span>
-        </button>
-        <div class="gate-msg" id="exhaustedFeedback"></div>
-      </div>
-    </div>
-
-    <!-- ORIGINAL PROMPT CARD -->
-    <div class="prompt-card">
-      <label for="promptInput">Describe your project: what it should do, who it's for, any specifics.</label>
-      <div class="prompt-examples" id="promptExamples" aria-label="Example prompts">
-        <button type="button" class="prompt-example-btn" data-fill="An online store for handmade jewellery. Product listings, a shopping cart, payment via Stripe, and order confirmation emails sent automatically.">E-commerce store</button>
-        <button type="button" class="prompt-example-btn" data-fill="A booking system for a small physiotherapy practice. Clients pick a time slot, fill in their details, and get a confirmation email. The therapist gets a daily schedule by email each morning.">Booking system</button>
-        <button type="button" class="prompt-example-btn" data-fill="A portfolio site for a freelance photographer. Clean gallery with lightbox, a contact form, and auto-replies to anyone who sends a message.">Portfolio site</button>
-        <button type="button" class="prompt-example-btn" data-fill="An internal tool for a small team to submit weekly status updates. Each person fills in a form, responses go into a shared spreadsheet, and a summary is emailed to the manager every Monday.">Internal tool</button>
-      </div>
+<!-- BRIEF FORM -->
+<section class="brief-outer fade-in" id="brief">
+  <div class="brief-inner">
+    <span class="section-label">Start a project</span>
+    <h2>Describe your operation. We'll build the system.</h2>
+    <p class="sub">Tell us what your business does, what you need the system to handle, and how your team works. We'll build it and send you a working system to evaluate.</p>
+    <div class="form-group">
+      <label for="promptInput">Your brief</label>
       <textarea
-        class="prompt-textarea"
+        class="form-textarea"
         id="promptInput"
-        placeholder="Describe what you need: a website, booking system, internal tool, online store... Plain language, no technical knowledge required."
+        placeholder="Describe your operation and what you need built. The more specific you are, the better the result. What does the system need to handle? Who will use it? What outputs matter to your team?"
         maxlength="10000"
-        aria-describedby="charCounter"
       ></textarea>
-
-      <!-- PACKAGE CHOICE -->
-      <fieldset class="credential-fieldset" id="packageFieldset">
-        <legend class="credential-legend">Infrastructure package</legend>
-        <div class="credential-options">
-          <label class="credential-option">
-            <input type="radio" name="packageChoice" value="managed" checked>
-            <span class="credential-radio-mark"></span>
-            <span class="credential-option-content">
-              <span class="credential-option-title">Managed</span>
-              <span class="credential-option-desc">We handle all service accounts, hosting, and domain configuration. Describe what you need, we deliver it ready to use.</span>
-            </span>
-          </label>
-          <label class="credential-option">
-            <input type="radio" name="packageChoice" value="byo">
-            <span class="credential-radio-mark"></span>
-            <span class="credential-option-content">
-              <span class="credential-option-title">Bring your own</span>
-              <span class="credential-option-desc">Use your own service accounts and hosting. Provide the details below and we'll set everything up on your infrastructure.</span>
-            </span>
-          </label>
-        </div>
-      </fieldset>
-
-      <!-- BYO INFRASTRUCTURE DETAILS (hidden unless "byo" selected) -->
-      <fieldset class="credential-fieldset hidden" id="byoFieldset" style="margin-top:var(--space-md)">
-        <legend class="credential-legend">Your infrastructure details</legend>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space-md)">
-          <label style="display:flex;flex-direction:column;gap:6px">
-            <span style="font-size:0.75rem;color:var(--text-secondary);font-weight:500;text-transform:uppercase;letter-spacing:0.05em">Hosting</span>
-            <input type="text" id="byoHosting" class="gate-input" placeholder="e.g. Vercel, your VPS" style="margin:0">
-          </label>
-          <label style="display:flex;flex-direction:column;gap:6px">
-            <span style="font-size:0.75rem;color:var(--text-secondary);font-weight:500;text-transform:uppercase;letter-spacing:0.05em">Domain</span>
-            <input type="text" id="byoDomain" class="gate-input" placeholder="e.g. mybusiness.com" style="margin:0">
-          </label>
-          <label style="display:flex;flex-direction:column;gap:6px">
-            <span style="font-size:0.75rem;color:var(--text-secondary);font-weight:500;text-transform:uppercase;letter-spacing:0.05em">Database</span>
-            <input type="text" id="byoDatabase" class="gate-input" placeholder="e.g. Supabase, your Postgres" style="margin:0">
-          </label>
-          <label style="display:flex;flex-direction:column;gap:6px">
-            <span style="font-size:0.75rem;color:var(--text-secondary);font-weight:500;text-transform:uppercase;letter-spacing:0.05em">Email provider</span>
-            <input type="text" id="byoEmail" class="gate-input" placeholder="e.g. Resend, Mailgun" style="margin:0">
-          </label>
-        </div>
-        <label style="display:flex;flex-direction:column;gap:6px;margin-top:var(--space-md)">
-          <span style="font-size:0.75rem;color:var(--text-secondary);font-weight:500;text-transform:uppercase;letter-spacing:0.05em">Other services or notes</span>
-          <textarea id="byoNotes" rows="3" placeholder="Any other APIs, integrations, or details. We'll contact you for actual credentials after submission." style="padding:var(--space-sm) var(--space-md);background:var(--bg-tertiary,#0d1117);border:1px solid var(--border,rgba(56,189,248,0.15));border-radius:6px;color:var(--text-primary);font-family:inherit;font-size:0.9rem;resize:vertical"></textarea>
-        </label>
-        <p style="margin:var(--space-md) 0 0;font-size:0.8rem;color:var(--text-secondary)">Describe what you already have. We'll reach out for actual API keys and access details after your request is received.</p>
-      </fieldset>
-
-      <!-- DELIVERY EMAIL -->
-      <fieldset class="credential-fieldset" id="deliveryFieldset" style="margin-top:var(--space-md)">
-        <legend class="credential-legend">Delivery email</legend>
-        <input type="email" id="deliveryEmailInput" class="gate-input" placeholder="your@email.com" autocomplete="email" style="margin:0">
-        <p style="margin:var(--space-sm) 0 0;font-size:0.8rem;color:var(--text-secondary)">We'll send the link and usage guide to this address once your application is ready.</p>
-      </fieldset>
-
-      <div class="prompt-footer">
-        <span class="char-count" id="charCounter" aria-live="polite">0 / 10000</span>
-        <span class="usage-badge hidden" id="usageBadge" aria-live="polite">
-          <span class="usage-dot" aria-hidden="true"></span>
-          <span id="usageText"></span>
-        </span>
-        <button class="btn-generate" id="btnGenerate" type="button">
-          <span class="btn-text">Submit Project</span>
-          <span class="spinner" aria-hidden="true"></span>
-        </button>
-      </div>
     </div>
-
+    <div class="form-group">
+      <label for="deliveryEmailInput">Delivery email</label>
+      <input type="email" id="deliveryEmailInput" class="form-input" placeholder="your@company.com" autocomplete="email">
+    </div>
+    <div class="form-footer">
+      <span id="charCounter" class="char-count">0 / 10000</span>
+      <span class="usage-badge hidden" id="usageBadge">
+        <span class="usage-dot"></span>
+        <span id="usageText"></span>
+      </span>
+      <button class="btn-submit" id="btnGenerate" type="button">
+        <span class="btn-text">Submit brief</span>
+        <span class="spinner"></span>
+      </button>
+    </div>
+    <p style="margin-top:16px;font-size:0.75rem;color:var(--text-3);font-weight:300;border-top:1px solid var(--border);padding-top:14px">Delivered to your email within hours. You evaluate before any payment discussion arises.</p>
   </div>
 </section>
 
 <!-- STEPPER -->
-<section class="stepper-section" id="stepperSection" aria-label="Progress status">
-  <div class="stepper" role="list">
-    <div class="step" data-step="0" role="listitem">
-      <div class="step-indicator">
-        <div class="step-dot">1</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="step-content">
-        <h3>Project Received</h3>
-        <p>Your brief has been securely submitted. We're on it.</p>
-      </div>
-    </div>
-    <div class="step" data-step="1" role="listitem">
-      <div class="step-indicator">
-        <div class="step-dot">2</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="step-content">
-        <h3>Designing Your Application</h3>
-        <p>The computational pipeline is turning your brief into a working design.</p>
-      </div>
-    </div>
-    <div class="step" data-step="2" role="listitem">
-      <div class="step-indicator">
-        <div class="step-dot">3</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="step-content">
-        <h3>Building</h3>
-        <p>Your application is being assembled end to end.</p>
-      </div>
-    </div>
-    <div class="step" data-step="3" role="listitem">
-      <div class="step-indicator">
-        <div class="step-dot">4</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="step-content">
-        <h3>Quality Review</h3>
-        <p>Checking structure, reliability, and accessibility.</p>
-      </div>
-    </div>
-    <div class="step" data-step="4" role="listitem">
-      <div class="step-indicator">
-        <div class="step-dot">5</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="step-content">
-        <h3>Final Pass</h3>
-        <p>Polishing the last details before hand-off.</p>
-      </div>
-    </div>
-    <div class="step" data-step="5" role="listitem">
-      <div class="step-indicator">
-        <div class="step-dot">6</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="step-content">
-        <h3>Handed to Our Team</h3>
-        <p>Your application is now with our team for review, setup, and deployment.</p>
-      </div>
+<section class="stepper-outer" id="stepperSection">
+  <div class="stepper-inner">
+    <div class="stepper" role="list">
+      <div class="step" data-step="0" role="listitem"><div class="step-indicator"><div class="step-dot">1</div><div class="step-line"></div></div><div class="step-content"><h3>Brief received</h3><p>Your brief has been submitted and is being reviewed.</p></div></div>
+      <div class="step" data-step="1" role="listitem"><div class="step-indicator"><div class="step-dot">2</div><div class="step-line"></div></div><div class="step-content"><h3>Designing your system</h3><p>The production pipeline is working from your brief.</p></div></div>
+      <div class="step" data-step="2" role="listitem"><div class="step-indicator"><div class="step-dot">3</div><div class="step-line"></div></div><div class="step-content"><h3>Building</h3><p>Interface and automation being assembled together.</p></div></div>
+      <div class="step" data-step="3" role="listitem"><div class="step-indicator"><div class="step-dot">4</div><div class="step-line"></div></div><div class="step-content"><h3>Quality review</h3><p>Human review before anything leaves our hands.</p></div></div>
+      <div class="step" data-step="4" role="listitem"><div class="step-indicator"><div class="step-dot">5</div><div class="step-line"></div></div><div class="step-content"><h3>Final pass</h3><p>Last checks before delivery.</p></div></div>
+      <div class="step" data-step="5" role="listitem"><div class="step-indicator"><div class="step-dot">6</div><div class="step-line"></div></div><div class="step-content"><h3>With our team</h3><p>Deployment and configuration underway.</p></div></div>
     </div>
   </div>
 </section>
 
 <!-- CONFIRMATION -->
-<section class="results-section" id="confirmationSection" aria-labelledby="confirmation-title">
-  <div class="report-card" style="max-width:560px;margin:0 auto;text-align:center">
-    <div class="feature-icon green" aria-hidden="true" style="width:56px;height:56px;margin:0 auto var(--space-lg)">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+<section class="confirm-outer" id="confirmationSection">
+  <div class="confirm-card">
+    <div style="width:48px;height:48px;border-radius:50%;background:var(--green-dim);display:grid;place-items:center;margin:0 auto 24px">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
     </div>
-    <h3 id="confirmation-title" style="margin:0 0 var(--space-sm)">Project received</h3>
-    <p style="color:var(--text-secondary);margin:0 0 var(--space-xl);line-height:1.6">
-      Our team will review your brief, build and deploy everything, then send your delivery to
-      <strong id="confirmationEmail" style="color:var(--text-primary)">your email</strong>.
-    </p>
-    <div style="background:var(--bg-surface);border-radius:var(--radius-md);padding:var(--space-lg);margin-bottom:var(--space-xl);text-align:left">
-      <p style="font-family:var(--font-display);font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-md)">What happens next</p>
-      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:var(--space-sm)">
-        <li style="display:flex;align-items:center;gap:var(--space-sm);font-size:0.88rem;color:var(--text-secondary)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-          Our team reviews your brief
-        </li>
-        <li style="display:flex;align-items:center;gap:var(--space-sm);font-size:0.88rem;color:var(--text-secondary)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-          We build and deploy your application
-        </li>
-        <li style="display:flex;align-items:center;gap:var(--space-sm);font-size:0.88rem;color:var(--text-secondary)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-          You receive a working URL and everything you need to get started
-        </li>
-      </ul>
-    </div>
-    <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:var(--space-xl)">We'll be in touch if we need any clarification.</p>
-    <button class="gate-btn secondary" id="btnNewRequest" type="button" style="width:auto;margin:0 auto;padding:var(--space-sm) var(--space-xl);font-size:0.9rem">
-      <span class="gate-btn-text">Submit another project</span>
+    <h3>Brief received</h3>
+    <p>We'll build your system and deliver it to <strong id="confirmationEmail" style="color:var(--text-1)">your email</strong>. A working URL, ready to evaluate.</p>
+    <button class="gate-btn secondary" id="btnNewRequest" type="button" style="width:auto;margin:0 auto;padding:10px 22px;font-size:0.82rem">
+      <span class="gate-btn-text">Submit another brief</span>
     </button>
   </div>
 </section>
+
+<!-- GATE MODAL -->
+<div class="gate-overlay" id="gateOverlay" role="dialog" aria-modal="true">
+  <div class="gate-box" id="gateBox">
+    <div class="gate-header">
+      <span class="gate-title">Access required</span>
+      <button class="gate-close" id="btnCloseGate" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="gate-tabs">
+      <button class="gate-tab active" data-panel="code" type="button">I have an invite code</button>
+      <button class="gate-tab" data-panel="request" type="button">Request access</button>
+    </div>
+    <div class="gate-panel active" id="panelCode">
+      <input class="gate-input code-input" id="inviteCodeInput" type="text" placeholder="HRZ-XXXX-XXXX" maxlength="14" autocomplete="off" spellcheck="false" aria-label="Invite code">
+      <button class="gate-btn primary" id="btnValidateCode" type="button"><span class="gate-btn-text">Validate code</span><span class="gate-spinner"></span></button>
+      <div class="gate-msg" id="codeFeedback"></div>
+    </div>
+    <div class="gate-panel" id="panelRequest">
+      <input class="gate-input" id="requestEmailInput" type="email" placeholder="your@company.com" autocomplete="email" aria-label="Email address">
+      <button class="gate-btn secondary" id="btnRequestAccess" type="button"><span class="gate-btn-text">Request access</span><span class="gate-spinner"></span></button>
+      <div class="gate-msg" id="requestFeedback"></div>
+      <p class="gate-hint">We review each request and send an invite code if there's a fit.</p>
+    </div>
+  </div>
+  <div class="gate-box exhausted-box-inner hidden" id="exhaustedBox">
+    <div style="text-align:center;padding:8px 0">
+      <p style="font-family:'Fraunces',serif;font-weight:300;font-size:1.2rem;margin-bottom:12px">No submissions remaining</p>
+      <p style="font-size:0.82rem;color:var(--text-2);margin-bottom:20px;font-weight:300">Your allocation has been used. Request a new invite code to continue.</p>
+      <input class="gate-input" id="exhaustedEmailInput" type="email" placeholder="your@company.com" autocomplete="email" style="margin-bottom:0">
+      <button class="gate-btn secondary" id="btnExhaustedRequest" type="button"><span class="gate-btn-text">Request new access</span><span class="gate-spinner"></span></button>
+      <div class="gate-msg" id="exhaustedFeedback"></div>
+    </div>
+  </div>
+</div>
 
 <!-- ERROR TOAST -->
 <div class="error-toast" id="errorToast" role="alert" aria-live="assertive"></div>
 
 <!-- FOOTER -->
-<footer class="site-footer">
-  <p>© 2026 <a href="https://llulllab.com" target="_blank" rel="noopener">Llull Lab</a> · Feix AI Studio</p>
-  <p>Conçu et développé en France</p>
-  <p><a href="https://llulllab.com/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a> · <a href="https://llulllab.com/mentions-legales.html" target="_blank" rel="noopener">Mentions Légales</a></p>
+<footer>
+  <div class="site-footer">
+    <span class="footer-brand">Feix by Llull Lab, Paris</span>
+    <div class="footer-links">
+      <a href="https://llulllab.com/privacy-policy.html" target="_blank" rel="noopener">Privacy</a>
+      <a href="https://llulllab.com/mentions-legales.html" target="_blank" rel="noopener">Legal</a>
+      <a href="https://llulllab.com" target="_blank" rel="noopener">Llull Lab</a>
+    </div>
+    <span class="footer-brand">Conçu et développé en France</span>
+  </div>
 </footer>
 
 <script>
 (function(){
   'use strict';
-
-  // ─── ENDPOINTS ───
-  const API_BASE = 'https://n8n.tropus.io/webhook';
-  const ENDPOINTS = {
-    generate: API_BASE + '/generate-workflow-and-frontend',
-    validate: API_BASE + '/invite-validate',
-    request: API_BASE + '/hrz-access-request'
-  };
-
-  // ─── DOM ───
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
-  const promptInput = document.getElementById('promptInput');
-  const charCounter = document.getElementById('charCounter');
-  const btnGenerate = document.getElementById('btnGenerate');
-  const stepperSection = document.getElementById('stepperSection');
-  const confirmationSection = document.getElementById('confirmationSection');
-  const confirmationEmail = document.getElementById('confirmationEmail');
-  const btnNewRequest = document.getElementById('btnNewRequest');
-  const errorToast = document.getElementById('errorToast');
-  const steps = document.querySelectorAll('.step');
-
-  const packageRadios = document.querySelectorAll('input[name="packageChoice"]');
-  const byoFieldset = document.getElementById('byoFieldset');
-  const byoHosting = document.getElementById('byoHosting');
-  const byoDomain = document.getElementById('byoDomain');
-  const byoDatabase = document.getElementById('byoDatabase');
-  const byoEmail = document.getElementById('byoEmail');
-  const byoNotes = document.getElementById('byoNotes');
-  const deliveryEmailInput = document.getElementById('deliveryEmailInput');
-
-  const gateOverlay = document.getElementById('gateOverlay');
-  const gateBox = gateOverlay.querySelector('.gate-box');
-  const exhaustedBox = document.getElementById('exhaustedBox');
-  const btnCloseGate = document.getElementById('btnCloseGate');
-  const gateTabs = document.querySelectorAll('.gate-tab');
-  const gatePanels = document.querySelectorAll('.gate-panel');
-  const inviteCodeInput = document.getElementById('inviteCodeInput');
-  const btnValidateCode = document.getElementById('btnValidateCode');
-  const codeFeedback = document.getElementById('codeFeedback');
-  const requestEmailInput = document.getElementById('requestEmailInput');
-  const btnRequestAccess = document.getElementById('btnRequestAccess');
-  const requestFeedback = document.getElementById('requestFeedback');
-  const exhaustedEmailInput = document.getElementById('exhaustedEmailInput');
-  const btnExhaustedRequest = document.getElementById('btnExhaustedRequest');
-  const exhaustedFeedback = document.getElementById('exhaustedFeedback');
-  const usageBadge = document.getElementById('usageBadge');
-  const usageText = document.getElementById('usageText');
-
-  let sessionToken = null;
-  let remainingUses = 0;
-  let pendingSubmit = false;
-
-  // ─── SESSION HELPERS ───
-  function saveToken(token) {
-    sessionToken = token;
-    try { localStorage.setItem('horizon_token', token); } catch(e) {}
-  }
-  function loadToken() {
-    try { return localStorage.getItem('horizon_token'); } catch(e) { return null; }
-  }
-  function clearToken() {
-    sessionToken = null;
-    try { localStorage.removeItem('horizon_token'); } catch(e) {}
-  }
-
-  // ─── GATE MODAL ───
-  function openGate() {
-    gateBox.classList.remove('hidden');
-    exhaustedBox.classList.add('hidden');
-    gateOverlay.classList.remove('hidden');
-    gateOverlay.classList.add('visible');
-    setTimeout(() => inviteCodeInput.focus(), 100);
-  }
-
-  function openExhausted() {
-    gateBox.classList.add('hidden');
-    exhaustedBox.classList.remove('hidden');
-    gateOverlay.classList.remove('hidden');
-    gateOverlay.classList.add('visible');
-    clearToken();
-  }
-
-  function closeGate() {
-    gateOverlay.classList.remove('visible');
-    gateOverlay.classList.add('hidden');
-    pendingSubmit = false;
-    resetGateFeedback();
-  }
-
-  btnCloseGate.addEventListener('click', closeGate);
-  gateOverlay.addEventListener('click', (e) => {
-    if (e.target === gateOverlay) closeGate();
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && gateOverlay.classList.contains('visible')) closeGate();
-  });
-
-  // ─── USAGE BADGE ───
-  let lastMaxUses = 0;
-  function updateUsageBadge(remaining, maxUses) {
-    if (typeof remaining !== 'number') return;
-    if (maxUses != null) lastMaxUses = maxUses;
-    const display = lastMaxUses || '?';
-    usageText.textContent = remaining + ' / ' + display + ' runs left';
-    usageBadge.classList.remove('hidden', 'warning', 'depleted');
-    if (remaining <= 0) usageBadge.classList.add('depleted');
-    else if (remaining === 1) usageBadge.classList.add('warning');
-  }
-
-  function resetGateFeedback() {
-    [codeFeedback, requestFeedback, exhaustedFeedback].forEach(el => {
-      el.className = 'gate-msg';
-      el.textContent = '';
-    });
-  }
-
-  function showFeedback(el, msg, type) {
-    el.className = 'gate-msg ' + type;
-    el.textContent = msg;
-  }
-
-  function setLoading(btn, loading) {
-    if (loading) { btn.classList.add('loading'); btn.disabled = true; }
-    else { btn.classList.remove('loading'); btn.disabled = false; }
-  }
-
-  // ─── GATE TABS ───
-  gateTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      gateTabs.forEach(t => t.classList.remove('active'));
-      gatePanels.forEach(p => p.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById(tab.dataset.panel === 'code' ? 'panelCode' : 'panelRequest').classList.add('active');
-      resetGateFeedback();
-    });
-  });
-
-  // ─── VALIDATE INVITE CODE ───
-  async function validateCode() {
-    const code = inviteCodeInput.value.trim().toUpperCase();
-    if (!code) {
-      showFeedback(codeFeedback, 'Please enter your invite code.', 'error');
-      inviteCodeInput.focus();
-      return;
-    }
-    setLoading(btnValidateCode, true);
-    resetGateFeedback();
-    try {
-      const res = await fetch(ENDPOINTS.validate, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ invite_code: code })
-      });
-      const data = await res.json();
-      if (res.ok && data.token) {
-        saveToken(data.token);
-        remainingUses = data.remaining_uses || 0;
-        updateUsageBadge(data.remaining_uses, data.max_uses);
-        showFeedback(codeFeedback, 'Access granted!', 'success');
-        if (pendingSubmit) {
-          setTimeout(() => { closeGate(); doSubmit(); }, 700);
-        } else {
-          setTimeout(closeGate, 900);
-        }
-      } else {
-        showFeedback(codeFeedback, data.message || 'Invalid invite code.', 'error');
-      }
-    } catch (err) {
-      showFeedback(codeFeedback, 'Connection error. Please try again.', 'error');
-    } finally {
-      setLoading(btnValidateCode, false);
-    }
-  }
-
-  btnValidateCode.addEventListener('click', validateCode);
-  inviteCodeInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') { e.preventDefault(); validateCode(); }
-  });
-
-  // ─── REQUEST ACCESS ───
-  async function handleAccessRequest(emailInput, btn, feedbackEl) {
-    const email = emailInput.value.trim();
-    if (!email || !email.includes('@') || !email.includes('.')) {
-      showFeedback(feedbackEl, 'Please enter a valid email address.', 'error');
-      emailInput.focus();
-      return;
-    }
-    setLoading(btn, true);
-    try {
-      const res = await fetch(ENDPOINTS.request, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email })
-      });
-      const data = await res.json();
-      if (res.ok) {
-        showFeedback(feedbackEl, 'Request received! Check your email for an invite code.', 'success');
-        emailInput.value = '';
-      } else {
-        showFeedback(feedbackEl, data.message || 'Something went wrong.', 'error');
-      }
-    } catch (err) {
-      showFeedback(feedbackEl, 'Connection error. Please try again.', 'error');
-    } finally {
-      setLoading(btn, false);
-    }
-  }
-
-  btnRequestAccess.addEventListener('click', () => handleAccessRequest(requestEmailInput, btnRequestAccess, requestFeedback));
-  requestEmailInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); btnRequestAccess.click(); } });
-  btnExhaustedRequest.addEventListener('click', () => handleAccessRequest(exhaustedEmailInput, btnExhaustedRequest, exhaustedFeedback));
-  exhaustedEmailInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); btnExhaustedRequest.click(); } });
-
-  // ─── SESSION CHECK ON LOAD (silent, no lock) ───
-  async function checkSession() {
-    const token = loadToken();
-    if (!token) return;
-    sessionToken = token;
-    try {
-      const res = await fetch(ENDPOINTS.validate, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: token })
-      });
-      const data = await res.json();
-      if (res.ok && typeof data.remaining_uses === 'number' && data.remaining_uses > 0) {
-        remainingUses = data.remaining_uses;
-        updateUsageBadge(data.remaining_uses, data.max_uses);
-      } else if (res.ok && typeof data.remaining_uses === 'number' && data.remaining_uses <= 0) {
-        clearToken();
-      } else {
-        clearToken();
-      }
-    } catch (err) {
-      clearToken();
-    }
-  }
+  const API_BASE='https://n8n.tropus.io/webhook';
+  const ENDPOINTS={generate:API_BASE+'/generate-workflow-and-frontend',validate:API_BASE+'/invite-validate',request:API_BASE+'/hrz-access-request'};
+  const hamburger=document.getElementById('hamburger'),navLinks=document.getElementById('navLinks'),promptInput=document.getElementById('promptInput'),charCounter=document.getElementById('charCounter'),btnGenerate=document.getElementById('btnGenerate'),stepperSection=document.getElementById('stepperSection'),confirmationSection=document.getElementById('confirmationSection'),confirmationEmail=document.getElementById('confirmationEmail'),btnNewRequest=document.getElementById('btnNewRequest'),errorToast=document.getElementById('errorToast'),steps=document.querySelectorAll('.step'),deliveryEmailInput=document.getElementById('deliveryEmailInput'),gateOverlay=document.getElementById('gateOverlay'),gateBox=document.getElementById('gateBox'),exhaustedBox=document.getElementById('exhaustedBox'),btnCloseGate=document.getElementById('btnCloseGate'),gateTabs=document.querySelectorAll('.gate-tab'),gatePanels=document.querySelectorAll('.gate-panel'),inviteCodeInput=document.getElementById('inviteCodeInput'),btnValidateCode=document.getElementById('btnValidateCode'),codeFeedback=document.getElementById('codeFeedback'),requestEmailInput=document.getElementById('requestEmailInput'),btnRequestAccess=document.getElementById('btnRequestAccess'),requestFeedback=document.getElementById('requestFeedback'),exhaustedEmailInput=document.getElementById('exhaustedEmailInput'),btnExhaustedRequest=document.getElementById('btnExhaustedRequest'),exhaustedFeedback=document.getElementById('exhaustedFeedback'),usageBadge=document.getElementById('usageBadge'),usageText=document.getElementById('usageText');
+  let sessionToken=null,remainingUses=0,pendingSubmit=false,lastMaxUses=0;
+  function saveToken(t){sessionToken=t;try{localStorage.setItem('horizon_token',t)}catch(e){}}
+  function loadToken(){try{return localStorage.getItem('horizon_token')}catch(e){return null}}
+  function clearToken(){sessionToken=null;try{localStorage.removeItem('horizon_token')}catch(e){}}
+  function updateUsageBadge(remaining,maxUses){if(typeof remaining!=='number')return;if(maxUses!=null)lastMaxUses=maxUses;usageText.textContent=remaining+' / '+(lastMaxUses||'?')+' remaining';usageBadge.classList.remove('hidden','warning','depleted');if(remaining<=0)usageBadge.classList.add('depleted');else if(remaining===1)usageBadge.classList.add('warning')}
+  function resetGateFeedback(){[codeFeedback,requestFeedback,exhaustedFeedback].forEach(el=>{el.className='gate-msg';el.textContent=''})}
+  function showFeedback(el,msg,type){el.className='gate-msg '+type;el.textContent=msg}
+  function setLoading(btn,loading){if(loading){btn.classList.add('loading');btn.disabled=true}else{btn.classList.remove('loading');btn.disabled=false}}
+  function openGate(){gateBox.classList.remove('hidden');exhaustedBox.classList.add('hidden');gateOverlay.classList.add('visible');setTimeout(()=>inviteCodeInput.focus(),100)}
+  function openExhausted(){gateBox.classList.add('hidden');exhaustedBox.classList.remove('hidden');gateOverlay.classList.add('visible');clearToken()}
+  function closeGate(){gateOverlay.classList.remove('visible');pendingSubmit=false;resetGateFeedback()}
+  btnCloseGate.addEventListener('click',closeGate);
+  gateOverlay.addEventListener('click',e=>{if(e.target===gateOverlay)closeGate()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&gateOverlay.classList.contains('visible'))closeGate()});
+  gateTabs.forEach(tab=>{tab.addEventListener('click',()=>{gateTabs.forEach(t=>t.classList.remove('active'));gatePanels.forEach(p=>p.classList.remove('active'));tab.classList.add('active');document.getElementById(tab.dataset.panel==='code'?'panelCode':'panelRequest').classList.add('active');resetGateFeedback()})});
+  async function validateCode(){const code=inviteCodeInput.value.trim().toUpperCase();if(!code){showFeedback(codeFeedback,'Please enter your invite code.','error');inviteCodeInput.focus();return}setLoading(btnValidateCode,true);resetGateFeedback();try{const res=await fetch(ENDPOINTS.validate,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({invite_code:code})});const data=await res.json();if(res.ok&&data.token){saveToken(data.token);remainingUses=data.remaining_uses||0;updateUsageBadge(data.remaining_uses,data.max_uses);showFeedback(codeFeedback,'Access granted.','success');if(pendingSubmit){setTimeout(()=>{closeGate();doSubmit()},700)}else{setTimeout(closeGate,900)}}else{showFeedback(codeFeedback,data.message||'Invalid invite code.','error')}}catch(err){showFeedback(codeFeedback,'Connection error. Please try again.','error')}finally{setLoading(btnValidateCode,false)}}
+  btnValidateCode.addEventListener('click',validateCode);
+  inviteCodeInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();validateCode()}});
+  async function handleAccessRequest(emailInput,btn,feedbackEl){const email=emailInput.value.trim();if(!email||!email.includes('@')||!email.includes('.')){showFeedback(feedbackEl,'Please enter a valid email address.','error');emailInput.focus();return}setLoading(btn,true);try{const res=await fetch(ENDPOINTS.request,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});const data=await res.json();if(res.ok){showFeedback(feedbackEl,'Request received.','success');emailInput.value=''}else{showFeedback(feedbackEl,data.message||'Something went wrong.','error')}}catch(err){showFeedback(feedbackEl,'Connection error. Please try again.','error')}finally{setLoading(btn,false)}}
+  btnRequestAccess.addEventListener('click',()=>handleAccessRequest(requestEmailInput,btnRequestAccess,requestFeedback));
+  requestEmailInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();btnRequestAccess.click()}});
+  btnExhaustedRequest.addEventListener('click',()=>handleAccessRequest(exhaustedEmailInput,btnExhaustedRequest,exhaustedFeedback));
+  exhaustedEmailInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();btnExhaustedRequest.click()}});
+  async function checkSession(){const token=loadToken();if(!token)return;sessionToken=token;try{const res=await fetch(ENDPOINTS.validate,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token})});const data=await res.json();if(res.ok&&typeof data.remaining_uses==='number'&&data.remaining_uses>0){remainingUses=data.remaining_uses;updateUsageBadge(data.remaining_uses,data.max_uses)}else{clearToken()}}catch(err){clearToken()}}
   checkSession();
-
-  // ─── REFRESH USAGE ───
-  async function refreshUsage() {
-    if (!sessionToken) return;
-    try {
-      const res = await fetch(ENDPOINTS.validate, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: sessionToken })
-      });
-      const data = await res.json();
-      if (res.ok) {
-        remainingUses = data.remaining_uses;
-        updateUsageBadge(data.remaining_uses, data.max_uses);
-        if (data.remaining_uses <= 0) openExhausted();
-      }
-    } catch(e) {}
-  }
-
-  // ─── HAMBURGER ───
-  hamburger.addEventListener('click', () => {
-    const open = navLinks.classList.toggle('open');
-    hamburger.classList.toggle('active');
-    hamburger.setAttribute('aria-expanded', String(open));
-    navLinks.setAttribute('aria-hidden', String(!open));
-  });
-  navLinks.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      navLinks.classList.remove('open');
-      hamburger.classList.remove('active');
-      hamburger.setAttribute('aria-expanded', 'false');
-      navLinks.setAttribute('aria-hidden', 'true');
-    });
-  });
-
-  // ─── CHAR COUNTER ───
-  promptInput.addEventListener('input', () => {
-    charCounter.textContent = promptInput.value.length + ' / 10000';
-  });
-
-  // ─── PROMPT EXAMPLE BUTTONS ───
-  document.querySelectorAll('.prompt-example-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      promptInput.value = btn.dataset.fill;
-      charCounter.textContent = promptInput.value.length + ' / 10000';
-      promptInput.focus();
-      promptInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    });
-  });
-
-  // ─── FADE IN OBSERVER ───
-  const fadeEls = document.querySelectorAll('.fade-in');
-  const fadeObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); fadeObs.unobserve(e.target); }
-    });
-  }, { threshold: 0.15 });
-  fadeEls.forEach(el => fadeObs.observe(el));
-
-  // ─── STEPPER ───
-  function setStep(index) {
-    steps.forEach((step, i) => {
-      step.classList.remove('active', 'completed');
-      if (i < index) step.classList.add('completed');
-      else if (i === index) step.classList.add('active');
-    });
-  }
-  function resetStepper() {
-    steps.forEach(s => s.classList.remove('active', 'completed'));
-  }
-
-  // ─── ERROR TOAST ───
+  async function refreshUsage(){if(!sessionToken)return;try{const res=await fetch(ENDPOINTS.validate,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:sessionToken})});const data=await res.json();if(res.ok){remainingUses=data.remaining_uses||0;updateUsageBadge(data.remaining_uses,data.max_uses);if(data.remaining_uses<=0)openExhausted()}}catch(e){}}
+  hamburger.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');hamburger.classList.toggle('active');hamburger.setAttribute('aria-expanded',String(open));navLinks.setAttribute('aria-hidden',String(!open))});
+  navLinks.querySelectorAll('a').forEach(a=>{a.addEventListener('click',()=>{navLinks.classList.remove('open');hamburger.classList.remove('active');hamburger.setAttribute('aria-expanded','false');navLinks.setAttribute('aria-hidden','true')})});
+  promptInput.addEventListener('input',()=>{charCounter.textContent=promptInput.value.length+' / 10000'});
+  const fadeEls=document.querySelectorAll('.fade-in');
+  const fadeObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');fadeObs.unobserve(e.target)}})},{threshold:0.1});
+  fadeEls.forEach(el=>fadeObs.observe(el));
+  function setStep(index){steps.forEach((step,i)=>{step.classList.remove('active','completed');if(i<index)step.classList.add('completed');else if(i===index)step.classList.add('active')})}
+  function resetStepper(){steps.forEach(s=>s.classList.remove('active','completed'))}
   let errorTimeout;
-  function showError(msg) {
-    errorToast.textContent = msg;
-    errorToast.classList.add('visible');
-    clearTimeout(errorTimeout);
-    errorTimeout = setTimeout(() => errorToast.classList.remove('visible'), 5000);
-  }
-
-  // ─── PACKAGE TOGGLE ───
-  function updateByoVisibility() {
-    const selected = document.querySelector('input[name="packageChoice"]:checked');
-    byoFieldset.classList.toggle('hidden', !(selected && selected.value === 'byo'));
-  }
-  packageRadios.forEach(r => r.addEventListener('change', updateByoVisibility));
-  updateByoVisibility();
-
-  // ─── COLLECT BYO CREDENTIALS ───
-  function collectByoCredentials() {
-    const fields = {
-      hosting: byoHosting.value.trim(),
-      domain: byoDomain.value.trim(),
-      database: byoDatabase.value.trim(),
-      email_provider: byoEmail.value.trim(),
-      notes: byoNotes.value.trim()
-    };
-    const clean = {};
-    for (const [k, v] of Object.entries(fields)) { if (v) clean[k] = v; }
-    return clean;
-  }
-
-  // ─── RESET FORM ───
-  function resetSubmissionForm() {
-    promptInput.value = '';
-    charCounter.textContent = '0 / 10000';
-    byoHosting.value = '';
-    byoDomain.value = '';
-    byoDatabase.value = '';
-    byoEmail.value = '';
-    byoNotes.value = '';
-    deliveryEmailInput.value = '';
-    const managedRadio = document.querySelector('input[name="packageChoice"][value="managed"]');
-    if (managedRadio) managedRadio.checked = true;
-    updateByoVisibility();
-    confirmationSection.classList.remove('visible');
-    stepperSection.classList.remove('visible');
-    resetStepper();
-  }
-
-  btnNewRequest.addEventListener('click', () => {
-    resetSubmissionForm();
-    promptInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(() => promptInput.focus(), 400);
-  });
-
-  // ─── VALIDATE FORM FIELDS ───
-  function validateForm() {
-    const prompt = promptInput.value.trim();
-    if (!prompt) { showError('Please describe your project.'); promptInput.focus(); return false; }
-    if (prompt.length < 10) { showError('Your description is too short. Please add more detail.'); promptInput.focus(); return false; }
-    const deliveryEmail = deliveryEmailInput.value.trim();
-    if (!deliveryEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(deliveryEmail)) {
-      showError('Please provide a valid delivery email address.');
-      deliveryEmailInput.focus();
-      return false;
-    }
-    const selectedPackage = document.querySelector('input[name="packageChoice"]:checked');
-    const pkg = selectedPackage ? selectedPackage.value : 'managed';
-    if (pkg === 'byo') {
-      const credentials = collectByoCredentials();
-      if (Object.keys(credentials).length === 0) {
-        showError('Please provide at least one infrastructure detail for the Bring Your Own package.');
-        byoHosting.focus();
-        return false;
-      }
-    }
-    return true;
-  }
-
-  // ─── ACTUAL SUBMIT ───
-  async function doSubmit() {
-    if (remainingUses <= 0) { openExhausted(); return; }
-
-    const prompt = promptInput.value.trim();
-    const selectedPackage = document.querySelector('input[name="packageChoice"]:checked');
-    const pkg = selectedPackage ? selectedPackage.value : 'managed';
-    const deliveryEmail = deliveryEmailInput.value.trim();
-    const credentials = pkg === 'byo' ? collectByoCredentials() : null;
-
-    btnGenerate.classList.add('loading');
-    btnGenerate.disabled = true;
-    confirmationSection.classList.remove('visible');
-    stepperSection.classList.add('visible');
-    stepperSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    resetStepper();
-
-    setStep(0);
-    const stepTimers = [];
-    stepTimers.push(setTimeout(() => setStep(1), 1500));
-    stepTimers.push(setTimeout(() => setStep(2), 8000));
-    stepTimers.push(setTimeout(() => setStep(3), 15000));
-    stepTimers.push(setTimeout(() => setStep(4), 22000));
-
-    try {
-      const payload = { token: sessionToken, prompt, package: pkg, deliveryEmail };
-      if (pkg === 'byo') payload.credentials = credentials;
-
-      const response = await fetch(ENDPOINTS.generate, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      if (!response.ok) {
-        let errorMsg = 'Server error: ' + response.status;
-        try { const errData = await response.json(); if (errData.message) errorMsg = errData.message; } catch(e) {}
-        if (response.status === 401 || response.status === 403) clearToken();
-        throw new Error(errorMsg);
-      }
-
-      const data = await response.json();
-
-      stepTimers.forEach(clearTimeout);
-      for (let i = 0; i <= 4; i++) {
-        setStep(i);
-        await new Promise(r => setTimeout(r, 300));
-      }
-      setStep(5);
-      steps[5].classList.remove('active');
-      steps[5].classList.add('completed');
-
-      confirmationEmail.textContent = data.deliveryEmail || deliveryEmail;
-      confirmationSection.classList.add('visible');
-      setTimeout(() => confirmationSection.scrollIntoView({ behavior: 'smooth', block: 'start' }), 400);
-
-      remainingUses = Math.max(0, remainingUses - 1);
-      updateUsageBadge(remainingUses, null);
-      if (remainingUses <= 0) { openExhausted(); return; }
-      await refreshUsage();
-
-    } catch (err) {
-      stepTimers.forEach(clearTimeout);
-      resetStepper();
-      stepperSection.classList.remove('visible');
-      showError('An error occurred: ' + err.message);
-    } finally {
-      btnGenerate.classList.remove('loading');
-      btnGenerate.disabled = false;
-    }
-  }
-
-  // ─── SUBMIT BUTTON (gate-first flow) ───
-  btnGenerate.addEventListener('click', () => {
-    if (!validateForm()) return;
-
-    if (!sessionToken) {
-      pendingSubmit = true;
-      openGate();
-      return;
-    }
-    if (remainingUses <= 0) { openExhausted(); return; }
-    doSubmit();
-  });
-
-  // ─── KEYBOARD SHORTCUT ───
-  promptInput.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); btnGenerate.click(); }
-  });
-
-  // ─── NAV VISIBILITY ───
-  function handleNavVisibility() {
-    if (window.innerWidth >= 1024) {
-      navLinks.removeAttribute('aria-hidden');
-      navLinks.classList.remove('open');
-      hamburger.classList.remove('active');
-      hamburger.setAttribute('aria-expanded', 'false');
-    } else {
-      if (!navLinks.classList.contains('open')) navLinks.setAttribute('aria-hidden', 'true');
-    }
-  }
-  window.addEventListener('resize', handleNavVisibility);
-  handleNavVisibility();
-
+  function showError(msg){errorToast.textContent=msg;errorToast.classList.add('visible');clearTimeout(errorTimeout);errorTimeout=setTimeout(()=>errorToast.classList.remove('visible'),5000)}
+  function validateForm(){const prompt=promptInput.value.trim();if(!prompt){showError('Please describe your project.');promptInput.focus();return false}if(prompt.length<10){showError('Your description is too short.');promptInput.focus();return false}const email=deliveryEmailInput.value.trim();if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showError('Please provide a valid delivery email.');deliveryEmailInput.focus();return false}return true}
+  async function doSubmit(){if(remainingUses<=0){openExhausted();return}const prompt=promptInput.value.trim(),deliveryEmail=deliveryEmailInput.value.trim();btnGenerate.classList.add('loading');btnGenerate.disabled=true;confirmationSection.classList.remove('visible');stepperSection.classList.add('visible');stepperSection.scrollIntoView({behavior:'smooth',block:'center'});resetStepper();setStep(0);const stepTimers=[];stepTimers.push(setTimeout(()=>setStep(1),1500));stepTimers.push(setTimeout(()=>setStep(2),8000));stepTimers.push(setTimeout(()=>setStep(3),15000));stepTimers.push(setTimeout(()=>setStep(4),22000));try{const payload={token:sessionToken,prompt,package:'managed',deliveryEmail};const response=await fetch(ENDPOINTS.generate,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});if(!response.ok){let errorMsg='Server error: '+response.status;try{const errData=await response.json();if(errData.message)errorMsg=errData.message}catch(e){}if(response.status===401||response.status===403)clearToken();throw new Error(errorMsg)}const data=await response.json();stepTimers.forEach(clearTimeout);for(let i=0;i<=4;i++){setStep(i);await new Promise(r=>setTimeout(r,300))}setStep(5);steps[5].classList.remove('active');steps[5].classList.add('completed');confirmationEmail.textContent=data.deliveryEmail||deliveryEmail;confirmationSection.classList.add('visible');setTimeout(()=>confirmationSection.scrollIntoView({behavior:'smooth',block:'start'}),400);remainingUses=Math.max(0,remainingUses-1);updateUsageBadge(remainingUses,null);if(remainingUses<=0){openExhausted();return}await refreshUsage()}catch(err){stepTimers.forEach(clearTimeout);resetStepper();stepperSection.classList.remove('visible');showError('An error occurred: '+err.message)}finally{btnGenerate.classList.remove('loading');btnGenerate.disabled=false}}
+  btnGenerate.addEventListener('click',()=>{if(!validateForm())return;if(!sessionToken){pendingSubmit=true;openGate();return}if(remainingUses<=0){openExhausted();return}doSubmit()});
+  promptInput.addEventListener('keydown',(e)=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();btnGenerate.click()}});
+  btnNewRequest.addEventListener('click',()=>{promptInput.value='';charCounter.textContent='0 / 10000';deliveryEmailInput.value='';confirmationSection.classList.remove('visible');stepperSection.classList.remove('visible');resetStepper();promptInput.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>promptInput.focus(),400)});
+  function handleNavVisibility(){if(window.innerWidth>=1024){navLinks.removeAttribute('aria-hidden');navLinks.classList.remove('open');hamburger.classList.remove('active');hamburger.setAttribute('aria-expanded','false')}else{if(!navLinks.classList.contains('open'))navLinks.setAttribute('aria-hidden','true')}}
+  window.addEventListener('resize',handleNavVisibility);handleNavVisibility();
 })();
 </script>
 </body>
