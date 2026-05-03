@@ -549,24 +549,19 @@ a:hover{text-decoration:underline}
     <p class="hero-right-label">Built for operations like these</p>
     <ul class="industry-list">
       <li class="industry-item">
-        <span class="industry-name">Private fleet management</span>
-        <span class="industry-example">Yachts, aircraft, vehicles</span>
+        <span class="industry-name">Fleet management</span>
       </li>
       <li class="industry-item">
-        <span class="industry-name">Luxury hospitality</span>
-        <span class="industry-example">Reservation and concierge systems</span>
+        <span class="industry-name">Hospitality operations</span>
       </li>
       <li class="industry-item">
-        <span class="industry-name">Exclusive membership services</span>
-        <span class="industry-example">Member portals and booking platforms</span>
+        <span class="industry-name">Membership services</span>
       </li>
       <li class="industry-item">
         <span class="industry-name">Bespoke manufacturing</span>
-        <span class="industry-example">Order tracking and client portals</span>
       </li>
       <li class="industry-item">
-        <span class="industry-name">Premium professional services</span>
-        <span class="industry-example">Client management and scheduling</span>
+        <span class="industry-name">Professional services</span>
       </li>
     </ul>
   </div>
@@ -763,14 +758,6 @@ a:hover{text-decoration:underline}
       <input class="gate-input" id="subEmailInput" type="email" placeholder="your@company.com" autocomplete="email" aria-label="Email address">
       <button class="gate-btn primary" id="btnSubAccess" type="button"><span class="gate-btn-text">Access now</span><span class="gate-spinner"></span></button>
       <div class="gate-msg" id="subFeedback"></div>
-      <div id="subPricingInfo" style="display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
-        <p style="font-size:0.78rem;color:var(--text-2);margin-bottom:12px;font-weight:300">Choose a plan to get started:</p>
-        <div style="display:flex;gap:8px">
-          <button class="gate-btn primary" id="btnSubMonthly" type="button" style="margin-top:0;flex:1"><span class="gate-btn-text">&#8364;49 / month</span><span class="gate-spinner"></span></button>
-          <button class="gate-btn secondary" id="btnSubAnnual" type="button" style="margin-top:0;flex:1"><span class="gate-btn-text">&#8364;440 / year</span><span class="gate-spinner"></span></button>
-        </div>
-        <p class="gate-hint">Platform access. Projects are quoted separately.</p>
-      </div>
     </div>
     <div class="gate-panel" id="panelCode">
       <input class="gate-input code-input" id="inviteCodeInput" type="text" placeholder="HRZ-XXXX-XXXX" maxlength="14" autocomplete="off" spellcheck="false" aria-label="Invite code">
@@ -815,8 +802,8 @@ a:hover{text-decoration:underline}
 (function(){
   'use strict';
   const API_BASE='https://n8n.tropus.io/webhook';
-  const ENDPOINTS={generate:API_BASE+'/generate-workflow-and-frontend',validate:API_BASE+'/invite-validate',request:API_BASE+'/hrz-access-request',subscribeAccess:API_BASE+'/subscribe-access',stripeCheckout:API_BASE+'/stripe-checkout'};
-  const hamburger=document.getElementById('hamburger'),navLinks=document.getElementById('navLinks'),promptInput=document.getElementById('promptInput'),charCounter=document.getElementById('charCounter'),btnGenerate=document.getElementById('btnGenerate'),stepperSection=document.getElementById('stepperSection'),confirmationSection=document.getElementById('confirmationSection'),confirmationEmail=document.getElementById('confirmationEmail'),btnNewRequest=document.getElementById('btnNewRequest'),errorToast=document.getElementById('errorToast'),steps=document.querySelectorAll('.step'),deliveryEmailInput=document.getElementById('deliveryEmailInput'),gateOverlay=document.getElementById('gateOverlay'),gateBox=document.getElementById('gateBox'),exhaustedBox=document.getElementById('exhaustedBox'),btnCloseGate=document.getElementById('btnCloseGate'),gateTabs=document.querySelectorAll('.gate-tab'),gatePanels=document.querySelectorAll('.gate-panel'),subEmailInput=document.getElementById('subEmailInput'),btnSubAccess=document.getElementById('btnSubAccess'),subFeedback=document.getElementById('subFeedback'),subPricingInfo=document.getElementById('subPricingInfo'),btnSubMonthly=document.getElementById('btnSubMonthly'),btnSubAnnual=document.getElementById('btnSubAnnual'),inviteCodeInput=document.getElementById('inviteCodeInput'),btnValidateCode=document.getElementById('btnValidateCode'),codeFeedback=document.getElementById('codeFeedback'),requestEmailInput=document.getElementById('requestEmailInput'),btnRequestAccess=document.getElementById('btnRequestAccess'),requestFeedback=document.getElementById('requestFeedback'),exhaustedEmailInput=document.getElementById('exhaustedEmailInput'),btnExhaustedRequest=document.getElementById('btnExhaustedRequest'),exhaustedFeedback=document.getElementById('exhaustedFeedback'),usageBadge=document.getElementById('usageBadge'),usageText=document.getElementById('usageText');
+  const ENDPOINTS={generate:API_BASE+'/generate-workflow-and-frontend',validate:API_BASE+'/invite-validate',request:API_BASE+'/hrz-access-request',subscribeAccess:API_BASE+'/subscribe-access'};
+  const hamburger=document.getElementById('hamburger'),navLinks=document.getElementById('navLinks'),promptInput=document.getElementById('promptInput'),charCounter=document.getElementById('charCounter'),btnGenerate=document.getElementById('btnGenerate'),stepperSection=document.getElementById('stepperSection'),confirmationSection=document.getElementById('confirmationSection'),confirmationEmail=document.getElementById('confirmationEmail'),btnNewRequest=document.getElementById('btnNewRequest'),errorToast=document.getElementById('errorToast'),steps=document.querySelectorAll('.step'),deliveryEmailInput=document.getElementById('deliveryEmailInput'),gateOverlay=document.getElementById('gateOverlay'),gateBox=document.getElementById('gateBox'),exhaustedBox=document.getElementById('exhaustedBox'),btnCloseGate=document.getElementById('btnCloseGate'),gateTabs=document.querySelectorAll('.gate-tab'),gatePanels=document.querySelectorAll('.gate-panel'),subEmailInput=document.getElementById('subEmailInput'),btnSubAccess=document.getElementById('btnSubAccess'),subFeedback=document.getElementById('subFeedback'),inviteCodeInput=document.getElementById('inviteCodeInput'),btnValidateCode=document.getElementById('btnValidateCode'),codeFeedback=document.getElementById('codeFeedback'),requestEmailInput=document.getElementById('requestEmailInput'),btnRequestAccess=document.getElementById('btnRequestAccess'),requestFeedback=document.getElementById('requestFeedback'),exhaustedEmailInput=document.getElementById('exhaustedEmailInput'),btnExhaustedRequest=document.getElementById('btnExhaustedRequest'),exhaustedFeedback=document.getElementById('exhaustedFeedback'),usageBadge=document.getElementById('usageBadge'),usageText=document.getElementById('usageText');
   let sessionToken=null,remainingUses=0,pendingSubmit=false,lastMaxUses=0;
   function saveToken(t){sessionToken=t;try{localStorage.setItem('horizon_token',t)}catch(e){}}
   function loadToken(){try{return localStorage.getItem('horizon_token')}catch(e){return null}}
@@ -824,7 +811,7 @@ a:hover{text-decoration:underline}
   function saveSubEmail(e){try{localStorage.setItem('feix_sub_email',e)}catch(x){}}
   function loadSubEmail(){try{return localStorage.getItem('feix_sub_email')}catch(e){return null}}
   function updateUsageBadge(remaining,maxUses){if(typeof remaining!=='number')return;if(maxUses!=null)lastMaxUses=maxUses;usageText.textContent=remaining+' / '+(lastMaxUses||'?')+' remaining';usageBadge.classList.remove('hidden','warning','depleted');if(remaining<=0)usageBadge.classList.add('depleted');else if(remaining===1)usageBadge.classList.add('warning')}
-  function resetGateFeedback(){[subFeedback,codeFeedback,requestFeedback,exhaustedFeedback].forEach(el=>{el.className='gate-msg';el.textContent='';});if(subPricingInfo)subPricingInfo.style.display='none'}
+  function resetGateFeedback(){[subFeedback,codeFeedback,requestFeedback,exhaustedFeedback].forEach(el=>{el.className='gate-msg';el.textContent=''})}
   function showFeedback(el,msg,type){el.className='gate-msg '+type;el.textContent=msg}
   function setLoading(btn,loading){if(loading){btn.classList.add('loading');btn.disabled=true}else{btn.classList.remove('loading');btn.disabled=false}}
   function openGate(){gateBox.classList.remove('hidden');exhaustedBox.classList.add('hidden');gateOverlay.classList.add('visible');setTimeout(()=>subEmailInput.focus(),100)}
@@ -836,11 +823,8 @@ a:hover{text-decoration:underline}
   const feixPanelMap={subscribe:'panelSubscribe',code:'panelCode',request:'panelRequest'};
   gateTabs.forEach(tab=>{tab.addEventListener('click',()=>{gateTabs.forEach(t=>t.classList.remove('active'));gatePanels.forEach(p=>p.classList.remove('active'));tab.classList.add('active');document.getElementById(feixPanelMap[tab.dataset.panel]||'panelSubscribe').classList.add('active');resetGateFeedback()})});
   async function checkSubscribeAccess(email){const res=await fetch(ENDPOINTS.subscribeAccess,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,product:'feix'})});const data=await res.json();if(res.ok&&data.token){saveToken(data.token);saveSubEmail(email);remainingUses=data.remaining_uses||0;updateUsageBadge(data.remaining_uses,data.max_uses);return true}return false}
-  btnSubAccess.addEventListener('click',async()=>{const email=subEmailInput.value.trim().toLowerCase();if(!email||!email.includes('@')||!email.includes('.')){showFeedback(subFeedback,'Please enter a valid email address.','error');subEmailInput.focus();return}setLoading(btnSubAccess,true);subFeedback.className='gate-msg';subPricingInfo.style.display='none';try{const ok=await checkSubscribeAccess(email);if(ok){if(pendingSubmit){setTimeout(()=>{closeGate();doSubmit()},600)}else{setTimeout(closeGate,800)}}else{showFeedback(subFeedback,'No active subscription found for this email.','error');subPricingInfo.style.display='block'}}catch(e){showFeedback(subFeedback,'Connection error. Please try again.','error')}finally{setLoading(btnSubAccess,false)}});
+  btnSubAccess.addEventListener('click',async()=>{const email=subEmailInput.value.trim().toLowerCase();if(!email||!email.includes('@')||!email.includes('.')){showFeedback(subFeedback,'Please enter a valid email address.','error');subEmailInput.focus();return}setLoading(btnSubAccess,true);subFeedback.className='gate-msg';try{const ok=await checkSubscribeAccess(email);if(ok){if(pendingSubmit){setTimeout(()=>{closeGate();doSubmit()},600)}else{setTimeout(closeGate,800)}}else{showFeedback(subFeedback,'No active subscription found for this email.','error')}}catch(e){showFeedback(subFeedback,'Connection error. Please try again.','error')}finally{setLoading(btnSubAccess,false)}});
   subEmailInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();btnSubAccess.click()}});
-  async function startFeixCheckout(plan){const email=subEmailInput.value.trim().toLowerCase();if(!email||!email.includes('@')||!email.includes('.')){showFeedback(subFeedback,'Please enter your email above first.','error');subEmailInput.focus();return}const btn=plan==='standard_monthly'?btnSubMonthly:btnSubAnnual;setLoading(btn,true);try{const res=await fetch(ENDPOINTS.stripeCheckout,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,product:'feix',plan})});const data=await res.json();if(res.ok&&data.checkout_url){window.location.href=data.checkout_url}else{showFeedback(subFeedback,data.error||'Could not start checkout.','error');setLoading(btn,false)}}catch(e){showFeedback(subFeedback,'Connection error. Please try again.','error');setLoading(btn,false)}}
-  btnSubMonthly.addEventListener('click',()=>startFeixCheckout('standard_monthly'));
-  btnSubAnnual.addEventListener('click',()=>startFeixCheckout('standard_annual'));
   async function validateCode(){const code=inviteCodeInput.value.trim().toUpperCase();if(!code){showFeedback(codeFeedback,'Please enter your invite code.','error');inviteCodeInput.focus();return}setLoading(btnValidateCode,true);resetGateFeedback();try{const res=await fetch(ENDPOINTS.validate,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({invite_code:code})});const data=await res.json();if(res.ok&&data.token){saveToken(data.token);remainingUses=data.remaining_uses||0;updateUsageBadge(data.remaining_uses,data.max_uses);showFeedback(codeFeedback,'Access granted.','success');if(pendingSubmit){setTimeout(()=>{closeGate();doSubmit()},700)}else{setTimeout(closeGate,900)}}else{showFeedback(codeFeedback,data.message||'Invalid invite code.','error')}}catch(err){showFeedback(codeFeedback,'Connection error. Please try again.','error')}finally{setLoading(btnValidateCode,false)}}
   btnValidateCode.addEventListener('click',validateCode);
   inviteCodeInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();validateCode()}});
