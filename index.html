@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feix — Complex operations. Custom systems.</title>
+<meta name="description" content="We build complete digital systems for complex operations. From brief to live product, in hours. You evaluate before you pay.">
+<link rel="canonical" href="https://feix.app/">
+<link rel="icon" type="image/jpeg" href="https://feix.app/logo.jpg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://feix.app/">
+<meta property="og:title" content="Feix — Complex operations. Custom systems.">
+<meta property="og:description" content="We build complete digital systems for complex operations. From brief to live product, in hours. You evaluate before you pay.">
+<meta property="og:image" content="https://feix.app/logo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Feix — Complex operations. Custom systems.">
+<meta name="twitter:description" content="We build complete digital systems for complex operations. From brief to live product, in hours. You evaluate before you pay.">
+<meta name="twitter:image" content="https://feix.app/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,300;0,400;1,200;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --navy:#0a1628;
+  --navy-mid:#0f2040;
+  --navy-light:#16335a;
+  --border:#1e3355;
+  --border-light:rgba(255,255,255,0.08);
+  --text-1:#e8f0fc;
+  --text-2:rgba(232,240,252,0.55);
+  --text-3:rgba(232,240,252,0.30);
+  --accent:#6bb8ff;
+  --accent-warm:#e8c97a;
+  --accent-dim:rgba(107,184,255,0.10);
+  --accent-border:rgba(107,184,255,0.25);
+  --green:#52d17c;
+  --green-dim:rgba(82,209,124,0.10);
+  --red:#f87171;
+  --r-sm:4px;
+  --r-md:8px;
+  --r-lg:12px;
+  --r-xl:16px;
+}
+
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--navy);
+  color:var(--text-1);
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--accent-dim);color:var(--accent)}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(10,22,40,0.90);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  padding:0 48px;
+  height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{
+  font-family:'DM Sans',sans-serif;font-weight:600;font-size:1.05rem;
+  letter-spacing:0.04em;color:var(--text-1);
+  display:flex;align-items:center;gap:10px;
+}
+.nav-logo-mark{
+  width:26px;height:26px;border-radius:5px;overflow:hidden;
+}
+.nav-logo-mark img{width:100%;height:100%;object-fit:cover;display:block}
+.nav-links{display:flex;gap:32px;align-items:center;list-style:none}
+.nav-links a{
+  font-size:0.82rem;color:var(--text-2);font-weight:400;
+  transition:color 200ms ease;
+}
+.nav-links a:hover{color:var(--text-1);text-decoration:none}
+.nav-cta{
+  font-size:0.82rem;font-weight:500;
+  background:var(--accent);color:var(--navy);
+  border:none;border-radius:var(--r-sm);
+  padding:8px 20px;cursor:pointer;
+  transition:opacity 200ms ease,transform 200ms ease;
+  text-decoration:none;
+}
+.nav-cta:hover{opacity:0.88;transform:translateY(-1px);text-decoration:none}
+.ui-lang-select{font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:400;color:var(--text-2);background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:var(--r-sm);padding:7px 10px;cursor:pointer;outline:none;transition:border-color 200ms ease,color 200ms ease}
+.ui-lang-select:hover,.ui-lang-select:focus{border-color:var(--accent-border);color:var(--text-1)}
+.ui-lang-select option{background:#0d1e35;color:var(--text-1)}
+@media(max-width:1023px){.nav-links .ui-lang-select{font-size:1rem}}
+
+.hamburger{
+  display:none;background:none;border:none;cursor:pointer;
+  width:44px;height:44px;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text-2);border-radius:2px;transition:all 300ms ease}
+.hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* HERO */
+.hero{
+  padding:64px 0 0;
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  border-bottom:1px solid var(--border);
+}
+.hero-left{
+  padding:80px 64px 80px 48px;
+  display:flex;flex-direction:column;justify-content:center;
+  border-right:1px solid var(--border);
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent-dim);border:1px solid var(--accent-border);
+  border-radius:999px;padding:4px 14px 4px 8px;
+  font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:32px;width:fit-content;
+}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.5)}}
+
+.hero h1{
+  font-family:'Fraunces',serif;
+  font-weight:300;font-size:clamp(2.8rem,5vw,4.5rem);
+  line-height:1.0;letter-spacing:-0.02em;
+  margin-bottom:24px;color:var(--text-1);
+}
+.hero-sub{
+  font-size:1rem;color:var(--text-2);
+  line-height:1.75;margin-bottom:40px;font-weight:300;max-width:44ch;
+}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:500;
+  background:var(--accent);color:var(--navy);border:none;border-radius:var(--r-md);
+  padding:13px 28px;cursor:pointer;text-decoration:none;
+  transition:opacity 200ms ease,transform 200ms ease;
+}
+.btn-primary:hover{opacity:0.88;transform:translateY(-1px);text-decoration:none}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:0.88rem;font-weight:400;
+  color:var(--text-2);border:1px solid var(--border-light);border-radius:var(--r-md);
+  padding:13px 28px;cursor:pointer;text-decoration:none;
+  transition:all 200ms ease;
+}
+.btn-outline:hover{border-color:rgba(255,255,255,0.2);color:var(--text-1);text-decoration:none}
+
+.hero-right{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:80px 48px 80px 64px;
+}
+.hero-right-label{
+  font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--text-3);margin-bottom:32px;font-weight:400;
+}
+.industry-list{list-style:none;display:flex;flex-direction:column;gap:0}
+.industry-item{
+  padding:18px 0;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;transition:background 200ms ease;
+}
+.industry-item:first-child{border-top:1px solid var(--border)}
+.industry-name{
+  font-family:'Fraunces',serif;font-weight:200;
+  font-size:1.1rem;color:var(--text-1);letter-spacing:-0.01em;
+}
+.industry-example{
+  font-size:0.74rem;color:var(--text-3);font-weight:300;
+  text-align:right;max-width:22ch;line-height:1.4;
+}
+
+/* PROMISE BANNER */
+.promise{
+  background:var(--navy-mid);
+  border-bottom:1px solid var(--border);
+  padding:56px 48px;
+  text-align:center;
+}
+.promise h2{
+  font-family:'Fraunces',serif;font-weight:200;
+  font-size:clamp(1.8rem,4vw,3.2rem);letter-spacing:-0.02em;
+  color:var(--text-1);margin-bottom:16px;
+}
+.promise p{font-size:1rem;color:var(--text-2);max-width:56ch;margin:0 auto;line-height:1.75;font-weight:300}
+
+/* OFFER SECTION */
+.offer{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-bottom:1px solid var(--border);
+}
+.offer-left{
+  padding:72px 48px;border-right:1px solid var(--border);
+}
+.offer-right{
+  padding:72px 48px;
+  background:var(--navy-mid);
+}
+.section-label{
+  font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--text-3);font-weight:400;margin-bottom:24px;display:block;
+}
+.offer-left h2{
+  font-family:'Fraunces',serif;font-weight:300;
+  font-size:clamp(2rem,3.5vw,2.8rem);line-height:1.1;letter-spacing:-0.02em;
+  margin-bottom:28px;color:var(--text-1);
+}
+.offer-left p{font-size:0.9rem;color:var(--text-2);line-height:1.8;font-weight:300;margin-bottom:20px}
+.offer-left p:last-child{margin-bottom:0}
+
+.offer-steps{display:flex;flex-direction:column;gap:0}
+.offer-step{
+  display:flex;gap:20px;align-items:flex-start;
+  padding:24px 0;border-bottom:1px solid var(--border);
+}
+.offer-step:last-child{border-bottom:none;padding-bottom:0}
+.offer-step-num{
+  font-family:'Fraunces',serif;font-weight:200;
+  font-size:2.2rem;color:var(--border-light);line-height:1;flex-shrink:0;
+  width:48px;text-align:center;padding-top:4px;
+}
+.offer-step-body h3{
+  font-family:'DM Sans',sans-serif;font-weight:500;
+  font-size:0.95rem;margin-bottom:8px;color:var(--text-1);
+}
+.offer-step-body p{font-size:0.82rem;color:var(--text-2);line-height:1.7;font-weight:300}
+
+/* USE CASES */
+.usecases{padding:72px 48px;border-bottom:1px solid var(--border)}
+.usecases-inner{max-width:1100px;margin:0 auto}
+.usecases h2{
+  font-family:'Fraunces',serif;font-weight:200;
+  font-size:clamp(1.8rem,3.5vw,2.6rem);letter-spacing:-0.02em;
+  color:var(--text-1);margin-bottom:48px;margin-top:24px;
+}
+.usecase-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--border);border:1px solid var(--border);
+  border-radius:var(--r-lg);overflow:hidden;
+}
+.usecase-card{
+  background:var(--navy);padding:32px 28px;
+  transition:background 200ms ease;
+}
+.usecase-card:hover{background:var(--navy-mid)}
+.usecase-industry{
+  font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--accent);font-weight:500;margin-bottom:14px;
+}
+.usecase-card h3{
+  font-family:'Fraunces',serif;font-weight:300;
+  font-size:1.15rem;letter-spacing:-0.01em;
+  margin-bottom:12px;color:var(--text-1);line-height:1.2;
+}
+.usecase-card p{font-size:0.8rem;color:var(--text-2);line-height:1.7;font-weight:300}
+
+/* PRICING */
+.pricing{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-bottom:1px solid var(--border);
+}
+.pricing-intro{padding:72px 48px;border-right:1px solid var(--border)}
+.pricing-intro h2{
+  font-family:'Fraunces',serif;font-weight:200;
+  font-size:clamp(1.8rem,3.5vw,2.6rem);letter-spacing:-0.02em;
+  color:var(--text-1);margin-bottom:24px;margin-top:24px;
+}
+.pricing-intro p{font-size:0.9rem;color:var(--text-2);line-height:1.8;font-weight:300;margin-bottom:16px}
+.pricing-cards{padding:72px 48px;display:flex;flex-direction:column;gap:16px;justify-content:center}
+.pricing-card{
+  background:var(--navy-mid);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:24px 28px;
+}
+.pricing-card.featured{border-color:var(--accent-border);background:rgba(107,184,255,0.05)}
+.pricing-card-name{font-family:'Fraunces',serif;font-weight:300;font-size:1.2rem;margin-bottom:8px;color:var(--text-1)}
+.pricing-card-desc{font-size:0.8rem;color:var(--text-2);line-height:1.6;font-weight:300;margin-bottom:16px}
+.pricing-card-cta{
+  font-size:0.78rem;font-weight:500;
+  color:var(--accent);border:1px solid var(--accent-border);
+  border-radius:var(--r-sm);padding:9px 20px;
+  display:inline-flex;cursor:pointer;text-decoration:none;
+  transition:all 200ms ease;
+}
+.pricing-card-cta:hover{background:var(--accent-dim);text-decoration:none}
+.pricing-card.featured .pricing-card-cta{background:var(--accent);color:var(--navy);border-color:var(--accent)}
+.pricing-card.featured .pricing-card-cta:hover{opacity:0.88}
+
+/* BRIEF FORM */
+.brief-outer{padding:72px 48px;border-bottom:1px solid var(--border)}
+.brief-inner{max-width:760px;margin:0 auto}
+.brief-inner h2{
+  font-family:'Fraunces',serif;font-weight:200;
+  font-size:clamp(2rem,4vw,3rem);letter-spacing:-0.02em;
+  color:var(--text-1);margin-bottom:12px;margin-top:24px;
+}
+.brief-inner .sub{
+  font-size:0.9rem;color:var(--text-2);line-height:1.7;font-weight:300;
+  margin-bottom:36px;max-width:50ch;
+}
+.form-group{margin-bottom:16px}
+.form-group label{
+  display:block;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--text-3);font-weight:400;margin-bottom:10px;
+}
+.form-textarea{
+  width:100%;min-height:180px;resize:vertical;
+  background:rgba(255,255,255,0.03);border:1px solid var(--border);
+  border-radius:var(--r-md);padding:18px 20px;
+  font-family:'DM Sans',sans-serif;font-size:0.92rem;
+  color:var(--text-1);line-height:1.7;font-weight:300;
+  transition:border-color 250ms ease;
+}
+.form-textarea::placeholder{color:var(--text-3)}
+.form-textarea:focus{outline:none;border-color:var(--accent-border)}
+.form-input{
+  width:100%;
+  background:rgba(255,255,255,0.03);border:1px solid var(--border);
+  border-radius:var(--r-md);padding:13px 20px;
+  font-family:'DM Sans',sans-serif;font-size:0.92rem;
+  color:var(--text-1);font-weight:300;
+  transition:border-color 250ms ease;
+}
+.form-input::placeholder{color:var(--text-3)}
+.form-input:focus{outline:none;border-color:var(--accent-border)}
+.form-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:20px;flex-wrap:wrap;gap:12px;
+}
+.form-note{font-size:0.75rem;color:var(--text-3);font-weight:300}
+.char-count{font-size:0.75rem;color:var(--text-3)}
+
+.btn-submit{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:500;
+  background:var(--accent);color:var(--navy);border:none;border-radius:var(--r-md);
+  padding:12px 28px;cursor:pointer;
+  transition:opacity 200ms ease,transform 200ms ease;
+}
+.btn-submit:hover{opacity:0.88;transform:translateY(-1px)}
+.btn-submit:disabled{opacity:0.35;cursor:not-allowed;transform:none}
+.btn-submit .spinner{
+  width:14px;height:14px;border:2px solid rgba(10,22,40,0.2);
+  border-top-color:var(--navy);border-radius:50%;
+  animation:spin 0.7s linear infinite;display:none;
+}
+.btn-submit.loading .spinner{display:block}
+.btn-submit.loading .btn-text{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.usage-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent-dim);border:1px solid var(--accent-border);
+  border-radius:999px;padding:4px 14px;
+  font-size:0.72rem;color:var(--accent);font-weight:400;
+}
+.usage-badge.hidden{display:none}
+.usage-dot{width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0}
+.usage-badge.warning{color:#fbbf24;background:rgba(251,191,36,0.08);border-color:rgba(251,191,36,0.2)}
+.usage-badge.warning .usage-dot{background:#fbbf24}
+.usage-badge.depleted{color:var(--red);background:rgba(248,113,113,0.07);border-color:rgba(248,113,113,0.2)}
+.usage-badge.depleted .usage-dot{background:var(--red)}
+
+/* STEPPER */
+.stepper-outer{padding:40px 48px 72px;border-bottom:1px solid var(--border);display:none}
+.stepper-outer.visible{display:block}
+.stepper-inner{max-width:760px;margin:0 auto}
+.stepper{display:flex;flex-direction:column}
+.step{display:flex;align-items:flex-start;gap:20px;padding-bottom:28px;position:relative}
+.step:last-child{padding-bottom:0}
+.step-indicator{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.step-dot{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--navy);border:1px solid var(--border);
+  display:grid;place-items:center;font-size:0.78rem;color:var(--text-3);
+  transition:all 400ms ease;position:relative;z-index:2;
+}
+.step-line{width:1px;flex:1;min-height:20px;background:var(--border);transition:background 400ms ease}
+.step:last-child .step-line{display:none}
+.step.active .step-dot{border-color:var(--accent);color:var(--accent);box-shadow:0 0 16px rgba(107,184,255,0.2)}
+.step.completed .step-dot{border-color:var(--green);background:var(--green-dim);color:var(--green)}
+.step.completed .step-line{background:var(--green)}
+.step-content h3{font-size:0.88rem;font-weight:500;margin-bottom:3px;transition:color 300ms ease}
+.step.active .step-content h3{color:var(--accent)}
+.step.completed .step-content h3{color:var(--green)}
+.step-content p{font-size:0.78rem;color:var(--text-3);font-weight:300}
+
+/* CONFIRMATION */
+.confirm-outer{padding:40px 48px 72px;border-bottom:1px solid var(--border);display:none}
+.confirm-outer.visible{display:block}
+.confirm-card{
+  max-width:560px;margin:0 auto;
+  background:var(--navy-mid);border:1px solid var(--border);
+  border-radius:var(--r-xl);padding:48px 40px;text-align:center;
+}
+.confirm-card h3{font-family:'Fraunces',serif;font-weight:300;font-size:1.8rem;margin-bottom:12px}
+.confirm-card p{font-size:0.88rem;color:var(--text-2);line-height:1.8;font-weight:300;margin-bottom:24px}
+
+/* GATE MODAL */
+.gate-overlay{
+  display:none;position:fixed;inset:0;z-index:200;
+  align-items:center;justify-content:center;padding:24px;
+  background:rgba(10,22,40,0.88);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.gate-overlay.visible{display:flex}
+.gate-box{
+  background:#0d1e35;border:1px solid var(--border);
+  border-radius:var(--r-xl);padding:36px;
+  width:100%;max-width:420px;
+}
+.gate-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.gate-title{font-family:'Fraunces',serif;font-weight:300;font-size:1.25rem;color:var(--text-1)}
+.gate-close{background:none;border:none;cursor:pointer;color:var(--text-3);width:28px;height:28px;display:grid;place-items:center;border-radius:4px;transition:color 200ms ease}
+.gate-close:hover{color:var(--text-1)}
+.gate-tabs{display:flex;margin-bottom:24px;border-bottom:1px solid var(--border)}
+.gate-tab{
+  flex:1;background:none;border:none;
+  padding:11px 8px;
+  font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:400;
+  color:var(--text-3);cursor:pointer;
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:color 200ms ease,border-color 200ms ease;
+}
+.gate-tab:hover{color:var(--text-2)}
+.gate-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.gate-panel{display:none}
+.gate-panel.active{display:block}
+.gate-input{
+  width:100%;
+  background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  border-radius:var(--r-md);padding:12px 18px;
+  font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--text-1);
+  transition:border-color 250ms ease;font-weight:300;
+}
+.gate-input::placeholder{color:var(--text-3)}
+.gate-input:focus{outline:none;border-color:var(--accent-border)}
+.gate-input.code-input{text-align:center;letter-spacing:0.12em;text-transform:uppercase}
+.gate-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;margin-top:12px;
+  font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;
+  border-radius:var(--r-md);padding:12px 24px;
+  cursor:pointer;min-height:44px;
+  transition:opacity 200ms ease,transform 200ms ease;
+}
+.gate-btn.primary{background:var(--accent);color:var(--navy);border:none}
+.gate-btn.primary:hover{opacity:0.88;transform:translateY(-1px)}
+.gate-btn.secondary{background:transparent;color:var(--text-2);border:1px solid var(--border)}
+.gate-btn.secondary:hover{border-color:rgba(255,255,255,0.18);color:var(--text-1)}
+.gate-btn:disabled{opacity:0.35;cursor:not-allowed;transform:none}
+.gate-spinner{width:14px;height:14px;border:2px solid rgba(10,22,40,0.2);border-top-color:var(--navy);border-radius:50%;animation:spin 0.7s linear infinite;display:none}
+.gate-btn.secondary .gate-spinner{border-color:rgba(255,255,255,0.12);border-top-color:var(--text-2)}
+.gate-btn.loading .gate-spinner{display:block}
+.gate-btn.loading .gate-btn-text{display:none}
+.gate-msg{margin-top:10px;padding:10px 14px;border-radius:var(--r-sm);font-size:0.78rem;text-align:center;display:none}
+.gate-msg.success{display:block;background:var(--green-dim);color:var(--green);border:1px solid rgba(82,209,124,0.18)}
+.gate-msg.error{display:block;background:rgba(248,113,113,0.07);color:var(--red);border:1px solid rgba(248,113,113,0.18)}
+.gate-hint{font-size:0.72rem;color:var(--text-3);margin-top:10px;text-align:center;line-height:1.6;font-weight:300}
+.exhausted-box-inner{width:100%;max-width:420px}
+.exhausted-box-inner.hidden{display:none}
+
+/* ERROR TOAST */
+.error-toast{
+  position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(120px);
+  background:rgba(248,113,113,0.09);border:1px solid rgba(248,113,113,0.22);
+  color:var(--red);border-radius:var(--r-md);
+  padding:12px 24px;font-size:0.82rem;z-index:300;
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  transition:transform 400ms ease,opacity 400ms ease;opacity:0;pointer-events:none;
+}
+.error-toast.visible{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
+
+/* FOOTER */
+.site-footer{
+  padding:32px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+}
+.footer-brand{font-size:0.8rem;color:var(--text-3);font-weight:300}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:0.75rem;color:var(--text-3)}
+.footer-links a:hover{color:var(--text-2);text-decoration:none}
+
+/* MOBILE */
+@media(max-width:1023px){
+  .nav{padding:0 24px}
+  .hamburger{display:flex}
+  .nav-links{
+    display:none;position:fixed;top:0;left:0;right:0;bottom:0;
+    background:rgba(10,22,40,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    flex-direction:column;align-items:center;justify-content:center;gap:36px;z-index:99;
+  }
+  .nav-links.open{display:flex}
+  .nav-links a,.nav-cta{font-size:1rem}
+  .hero{grid-template-columns:1fr;padding-top:64px}
+  .hero-left{border-right:none;border-bottom:1px solid var(--border);padding:56px 24px}
+  .hero-right{padding:40px 24px}
+  .offer{grid-template-columns:1fr}
+  .offer-left{border-right:none;border-bottom:1px solid var(--border)}
+  .pricing{grid-template-columns:1fr}
+  .pricing-intro{border-right:none;border-bottom:1px solid var(--border)}
+  .usecase-grid{grid-template-columns:1fr}
+  .brief-outer,.usecases,.pricing-intro,.pricing-cards,.offer-left,.offer-right,.stepper-outer,.confirm-outer,.site-footer{padding-left:24px;padding-right:24px}
+  .promise{padding:40px 24px}
+}
+
+/* FADE IN */
+.fade-in{opacity:0;transform:translateY(16px);transition:opacity 700ms ease,transform 700ms ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" role="navigation">
+  <div class="nav-logo">
+    <div class="nav-logo-mark"><img src="https://feix.app/logo.jpg" alt="Feix"></div>
+    Feix
+  </div>
+  <ul class="nav-links" id="navLinks" aria-hidden="true" role="list">
+    <li><a href="#offer" data-i18n="navHow">How it works</a></li>
+    <li><a href="#usecases" data-i18n="navUse">Use cases</a></li>
+    <li><a href="#pricing" data-i18n="navPricing">Pricing</a></li>
+    <li><a href="#brief" class="nav-cta" data-i18n="navStart">Start a project</a></li>
+    <li><select class="ui-lang-select" id="uiLangSelect" aria-label="Interface language">
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="zh">中文</option>
+      <option value="tr">Türkçe</option>
+      <option value="de">Deutsch</option>
+      <option value="es">Español</option>
+      <option value="ja">日本語</option>
+      <option value="ru">Русский</option>
+      <option value="ar">العربية</option>
+    </select></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">
+      <span class="hero-tag-dot"></span>
+      <span data-i18n="heroTag">Custom systems. Ready to use.</span>
+    </div>
+    <h1 data-i18n-html="heroH1">Complex operations.<br>Custom systems.</h1>
+    <p class="hero-sub" data-i18n="heroSub">Standard software is built for everyone. We build yours: a complete digital system, designed around how your operation actually works, delivered ready to use.</p>
+    <div class="hero-actions">
+      <a href="#brief" class="btn-primary" data-i18n="heroStartBtn">Start a project</a>
+      <a href="#offer" class="btn-outline" data-i18n="heroHowBtn">See how it works</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <p class="hero-right-label" data-i18n="heroRightLabel">Built for operations like these</p>
+    <ul class="industry-list">
+      <li class="industry-item">
+        <span class="industry-name" data-i18n="indFleet">Fleet management</span>
+      </li>
+      <li class="industry-item">
+        <span class="industry-name" data-i18n="indHospitality">Hospitality operations</span>
+      </li>
+      <li class="industry-item">
+        <span class="industry-name" data-i18n="indMembership">Membership services</span>
+      </li>
+      <li class="industry-item">
+        <span class="industry-name" data-i18n="indManufacturing">Bespoke manufacturing</span>
+      </li>
+      <li class="industry-item">
+        <span class="industry-name" data-i18n="indProfessional">Professional services</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- PROMISE BANNER -->
+<div class="promise fade-in">
+  <h2 data-i18n="promiseH2">From brief to live product. In hours.</h2>
+  <p data-i18n="promiseP">Tell us what your operation needs. We design and build a complete, working system. You evaluate it. Only if it meets your requirements do you pay for it.</p>
+</div>
+
+<!-- OFFER / HOW IT WORKS -->
+<section class="offer fade-in" id="offer">
+  <div class="offer-left">
+    <span class="section-label" data-i18n="offerLabel">The model</span>
+    <h2 data-i18n="offerH2">A system built to your brief. Evaluated before you commit.</h2>
+    <p data-i18n="offerP1">Most software vendors ask you to subscribe before you know if the product fits your operation. We work differently. You describe what you need. We build it. You receive a working system and evaluate it in context.</p>
+    <p data-i18n="offerP2">If the system meets your requirements, you purchase it. If it doesn't, it's removed and the matter is closed. No invoices, no further contact, no obligations.</p>
+    <p data-i18n="offerP3">We prefer to show you a working system rather than describe one. This approach works because our production pipeline delivers complete systems in hours, not weeks.</p>
+  </div>
+  <div class="offer-right">
+    <span class="section-label" data-i18n="offerHowLabel">How it works</span>
+    <div class="offer-steps">
+      <div class="offer-step">
+        <div class="offer-step-num">1</div>
+        <div class="offer-step-body">
+          <h3 data-i18n="step1H">You describe your operation</h3>
+          <p data-i18n="step1P">Tell us what your business does, what you need the system to handle, and how your team and clients work. Plain language. No technical knowledge required.</p>
+        </div>
+      </div>
+      <div class="offer-step">
+        <div class="offer-step-num">2</div>
+        <div class="offer-step-body">
+          <h3 data-i18n="step2H">We design and build it</h3>
+          <p data-i18n="step2P">Our production pipeline turns your brief into a complete system: the interface your team or clients will use, and the automation running behind it. A human review is completed before delivery.</p>
+        </div>
+      </div>
+      <div class="offer-step">
+        <div class="offer-step-num">3</div>
+        <div class="offer-step-body">
+          <h3 data-i18n="step3H">You receive a working system</h3>
+          <p data-i18n="step3P">A live URL, delivered to your email. Not a demo, not a prototype. A complete system with active infrastructure, ready to use.</p>
+        </div>
+      </div>
+      <div class="offer-step">
+        <div class="offer-step-num">4</div>
+        <div class="offer-step-body">
+          <h3 data-i18n="step4H">You evaluate, then decide</h3>
+          <p data-i18n="step4P">Test it with your team or clients. If it meets your needs, we agree on a price and you take it. If it doesn't, it's removed. No payment until you're satisfied.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="usecases fade-in" id="usecases">
+  <div class="usecases-inner">
+    <span class="section-label" data-i18n="ucLabel">What we build</span>
+    <h2 data-i18n="ucH2">Systems for operations where precision matters.</h2>
+    <div class="usecase-grid">
+      <div class="usecase-card">
+        <div class="usecase-industry" data-i18n="ucFleetInd">Fleet management</div>
+        <h3 data-i18n="ucFleetH">Fleet operations management portal</h3>
+        <p data-i18n="ucFleetP">Maintenance scheduling, crew assignments, client dispatch, voyage logs, fuel records. A single system for everything a fleet operator needs to track.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-industry" data-i18n="ucHospInd">Hospitality operations</div>
+        <h3 data-i18n="ucHospH">Reservation and concierge platform</h3>
+        <p data-i18n="ucHospP">Guest booking, room configuration, concierge request routing, supplier coordination, morning briefings by email. Built around your specific service standards.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-industry" data-i18n="ucMemInd">Membership services</div>
+        <h3 data-i18n="ucMemH">Member portal</h3>
+        <p data-i18n="ucMemP">Member onboarding, event booking, member content access, communications platform. Designed for clubs and networks with their own operating logic.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-industry" data-i18n="ucMfgInd">Bespoke manufacturing</div>
+        <h3 data-i18n="ucMfgH">Order and production tracking system</h3>
+        <p data-i18n="ucMfgP">Client order intake, production stage tracking, supplier coordination, delivery notifications, client-facing status portal. Each order followed from brief to delivery.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-industry" data-i18n="ucProInd">Professional services</div>
+        <h3 data-i18n="ucProH">Client management and scheduling</h3>
+        <p data-i18n="ucProP">Appointment booking, client file management, document delivery, billing workflows, automated follow-ups. For practices where each client relationship is individual.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-industry" data-i18n="ucEvtInd">Event operations</div>
+        <h3 data-i18n="ucEvtH">Event coordination platform</h3>
+        <p data-i18n="ucEvtP">Guest management, vendor coordination, logistics tracking, on-site check-in, post-event reporting. The infrastructure behind events where no detail can be missed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing fade-in" id="pricing">
+  <div class="pricing-intro">
+    <span class="section-label" data-i18n="pricingLabel">Pricing</span>
+    <h2 data-i18n="pricingH2">You pay when you're satisfied.</h2>
+    <p data-i18n="pricingP1">We build your system as a working pilot. No pricing conversation until you've evaluated the result in context.</p>
+    <p data-i18n="pricingP2">If the system meets your requirements, we agree on a project price based on scope. If it doesn't, no invoice is issued. Two infrastructure paths available, depending on your preference for ownership and hosting.</p>
+  </div>
+  <div class="pricing-cards">
+    <div class="pricing-card featured">
+      <div class="pricing-card-name" data-i18n="pcManagedName">Fully managed</div>
+      <p class="pricing-card-desc" data-i18n="pcManagedDesc">We handle everything: hosting, domain, infrastructure, and deployment. You receive a working URL. Nothing to configure.</p>
+      <a href="#brief" class="pricing-card-cta" data-i18n="pcManagedCta">Start a project</a>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-card-name" data-i18n="pcSelfName">Self-hosted</div>
+      <p class="pricing-card-desc" data-i18n="pcSelfDesc">We build and deploy on your own infrastructure. You provide hosting, domain, and service accounts. Full ownership from day one.</p>
+      <a href="mailto:growth.business@llulllab.com" class="pricing-card-cta" data-i18n="pcSelfCta">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- BRIEF FORM -->
+<section class="brief-outer fade-in" id="brief">
+  <div class="brief-inner">
+    <span class="section-label" data-i18n="briefLabel">Start a project</span>
+    <h2 data-i18n="briefH2">Describe your operation. We'll build the system.</h2>
+    <p class="sub" data-i18n="briefSub">Tell us what your business does, what you need the system to handle, and how your team works. We'll build it and send you a working system to evaluate.</p>
+    <div class="form-group">
+      <label for="promptInput" data-i18n="briefYourBrief">Your brief</label>
+      <textarea
+        class="form-textarea"
+        id="promptInput"
+        data-i18n-ph="briefPh"
+        placeholder="Describe your operation and what you need built. The more specific you are, the better the result. What does the system need to handle? Who will use it? What outputs matter to your team?"
+        maxlength="10000"
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="deliveryEmailInput" data-i18n="briefEmailLabel">Delivery email</label>
+      <input type="email" id="deliveryEmailInput" class="form-input" data-i18n-ph="emailPh" placeholder="your@company.com" autocomplete="email">
+    </div>
+    <div class="form-footer">
+      <span id="charCounter" class="char-count">0 / 10000</span>
+      <span class="usage-badge hidden" id="usageBadge">
+        <span class="usage-dot"></span>
+        <span id="usageText"></span>
+      </span>
+      <button class="btn-submit" id="btnGenerate" type="button">
+        <span class="btn-text" data-i18n="briefSubmit">Submit brief</span>
+        <span class="spinner"></span>
+      </button>
+    </div>
+    <p style="margin-top:16px;font-size:0.75rem;color:var(--text-3);font-weight:300;border-top:1px solid var(--border);padding-top:14px" data-i18n="briefNote">Delivered to your email within hours. You evaluate before any payment discussion arises.</p>
+  </div>
+</section>
+
+<!-- STEPPER -->
+<section class="stepper-outer" id="stepperSection">
+  <div class="stepper-inner">
+    <div class="stepper" role="list">
+      <div class="step" data-step="0" role="listitem"><div class="step-indicator"><div class="step-dot">1</div><div class="step-line"></div></div><div class="step-content"><h3 data-i18n="st1H">Brief received</h3><p data-i18n="st1P">Your brief has been submitted and is being reviewed.</p></div></div>
+      <div class="step" data-step="1" role="listitem"><div class="step-indicator"><div class="step-dot">2</div><div class="step-line"></div></div><div class="step-content"><h3 data-i18n="st2H">Designing your system</h3><p data-i18n="st2P">The production pipeline is working from your brief.</p></div></div>
+      <div class="step" data-step="2" role="listitem"><div class="step-indicator"><div class="step-dot">3</div><div class="step-line"></div></div><div class="step-content"><h3 data-i18n="st3H">Building</h3><p data-i18n="st3P">Interface and automation being assembled together.</p></div></div>
+      <div class="step" data-step="3" role="listitem"><div class="step-indicator"><div class="step-dot">4</div><div class="step-line"></div></div><div class="step-content"><h3 data-i18n="st4H">Quality review</h3><p data-i18n="st4P">Human review before anything leaves our hands.</p></div></div>
+      <div class="step" data-step="4" role="listitem"><div class="step-indicator"><div class="step-dot">5</div><div class="step-line"></div></div><div class="step-content"><h3 data-i18n="st5H">Final pass</h3><p data-i18n="st5P">Last checks before delivery.</p></div></div>
+      <div class="step" data-step="5" role="listitem"><div class="step-indicator"><div class="step-dot">6</div><div class="step-line"></div></div><div class="step-content"><h3 data-i18n="st6H">With our team</h3><p data-i18n="st6P">Deployment and configuration underway.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIRMATION -->
+<section class="confirm-outer" id="confirmationSection">
+  <div class="confirm-card">
+    <div style="width:48px;height:48px;border-radius:50%;background:var(--green-dim);display:grid;place-items:center;margin:0 auto 24px">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    </div>
+    <h3 data-i18n="confH3">Brief received</h3>
+    <p><span data-i18n="confPre">We'll build your system and deliver it to </span><strong id="confirmationEmail" data-i18n="confEmailDefault" style="color:var(--text-1)">your email</strong><span data-i18n="confPost">. A working URL, ready to evaluate.</span></p>
+    <button class="gate-btn secondary" id="btnNewRequest" type="button" style="width:auto;margin:0 auto;padding:10px 22px;font-size:0.82rem">
+      <span class="gate-btn-text" data-i18n="confAnother">Submit another brief</span>
+    </button>
+  </div>
+</section>
+
+<!-- GATE MODAL -->
+<div class="gate-overlay" id="gateOverlay" role="dialog" aria-modal="true">
+  <div class="gate-box" id="gateBox">
+    <div class="gate-header">
+      <span class="gate-title" data-i18n="gateTitle">Access required</span>
+      <button class="gate-close" id="btnCloseGate" data-i18n-aria="gateClose" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="gate-tabs">
+      <button class="gate-tab active" data-panel="subscribe" type="button" data-i18n="tabSub">Subscribe</button>
+      <button class="gate-tab" data-panel="code" type="button" data-i18n="tabCode">Invite code</button>
+      <button class="gate-tab" data-panel="request" type="button" data-i18n="tabReq">Request access</button>
+    </div>
+    <div class="gate-panel active" id="panelSubscribe">
+      <p style="font-size:0.82rem;color:var(--text-2);margin-bottom:14px;line-height:1.6;font-weight:300" data-i18n="subDesc">Enter your email to access Feix with an active subscription.</p>
+      <input class="gate-input" id="subEmailInput" type="email" data-i18n-ph="emailPh" placeholder="your@company.com" autocomplete="email" aria-label="Email address">
+      <button class="gate-btn primary" id="btnSubAccess" type="button"><span class="gate-btn-text" data-i18n="btnAccessNow">Access now</span><span class="gate-spinner"></span></button>
+      <div class="gate-msg" id="subFeedback"></div>
+    </div>
+    <div class="gate-panel" id="panelCode">
+      <input class="gate-input code-input" id="inviteCodeInput" type="text" placeholder="HRZ-XXXX-XXXX" maxlength="14" autocomplete="off" spellcheck="false" aria-label="Invite code">
+      <button class="gate-btn primary" id="btnValidateCode" type="button"><span class="gate-btn-text" data-i18n="btnValidate">Validate code</span><span class="gate-spinner"></span></button>
+      <div class="gate-msg" id="codeFeedback"></div>
+    </div>
+    <div class="gate-panel" id="panelRequest">
+      <input class="gate-input" id="requestEmailInput" type="email" data-i18n-ph="emailPh" placeholder="your@company.com" autocomplete="email" aria-label="Email address">
+      <button class="gate-btn secondary" id="btnRequestAccess" type="button"><span class="gate-btn-text" data-i18n="btnReqAccess">Request access</span><span class="gate-spinner"></span></button>
+      <div class="gate-msg" id="requestFeedback"></div>
+      <p class="gate-hint" data-i18n="reqHint">We review each request and send an invite code if there's a fit.</p>
+    </div>
+  </div>
+  <div class="gate-box exhausted-box-inner hidden" id="exhaustedBox">
+    <div style="text-align:center;padding:8px 0">
+      <p style="font-family:'Fraunces',serif;font-weight:300;font-size:1.2rem;margin-bottom:12px" data-i18n="exhTitle">No submissions remaining</p>
+      <p style="font-size:0.82rem;color:var(--text-2);margin-bottom:20px;font-weight:300" data-i18n="exhP">Your allocation has been used. Request a new invite code to continue.</p>
+      <input class="gate-input" id="exhaustedEmailInput" type="email" data-i18n-ph="emailPh" placeholder="your@company.com" autocomplete="email" style="margin-bottom:0">
+      <button class="gate-btn secondary" id="btnExhaustedRequest" type="button"><span class="gate-btn-text" data-i18n="btnReqNew">Request new access</span><span class="gate-spinner"></span></button>
+      <div class="gate-msg" id="exhaustedFeedback"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ERROR TOAST -->
+<div class="error-toast" id="errorToast" role="alert" aria-live="assertive"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="site-footer">
+    <span class="footer-brand">Feix by Llull Lab, Paris</span>
+    <div class="footer-links">
+      <a href="https://llulllab.com/privacy-policy.html" target="_blank" rel="noopener">Privacy</a>
+      <a href="https://llulllab.com/mentions-legales.html" target="_blank" rel="noopener">Legal</a>
+      <a href="https://llulllab.com" target="_blank" rel="noopener">Llull Lab</a>
+    </div>
+    <span class="footer-brand">Conçu et développé en France</span>
+    <span class="footer-brand"><a href="https://feix.app" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Created by Feix</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  // ═══════════ i18n — 9 languages (order: EN, FR, ZH, then TR, DE, ES, JA, RU, AR) ═══════════
+  var STRINGS={
+  en:{navHow:"How it works",navUse:"Use cases",navPricing:"Pricing",navStart:"Start a project",heroTag:"Custom systems. Ready to use.",heroH1:"Complex operations.<br>Custom systems.",heroSub:"Standard software is built for everyone. We build yours: a complete digital system, designed around how your operation actually works, delivered ready to use.",heroStartBtn:"Start a project",heroHowBtn:"See how it works",heroRightLabel:"Built for operations like these",indFleet:"Fleet management",indHospitality:"Hospitality operations",indMembership:"Membership services",indManufacturing:"Bespoke manufacturing",indProfessional:"Professional services",promiseH2:"From brief to live product. In hours.",promiseP:"Tell us what your operation needs. We design and build a complete, working system. You evaluate it. Only if it meets your requirements do you pay for it.",offerLabel:"The model",offerH2:"A system built to your brief. Evaluated before you commit.",offerP1:"Most software vendors ask you to subscribe before you know if the product fits your operation. We work differently. You describe what you need. We build it. You receive a working system and evaluate it in context.",offerP2:"If the system meets your requirements, you purchase it. If it doesn't, it's removed and the matter is closed. No invoices, no further contact, no obligations.",offerP3:"We prefer to show you a working system rather than describe one. This approach works because our production pipeline delivers complete systems in hours, not weeks.",offerHowLabel:"How it works",step1H:"You describe your operation",step1P:"Tell us what your business does, what you need the system to handle, and how your team and clients work. Plain language. No technical knowledge required.",step2H:"We design and build it",step2P:"Our production pipeline turns your brief into a complete system: the interface your team or clients will use, and the automation running behind it. A human review is completed before delivery.",step3H:"You receive a working system",step3P:"A live URL, delivered to your email. Not a demo, not a prototype. A complete system with active infrastructure, ready to use.",step4H:"You evaluate, then decide",step4P:"Test it with your team or clients. If it meets your needs, we agree on a price and you take it. If it doesn't, it's removed. No payment until you're satisfied.",ucLabel:"What we build",ucH2:"Systems for operations where precision matters.",ucFleetInd:"Fleet management",ucFleetH:"Fleet operations management portal",ucFleetP:"Maintenance scheduling, crew assignments, client dispatch, voyage logs, fuel records. A single system for everything a fleet operator needs to track.",ucHospInd:"Hospitality operations",ucHospH:"Reservation and concierge platform",ucHospP:"Guest booking, room configuration, concierge request routing, supplier coordination, morning briefings by email. Built around your specific service standards.",ucMemInd:"Membership services",ucMemH:"Member portal",ucMemP:"Member onboarding, event booking, member content access, communications platform. Designed for clubs and networks with their own operating logic.",ucMfgInd:"Bespoke manufacturing",ucMfgH:"Order and production tracking system",ucMfgP:"Client order intake, production stage tracking, supplier coordination, delivery notifications, client-facing status portal. Each order followed from brief to delivery.",ucProInd:"Professional services",ucProH:"Client management and scheduling",ucProP:"Appointment booking, client file management, document delivery, billing workflows, automated follow-ups. For practices where each client relationship is individual.",ucEvtInd:"Event operations",ucEvtH:"Event coordination platform",ucEvtP:"Guest management, vendor coordination, logistics tracking, on-site check-in, post-event reporting. The infrastructure behind events where no detail can be missed.",pricingLabel:"Pricing",pricingH2:"You pay when you're satisfied.",pricingP1:"We build your system as a working pilot. No pricing conversation until you've evaluated the result in context.",pricingP2:"If the system meets your requirements, we agree on a project price based on scope. If it doesn't, no invoice is issued. Two infrastructure paths available, depending on your preference for ownership and hosting.",pcManagedName:"Fully managed",pcManagedDesc:"We handle everything: hosting, domain, infrastructure, and deployment. You receive a working URL. Nothing to configure.",pcManagedCta:"Start a project",pcSelfName:"Self-hosted",pcSelfDesc:"We build and deploy on your own infrastructure. You provide hosting, domain, and service accounts. Full ownership from day one.",pcSelfCta:"Get in touch",briefLabel:"Start a project",briefH2:"Describe your operation. We'll build the system.",briefSub:"Tell us what your business does, what you need the system to handle, and how your team works. We'll build it and send you a working system to evaluate.",briefYourBrief:"Your brief",briefPh:"Describe your operation and what you need built. The more specific you are, the better the result. What does the system need to handle? Who will use it? What outputs matter to your team?",briefEmailLabel:"Delivery email",emailPh:"your@company.com",briefSubmit:"Submit brief",briefNote:"Delivered to your email within hours. You evaluate before any payment discussion arises.",st1H:"Brief received",st1P:"Your brief has been submitted and is being reviewed.",st2H:"Designing your system",st2P:"The production pipeline is working from your brief.",st3H:"Building",st3P:"Interface and automation being assembled together.",st4H:"Quality review",st4P:"Human review before anything leaves our hands.",st5H:"Final pass",st5P:"Last checks before delivery.",st6H:"With our team",st6P:"Deployment and configuration underway.",confH3:"Brief received",confPre:"We'll build your system and deliver it to ",confEmailDefault:"your email",confPost:". A working URL, ready to evaluate.",confAnother:"Submit another brief",gateTitle:"Access required",gateClose:"Close",tabSub:"Subscribe",tabCode:"Invite code",tabReq:"Request access",subDesc:"Enter your email to access Feix with an active subscription.",btnAccessNow:"Access now",btnValidate:"Validate code",btnReqAccess:"Request access",reqHint:"We review each request and send an invite code if there's a fit.",exhTitle:"No submissions remaining",exhP:"Your allocation has been used. Request a new invite code to continue.",btnReqNew:"Request new access",msgInvalidEmail:"Please enter a valid email address.",msgNoSub:"No active subscription found for this email.",msgConnErr:"Connection error. Please try again.",msgEnterCode:"Please enter your invite code.",msgAccessGranted:"Access granted.",msgInvalidCode:"Invalid invite code.",msgRequestReceived:"Request received.",msgSomethingWrong:"Something went wrong.",msgSubActivated:"Subscription activated. Enter your email to access Feix.",msgDescribeProject:"Please describe your project.",msgTooShort:"Your description is too short.",msgValidDelivery:"Please provide a valid delivery email.",msgServerError:"Server error: ",msgErrorOccurred:"An error occurred: ",usageRemaining:"{r} / {m} remaining"},
+  fr:{navHow:"Comment ça marche",navUse:"Cas d'usage",navPricing:"Tarifs",navStart:"Démarrer un projet",heroTag:"Systèmes sur mesure. Prêts à l'emploi.",heroH1:"Opérations complexes.<br>Systèmes sur mesure.",heroSub:"Les logiciels standards sont conçus pour tout le monde. Nous concevons le vôtre : un système numérique complet, pensé autour du fonctionnement réel de votre activité, livré prêt à l'emploi.",heroStartBtn:"Démarrer un projet",heroHowBtn:"Voir comment ça marche",heroRightLabel:"Conçu pour des opérations comme celles-ci",indFleet:"Gestion de flotte",indHospitality:"Opérations hôtelières",indMembership:"Services d'adhésion",indManufacturing:"Fabrication sur mesure",indProfessional:"Services professionnels",promiseH2:"Du brief au produit en ligne. En quelques heures.",promiseP:"Dites-nous ce dont votre activité a besoin. Nous concevons et construisons un système complet et fonctionnel. Vous l'évaluez. Vous ne payez que s'il répond à vos exigences.",offerLabel:"Le modèle",offerH2:"Un système conçu selon votre brief. Évalué avant tout engagement.",offerP1:"La plupart des éditeurs vous demandent de vous abonner avant de savoir si le produit convient à votre activité. Nous travaillons autrement. Vous décrivez vos besoins. Nous le construisons. Vous recevez un système fonctionnel et l'évaluez en contexte.",offerP2:"Si le système répond à vos exigences, vous l'achetez. Sinon, il est retiré et l'affaire est close. Aucune facture, aucun contact supplémentaire, aucune obligation.",offerP3:"Nous préférons vous montrer un système fonctionnel plutôt que d'en décrire un. Cette approche fonctionne parce que notre chaîne de production livre des systèmes complets en quelques heures, pas en quelques semaines.",offerHowLabel:"Comment ça marche",step1H:"Vous décrivez votre activité",step1P:"Dites-nous ce que fait votre entreprise, ce que le système doit gérer, et comment votre équipe et vos clients travaillent. En langage clair. Aucune connaissance technique requise.",step2H:"Nous le concevons et le construisons",step2P:"Notre chaîne de production transforme votre brief en un système complet : l'interface que votre équipe ou vos clients utiliseront, et l'automatisation qui tourne derrière. Une relecture humaine est réalisée avant la livraison.",step3H:"Vous recevez un système fonctionnel",step3P:"Une URL en ligne, livrée par e-mail. Pas une démo, pas un prototype. Un système complet avec une infrastructure active, prêt à l'emploi.",step4H:"Vous évaluez, puis décidez",step4P:"Testez-le avec votre équipe ou vos clients. S'il répond à vos besoins, nous convenons d'un prix et vous le prenez. Sinon, il est retiré. Aucun paiement avant votre satisfaction.",ucLabel:"Ce que nous construisons",ucH2:"Des systèmes pour les opérations où la précision compte.",ucFleetInd:"Gestion de flotte",ucFleetH:"Portail de gestion des opérations de flotte",ucFleetP:"Planification de la maintenance, affectation des équipages, répartition client, journaux de voyage, relevés de carburant. Un système unique pour tout ce qu'un exploitant de flotte doit suivre.",ucHospInd:"Opérations hôtelières",ucHospH:"Plateforme de réservation et de conciergerie",ucHospP:"Réservation des clients, configuration des chambres, acheminement des demandes de conciergerie, coordination des fournisseurs, briefings matinaux par e-mail. Conçu selon vos normes de service.",ucMemInd:"Services d'adhésion",ucMemH:"Portail des membres",ucMemP:"Intégration des membres, réservation d'événements, accès au contenu réservé, plateforme de communication. Conçu pour les clubs et réseaux ayant leur propre logique de fonctionnement.",ucMfgInd:"Fabrication sur mesure",ucMfgH:"Système de suivi des commandes et de la production",ucMfgP:"Prise de commande client, suivi des étapes de production, coordination des fournisseurs, notifications de livraison, portail de statut pour le client. Chaque commande suivie du brief à la livraison.",ucProInd:"Services professionnels",ucProH:"Gestion client et planification",ucProP:"Prise de rendez-vous, gestion des dossiers clients, remise de documents, flux de facturation, relances automatisées. Pour les cabinets où chaque relation client est individuelle.",ucEvtInd:"Opérations événementielles",ucEvtH:"Plateforme de coordination d'événements",ucEvtP:"Gestion des invités, coordination des prestataires, suivi logistique, enregistrement sur place, reporting post-événement. L'infrastructure derrière les événements où aucun détail ne peut être manqué.",pricingLabel:"Tarifs",pricingH2:"Vous payez quand vous êtes satisfait.",pricingP1:"Nous construisons votre système sous forme de pilote fonctionnel. Aucune discussion tarifaire avant que vous ayez évalué le résultat en contexte.",pricingP2:"Si le système répond à vos exigences, nous convenons d'un prix de projet selon la portée. Sinon, aucune facture n'est émise. Deux options d'infrastructure disponibles, selon votre préférence de propriété et d'hébergement.",pcManagedName:"Entièrement géré",pcManagedDesc:"Nous gérons tout : hébergement, domaine, infrastructure et déploiement. Vous recevez une URL fonctionnelle. Rien à configurer.",pcManagedCta:"Démarrer un projet",pcSelfName:"Auto-hébergé",pcSelfDesc:"Nous construisons et déployons sur votre propre infrastructure. Vous fournissez l'hébergement, le domaine et les comptes de service. Pleine propriété dès le premier jour.",pcSelfCta:"Nous contacter",briefLabel:"Démarrer un projet",briefH2:"Décrivez votre activité. Nous construirons le système.",briefSub:"Dites-nous ce que fait votre entreprise, ce que le système doit gérer, et comment votre équipe travaille. Nous le construirons et vous enverrons un système fonctionnel à évaluer.",briefYourBrief:"Votre brief",briefPh:"Décrivez votre activité et ce que vous avez besoin de faire construire. Plus vous êtes précis, meilleur sera le résultat. Que doit gérer le système ? Qui l'utilisera ? Quels résultats comptent pour votre équipe ?",briefEmailLabel:"E-mail de livraison",emailPh:"vous@entreprise.com",briefSubmit:"Envoyer le brief",briefNote:"Livré par e-mail en quelques heures. Vous évaluez avant toute discussion sur le paiement.",st1H:"Brief reçu",st1P:"Votre brief a été soumis et est en cours d'examen.",st2H:"Conception de votre système",st2P:"La chaîne de production travaille à partir de votre brief.",st3H:"Construction",st3P:"Interface et automatisation assemblées ensemble.",st4H:"Contrôle qualité",st4P:"Relecture humaine avant que quoi que ce soit ne quitte nos mains.",st5H:"Dernière passe",st5P:"Derniers contrôles avant la livraison.",st6H:"Avec notre équipe",st6P:"Déploiement et configuration en cours.",confH3:"Brief reçu",confPre:"Nous construirons votre système et le livrerons à ",confEmailDefault:"votre e-mail",confPost:". Une URL fonctionnelle, prête à évaluer.",confAnother:"Envoyer un autre brief",gateTitle:"Accès requis",gateClose:"Fermer",tabSub:"S'abonner",tabCode:"Code d'invitation",tabReq:"Demander l'accès",subDesc:"Saisissez votre e-mail pour accéder à Feix avec un abonnement actif.",btnAccessNow:"Accéder maintenant",btnValidate:"Valider le code",btnReqAccess:"Demander l'accès",reqHint:"Nous examinons chaque demande et envoyons un code d'invitation s'il y a une adéquation.",exhTitle:"Aucune soumission restante",exhP:"Votre allocation a été utilisée. Demandez un nouveau code d'invitation pour continuer.",btnReqNew:"Demander un nouvel accès",msgInvalidEmail:"Veuillez saisir une adresse e-mail valide.",msgNoSub:"Aucun abonnement actif trouvé pour cet e-mail.",msgConnErr:"Erreur de connexion. Veuillez réessayer.",msgEnterCode:"Veuillez saisir votre code d'invitation.",msgAccessGranted:"Accès accordé.",msgInvalidCode:"Code d'invitation invalide.",msgRequestReceived:"Demande reçue.",msgSomethingWrong:"Une erreur s'est produite.",msgSubActivated:"Abonnement activé. Saisissez votre e-mail pour accéder à Feix.",msgDescribeProject:"Veuillez décrire votre projet.",msgTooShort:"Votre description est trop courte.",msgValidDelivery:"Veuillez fournir un e-mail de livraison valide.",msgServerError:"Erreur du serveur : ",msgErrorOccurred:"Une erreur s'est produite : ",usageRemaining:"{r} / {m} restantes"},
+  zh:{navHow:"工作方式",navUse:"应用场景",navPricing:"价格",navStart:"启动项目",heroTag:"定制系统，即开即用。",heroH1:"复杂运营。<br>定制系统。",heroSub:"标准软件为所有人而造。我们为你打造：一套完整的数字系统，围绕你运营的真实方式设计，交付即可使用。",heroStartBtn:"启动项目",heroHowBtn:"了解工作方式",heroRightLabel:"为这样的运营而打造",indFleet:"车队管理",indHospitality:"酒店运营",indMembership:"会员服务",indManufacturing:"定制制造",indProfessional:"专业服务",promiseH2:"从需求到上线产品。数小时内完成。",promiseP:"告诉我们你的运营需要什么。我们设计并构建一套完整、可用的系统。你来评估。只有在它满足你的要求时，你才付费。",offerLabel:"模式",offerH2:"按你的需求构建的系统，在你承诺之前先行评估。",offerP1:"大多数软件供应商要求你在了解产品是否适合你的运营之前就先订阅。我们的做法不同。你描述需求，我们来构建，你收到一套可用的系统并在实际场景中评估。",offerP2:"如果系统满足你的要求，你就购买它；如果不满足，它将被移除，事情就此结束。没有账单，没有后续联系，没有任何义务。",offerP3:"我们更愿意向你展示一套可用的系统，而不是描述一套。这种方式之所以可行，是因为我们的生产流水线能在数小时内交付完整系统，而非数周。",offerHowLabel:"工作方式",step1H:"你描述你的运营",step1P:"告诉我们你的业务是做什么的、需要系统处理什么，以及你的团队和客户如何工作。用平实的语言。无需技术知识。",step2H:"我们设计并构建",step2P:"我们的生产流水线将你的需求转化为一套完整系统：你的团队或客户使用的界面，以及背后运行的自动化。交付前会完成人工审查。",step3H:"你收到一套可用的系统",step3P:"一个上线的网址，发送到你的邮箱。不是演示，也不是原型。一套带有活跃基础设施、即可使用的完整系统。",step4H:"你评估，然后决定",step4P:"与你的团队或客户一起测试。如果满足你的需求，我们商定价格，你就拿走它；如果不满足，它将被移除。满意之前无需付费。",ucLabel:"我们构建什么",ucH2:"为精确至关重要的运营打造的系统。",ucFleetInd:"车队管理",ucFleetH:"车队运营管理门户",ucFleetP:"维护排程、人员调配、客户派遣、航行日志、燃油记录。车队运营者需要追踪的一切，尽在一套系统中。",ucHospInd:"酒店运营",ucHospH:"预订与礼宾平台",ucHospP:"客人预订、房间配置、礼宾请求分派、供应商协调、邮件晨间简报。围绕你特定的服务标准打造。",ucMemInd:"会员服务",ucMemH:"会员门户",ucMemP:"会员入会、活动预订、会员内容访问、沟通平台。为拥有自身运营逻辑的俱乐部与网络而设计。",ucMfgInd:"定制制造",ucMfgH:"订单与生产追踪系统",ucMfgP:"客户接单、生产阶段追踪、供应商协调、交付通知、面向客户的状态门户。每个订单从需求到交付全程跟踪。",ucProInd:"专业服务",ucProH:"客户管理与排程",ucProP:"预约安排、客户档案管理、文件交付、计费流程、自动跟进。适用于每段客户关系都各不相同的事务所。",ucEvtInd:"活动运营",ucEvtH:"活动协调平台",ucEvtP:"宾客管理、供应商协调、物流追踪、现场签到、活动后报告。支撑那些不容遗漏任何细节的活动的基础设施。",pricingLabel:"价格",pricingH2:"满意之后再付费。",pricingP1:"我们以可用的试点形式构建你的系统。在你于实际场景中评估结果之前，不会谈价格。",pricingP2:"如果系统满足你的要求，我们将根据范围商定项目价格；如果不满足，则不开具账单。提供两种基础设施方案，取决于你对所有权与托管的偏好。",pcManagedName:"全托管",pcManagedDesc:"我们处理一切：托管、域名、基础设施与部署。你收到一个可用的网址。无需任何配置。",pcManagedCta:"启动项目",pcSelfName:"自托管",pcSelfDesc:"我们在你自己的基础设施上构建并部署。你提供托管、域名与服务账户。从第一天起完全拥有。",pcSelfCta:"联系我们",briefLabel:"启动项目",briefH2:"描述你的运营，我们来构建系统。",briefSub:"告诉我们你的业务是做什么的、需要系统处理什么，以及你的团队如何工作。我们会构建它，并发送一套可用的系统供你评估。",briefYourBrief:"你的需求",briefPh:"描述你的运营以及你需要构建什么。越具体，结果越好。系统需要处理什么？谁会使用它？哪些产出对你的团队重要？",briefEmailLabel:"接收邮箱",emailPh:"you@company.com",briefSubmit:"提交需求",briefNote:"数小时内发送到你的邮箱。在任何付费讨论之前，你先行评估。",st1H:"已收到需求",st1P:"你的需求已提交，正在审阅中。",st2H:"正在设计你的系统",st2P:"生产流水线正在根据你的需求工作。",st3H:"构建中",st3P:"界面与自动化正在一同组装。",st4H:"质量审查",st4P:"任何成果交付之前，先经人工审查。",st5H:"最后一遍",st5P:"交付前的最后检查。",st6H:"由我们团队处理",st6P:"部署与配置进行中。",confH3:"已收到需求",confPre:"我们将构建你的系统并交付到 ",confEmailDefault:"你的邮箱",confPost:"。一个可用的网址，随时可评估。",confAnother:"再提交一份需求",gateTitle:"需要访问权限",gateClose:"关闭",tabSub:"订阅",tabCode:"邀请码",tabReq:"申请访问",subDesc:"输入你的邮箱，以有效订阅访问 Feix。",btnAccessNow:"立即访问",btnValidate:"验证邀请码",btnReqAccess:"申请访问",reqHint:"我们会审阅每一份申请，如合适将发送邀请码。",exhTitle:"没有剩余的提交次数",exhP:"你的额度已用完。申请新的邀请码以继续。",btnReqNew:"申请新的访问",msgInvalidEmail:"请输入有效的电子邮箱地址。",msgNoSub:"未找到该邮箱的有效订阅。",msgConnErr:"连接错误，请重试。",msgEnterCode:"请输入你的邀请码。",msgAccessGranted:"已授予访问权限。",msgInvalidCode:"邀请码无效。",msgRequestReceived:"已收到申请。",msgSomethingWrong:"出现了问题。",msgSubActivated:"订阅已激活。输入你的邮箱以访问 Feix。",msgDescribeProject:"请描述你的项目。",msgTooShort:"你的描述太短了。",msgValidDelivery:"请提供有效的接收邮箱。",msgServerError:"服务器错误：",msgErrorOccurred:"发生错误：",usageRemaining:"剩余 {r} / {m}"},
+  tr:{navHow:"Nasıl çalışır",navUse:"Kullanım örnekleri",navPricing:"Fiyatlandırma",navStart:"Proje başlat",heroTag:"Özel sistemler. Kullanıma hazır.",heroH1:"Karmaşık operasyonlar.<br>Özel sistemler.",heroSub:"Standart yazılım herkes için yapılır. Biz sizinkini yaparız: operasyonunuzun gerçekte nasıl çalıştığına göre tasarlanmış, kullanıma hazır teslim edilen eksiksiz bir dijital sistem.",heroStartBtn:"Proje başlat",heroHowBtn:"Nasıl çalıştığını gör",heroRightLabel:"Şunun gibi operasyonlar için yapıldı",indFleet:"Filo yönetimi",indHospitality:"Konaklama operasyonları",indMembership:"Üyelik hizmetleri",indManufacturing:"Özel üretim",indProfessional:"Profesyonel hizmetler",promiseH2:"Brief'ten canlı ürüne. Saatler içinde.",promiseP:"Operasyonunuzun neye ihtiyacı olduğunu söyleyin. Eksiksiz, çalışan bir sistem tasarlayıp kurarız. Siz değerlendirirsiniz. Yalnızca gereksinimlerinizi karşılarsa öde​rsiniz.",offerLabel:"Model",offerH2:"Brief'inize göre kurulmuş bir sistem. Taahhütten önce değerlendirilir.",offerP1:"Çoğu yazılım sağlayıcısı, ürünün operasyonunuza uyup uymadığını bilmeden önce abone olmanızı ister. Biz farklı çalışırız. Neye ihtiyacınız olduğunu anlatırsınız. Biz kurarız. Çalışan bir sistem alır ve bağlamında değerlendirirsiniz.",offerP2:"Sistem gereksinimlerinizi karşılarsa satın alırsınız. Karşılamazsa kaldırılır ve konu kapanır. Fatura yok, başka iletişim yok, yükümlülük yok.",offerP3:"Bir sistemi anlatmaktansa size çalışan bir sistem göstermeyi tercih ederiz. Bu yaklaşım işe yarar çünkü üretim hattımız eksiksiz sistemleri haftalarca değil, saatler içinde teslim eder.",offerHowLabel:"Nasıl çalışır",step1H:"Operasyonunuzu anlatırsınız",step1P:"İşletmenizin ne yaptığını, sistemin neyi yönetmesi gerektiğini ve ekibiniz ile müşterilerinizin nasıl çalıştığını söyleyin. Sade dille. Teknik bilgi gerekmez.",step2H:"Biz tasarlar ve kurarız",step2P:"Üretim hattımız brief'inizi eksiksiz bir sisteme dönüştürür: ekibinizin veya müşterilerinizin kullanacağı arayüz ve arkasında çalışan otomasyon. Teslimden önce insan incelemesi tamamlanır.",step3H:"Çalışan bir sistem alırsınız",step3P:"E-postanıza teslim edilen canlı bir URL. Demo değil, prototip değil. Aktif altyapıya sahip, kullanıma hazır eksiksiz bir sistem.",step4H:"Değerlendirir, sonra karar verirsiniz",step4P:"Ekibiniz veya müşterilerinizle test edin. İhtiyaçlarınızı karşılarsa bir fiyatta anlaşır ve alırsınız. Karşılamazsa kaldırılır. Memnun kalana kadar ödeme yok.",ucLabel:"Ne kuruyoruz",ucH2:"Hassasiyetin önemli olduğu operasyonlar için sistemler.",ucFleetInd:"Filo yönetimi",ucFleetH:"Filo operasyonları yönetim portalı",ucFleetP:"Bakım planlama, ekip görevlendirme, müşteri sevkiyatı, sefer kayıtları, yakıt kayıtları. Bir filo operatörünün takip etmesi gereken her şey için tek bir sistem.",ucHospInd:"Konaklama operasyonları",ucHospH:"Rezervasyon ve konsiyerj platformu",ucHospP:"Misafir rezervasyonu, oda yapılandırması, konsiyerj talep yönlendirme, tedarikçi koordinasyonu, e-posta ile sabah brifingleri. Kendi hizmet standartlarınıza göre kurulur.",ucMemInd:"Üyelik hizmetleri",ucMemH:"Üye portalı",ucMemP:"Üye katılımı, etkinlik rezervasyonu, üyeye özel içerik erişimi, iletişim platformu. Kendi işleyiş mantığı olan kulüpler ve ağlar için tasarlandı.",ucMfgInd:"Özel üretim",ucMfgH:"Sipariş ve üretim takip sistemi",ucMfgP:"Müşteri sipariş alımı, üretim aşaması takibi, tedarikçi koordinasyonu, teslimat bildirimleri, müşteriye dönük durum portalı. Her sipariş brief'ten teslimata kadar izlenir.",ucProInd:"Profesyonel hizmetler",ucProH:"Müşteri yönetimi ve planlama",ucProP:"Randevu alma, müşteri dosyası yönetimi, belge teslimi, faturalama akışları, otomatik takipler. Her müşteri ilişkisinin bireysel olduğu uygulamalar için.",ucEvtInd:"Etkinlik operasyonları",ucEvtH:"Etkinlik koordinasyon platformu",ucEvtP:"Misafir yönetimi, tedarikçi koordinasyonu, lojistik takibi, yerinde giriş, etkinlik sonrası raporlama. Hiçbir ayrıntının kaçırılamayacağı etkinliklerin arkasındaki altyapı.",pricingLabel:"Fiyatlandırma",pricingH2:"Memnun kaldığınızda ödersiniz.",pricingP1:"Sisteminizi çalışan bir pilot olarak kurarız. Sonucu bağlamında değerlendirene kadar fiyat konuşması olmaz.",pricingP2:"Sistem gereksinimlerinizi karşılarsa kapsama göre bir proje fiyatında anlaşırız. Karşılamazsa fatura kesilmez. Sahiplik ve barındırma tercihinize göre iki altyapı seçeneği mevcut.",pcManagedName:"Tam yönetilen",pcManagedDesc:"Her şeyi biz hallederiz: barındırma, alan adı, altyapı ve dağıtım. Çalışan bir URL alırsınız. Yapılandıracak hiçbir şey yok.",pcManagedCta:"Proje başlat",pcSelfName:"Kendi sunucunuzda",pcSelfDesc:"Sizin kendi altyapınızda kurar ve dağıtırız. Barındırma, alan adı ve servis hesaplarını siz sağlarsınız. İlk günden tam sahiplik.",pcSelfCta:"İletişime geçin",briefLabel:"Proje başlat",briefH2:"Operasyonunuzu anlatın. Sistemi biz kuralım.",briefSub:"İşletmenizin ne yaptığını, sistemin neyi yönetmesi gerektiğini ve ekibinizin nasıl çalıştığını söyleyin. Kurar ve değerlendirmeniz için çalışan bir sistem göndeririz.",briefYourBrief:"Brief'iniz",briefPh:"Operasyonunuzu ve neyin kurulmasını istediğinizi anlatın. Ne kadar net olursanız sonuç o kadar iyi olur. Sistem neyi yönetmeli? Kim kullanacak? Ekibiniz için hangi çıktılar önemli?",briefEmailLabel:"Teslimat e-postası",emailPh:"siz@sirket.com",briefSubmit:"Brief'i gönder",briefNote:"Saatler içinde e-postanıza teslim edilir. Herhangi bir ödeme görüşmesi gündeme gelmeden önce değerlendirirsiniz.",st1H:"Brief alındı",st1P:"Brief'iniz gönderildi ve inceleniyor.",st2H:"Sisteminiz tasarlanıyor",st2P:"Üretim hattı brief'inizden çalışıyor.",st3H:"Kuruluyor",st3P:"Arayüz ve otomasyon birlikte bir araya getiriliyor.",st4H:"Kalite incelemesi",st4P:"Hiçbir şey elimizden çıkmadan önce insan incelemesi.",st5H:"Son geçiş",st5P:"Teslimattan önce son kontroller.",st6H:"Ekibimizde",st6P:"Dağıtım ve yapılandırma sürüyor.",confH3:"Brief alındı",confPre:"Sisteminizi kurup şuraya teslim edeceğiz: ",confEmailDefault:"e-postanız",confPost:". Değerlendirmeye hazır, çalışan bir URL.",confAnother:"Başka bir brief gönder",gateTitle:"Erişim gerekli",gateClose:"Kapat",tabSub:"Abone ol",tabCode:"Davet kodu",tabReq:"Erişim iste",subDesc:"Aktif aboneliğinizle Feix'e erişmek için e-postanızı girin.",btnAccessNow:"Şimdi eriş",btnValidate:"Kodu doğrula",btnReqAccess:"Erişim iste",reqHint:"Her talebi inceler ve uygunsa bir davet kodu göndeririz.",exhTitle:"Kalan gönderim yok",exhP:"Hakkınız kullanıldı. Devam etmek için yeni bir davet kodu isteyin.",btnReqNew:"Yeni erişim iste",msgInvalidEmail:"Lütfen geçerli bir e-posta adresi girin.",msgNoSub:"Bu e-posta için aktif abonelik bulunamadı.",msgConnErr:"Bağlantı hatası. Lütfen tekrar deneyin.",msgEnterCode:"Lütfen davet kodunuzu girin.",msgAccessGranted:"Erişim verildi.",msgInvalidCode:"Geçersiz davet kodu.",msgRequestReceived:"Talep alındı.",msgSomethingWrong:"Bir şeyler ters gitti.",msgSubActivated:"Abonelik etkinleştirildi. Feix'e erişmek için e-postanızı girin.",msgDescribeProject:"Lütfen projenizi anlatın.",msgTooShort:"Açıklamanız çok kısa.",msgValidDelivery:"Lütfen geçerli bir teslimat e-postası girin.",msgServerError:"Sunucu hatası: ",msgErrorOccurred:"Bir hata oluştu: ",usageRemaining:"{r} / {m} kaldı"},
+  de:{navHow:"So funktioniert es",navUse:"Anwendungsfälle",navPricing:"Preise",navStart:"Projekt starten",heroTag:"Maßgeschneiderte Systeme. Sofort einsatzbereit.",heroH1:"Komplexe Abläufe.<br>Maßgeschneiderte Systeme.",heroSub:"Standardsoftware ist für alle gemacht. Wir bauen Ihre: ein vollständiges digitales System, das auf der tatsächlichen Arbeitsweise Ihres Betriebs aufbaut und einsatzbereit geliefert wird.",heroStartBtn:"Projekt starten",heroHowBtn:"So funktioniert es",heroRightLabel:"Gebaut für Abläufe wie diese",indFleet:"Flottenmanagement",indHospitality:"Hotelbetrieb",indMembership:"Mitgliederdienste",indManufacturing:"Maßfertigung",indProfessional:"Professionelle Dienstleistungen",promiseH2:"Vom Briefing zum fertigen Produkt. In Stunden.",promiseP:"Sagen Sie uns, was Ihr Betrieb braucht. Wir entwerfen und bauen ein vollständiges, funktionierendes System. Sie bewerten es. Nur wenn es Ihre Anforderungen erfüllt, zahlen Sie dafür.",offerLabel:"Das Modell",offerH2:"Ein System nach Ihrem Briefing. Bewertet, bevor Sie sich festlegen.",offerP1:"Die meisten Softwareanbieter verlangen ein Abonnement, bevor Sie wissen, ob das Produkt zu Ihrem Betrieb passt. Wir arbeiten anders. Sie beschreiben, was Sie brauchen. Wir bauen es. Sie erhalten ein funktionierendes System und bewerten es im Kontext.",offerP2:"Erfüllt das System Ihre Anforderungen, kaufen Sie es. Wenn nicht, wird es entfernt und die Sache ist erledigt. Keine Rechnungen, kein weiterer Kontakt, keine Verpflichtungen.",offerP3:"Wir zeigen Ihnen lieber ein funktionierendes System, als eines zu beschreiben. Dieser Ansatz funktioniert, weil unsere Produktionspipeline vollständige Systeme in Stunden liefert, nicht in Wochen.",offerHowLabel:"So funktioniert es",step1H:"Sie beschreiben Ihren Betrieb",step1P:"Sagen Sie uns, was Ihr Unternehmen tut, was das System leisten soll und wie Ihr Team und Ihre Kunden arbeiten. In einfacher Sprache. Keine technischen Kenntnisse erforderlich.",step2H:"Wir entwerfen und bauen es",step2P:"Unsere Produktionspipeline verwandelt Ihr Briefing in ein vollständiges System: die Oberfläche für Ihr Team oder Ihre Kunden und die Automatisierung dahinter. Vor der Lieferung erfolgt eine menschliche Prüfung.",step3H:"Sie erhalten ein funktionierendes System",step3P:"Eine Live-URL, an Ihre E-Mail geliefert. Keine Demo, kein Prototyp. Ein vollständiges System mit aktiver Infrastruktur, einsatzbereit.",step4H:"Sie bewerten, dann entscheiden Sie",step4P:"Testen Sie es mit Ihrem Team oder Ihren Kunden. Erfüllt es Ihre Anforderungen, einigen wir uns auf einen Preis und Sie übernehmen es. Wenn nicht, wird es entfernt. Keine Zahlung, bevor Sie zufrieden sind.",ucLabel:"Was wir bauen",ucH2:"Systeme für Abläufe, bei denen Präzision zählt.",ucFleetInd:"Flottenmanagement",ucFleetH:"Verwaltungsportal für den Flottenbetrieb",ucFleetP:"Wartungsplanung, Crew-Einteilung, Kundendisposition, Fahrtenbücher, Kraftstoffaufzeichnungen. Ein einziges System für alles, was ein Flottenbetreiber verfolgen muss.",ucHospInd:"Hotelbetrieb",ucHospH:"Reservierungs- und Concierge-Plattform",ucHospP:"Gästebuchung, Zimmerkonfiguration, Weiterleitung von Concierge-Anfragen, Lieferantenkoordination, morgendliche Briefings per E-Mail. Auf Ihre Servicestandards zugeschnitten.",ucMemInd:"Mitgliederdienste",ucMemH:"Mitgliederportal",ucMemP:"Mitglieder-Onboarding, Veranstaltungsbuchung, Zugang zu Mitgliederinhalten, Kommunikationsplattform. Für Clubs und Netzwerke mit eigener Betriebslogik.",ucMfgInd:"Maßfertigung",ucMfgH:"Auftrags- und Produktionsverfolgungssystem",ucMfgP:"Auftragsannahme, Verfolgung der Produktionsphasen, Lieferantenkoordination, Lieferbenachrichtigungen, kundenseitiges Statusportal. Jeder Auftrag vom Briefing bis zur Lieferung verfolgt.",ucProInd:"Professionelle Dienstleistungen",ucProH:"Kundenverwaltung und Terminplanung",ucProP:"Terminbuchung, Verwaltung von Kundenakten, Dokumentenübergabe, Abrechnungsabläufe, automatisierte Nachfassaktionen. Für Kanzleien, in denen jede Kundenbeziehung individuell ist.",ucEvtInd:"Veranstaltungsbetrieb",ucEvtH:"Plattform zur Veranstaltungskoordination",ucEvtP:"Gästeverwaltung, Dienstleisterkoordination, Logistikverfolgung, Check-in vor Ort, Berichterstattung nach der Veranstaltung. Die Infrastruktur hinter Veranstaltungen, bei denen kein Detail übersehen werden darf.",pricingLabel:"Preise",pricingH2:"Sie zahlen, wenn Sie zufrieden sind.",pricingP1:"Wir bauen Ihr System als funktionierenden Piloten. Kein Preisgespräch, bevor Sie das Ergebnis im Kontext bewertet haben.",pricingP2:"Erfüllt das System Ihre Anforderungen, einigen wir uns je nach Umfang auf einen Projektpreis. Wenn nicht, wird keine Rechnung gestellt. Zwei Infrastrukturwege verfügbar, je nach Ihrer Präferenz für Eigentum und Hosting.",pcManagedName:"Vollständig verwaltet",pcManagedDesc:"Wir kümmern uns um alles: Hosting, Domain, Infrastruktur und Bereitstellung. Sie erhalten eine funktionierende URL. Nichts zu konfigurieren.",pcManagedCta:"Projekt starten",pcSelfName:"Selbst gehostet",pcSelfDesc:"Wir bauen und stellen auf Ihrer eigenen Infrastruktur bereit. Sie stellen Hosting, Domain und Dienstkonten. Volles Eigentum ab dem ersten Tag.",pcSelfCta:"Kontakt aufnehmen",briefLabel:"Projekt starten",briefH2:"Beschreiben Sie Ihren Betrieb. Wir bauen das System.",briefSub:"Sagen Sie uns, was Ihr Unternehmen tut, was das System leisten soll und wie Ihr Team arbeitet. Wir bauen es und senden Ihnen ein funktionierendes System zur Bewertung.",briefYourBrief:"Ihr Briefing",briefPh:"Beschreiben Sie Ihren Betrieb und was gebaut werden soll. Je genauer Sie sind, desto besser das Ergebnis. Was soll das System leisten? Wer wird es nutzen? Welche Ergebnisse sind für Ihr Team wichtig?",briefEmailLabel:"Liefer-E-Mail",emailPh:"sie@unternehmen.com",briefSubmit:"Briefing senden",briefNote:"Innerhalb von Stunden an Ihre E-Mail geliefert. Sie bewerten, bevor es um Zahlung geht.",st1H:"Briefing erhalten",st1P:"Ihr Briefing wurde eingereicht und wird geprüft.",st2H:"Ihr System wird entworfen",st2P:"Die Produktionspipeline arbeitet an Ihrem Briefing.",st3H:"Wird gebaut",st3P:"Oberfläche und Automatisierung werden zusammengefügt.",st4H:"Qualitätsprüfung",st4P:"Menschliche Prüfung, bevor etwas unsere Hände verlässt.",st5H:"Letzter Durchgang",st5P:"Letzte Kontrollen vor der Lieferung.",st6H:"Bei unserem Team",st6P:"Bereitstellung und Konfiguration laufen.",confH3:"Briefing erhalten",confPre:"Wir bauen Ihr System und liefern es an ",confEmailDefault:"Ihre E-Mail",confPost:". Eine funktionierende URL, bereit zur Bewertung.",confAnother:"Weiteres Briefing senden",gateTitle:"Zugang erforderlich",gateClose:"Schließen",tabSub:"Abonnieren",tabCode:"Einladungscode",tabReq:"Zugang anfragen",subDesc:"Geben Sie Ihre E-Mail ein, um mit einem aktiven Abonnement auf Feix zuzugreifen.",btnAccessNow:"Jetzt zugreifen",btnValidate:"Code prüfen",btnReqAccess:"Zugang anfragen",reqHint:"Wir prüfen jede Anfrage und senden bei Eignung einen Einladungscode.",exhTitle:"Keine Einreichungen mehr übrig",exhP:"Ihr Kontingent ist aufgebraucht. Fordern Sie einen neuen Einladungscode an, um fortzufahren.",btnReqNew:"Neuen Zugang anfragen",msgInvalidEmail:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",msgNoSub:"Kein aktives Abonnement für diese E-Mail gefunden.",msgConnErr:"Verbindungsfehler. Bitte versuchen Sie es erneut.",msgEnterCode:"Bitte geben Sie Ihren Einladungscode ein.",msgAccessGranted:"Zugang gewährt.",msgInvalidCode:"Ungültiger Einladungscode.",msgRequestReceived:"Anfrage erhalten.",msgSomethingWrong:"Etwas ist schiefgelaufen.",msgSubActivated:"Abonnement aktiviert. Geben Sie Ihre E-Mail ein, um auf Feix zuzugreifen.",msgDescribeProject:"Bitte beschreiben Sie Ihr Projekt.",msgTooShort:"Ihre Beschreibung ist zu kurz.",msgValidDelivery:"Bitte geben Sie eine gültige Liefer-E-Mail an.",msgServerError:"Serverfehler: ",msgErrorOccurred:"Ein Fehler ist aufgetreten: ",usageRemaining:"{r} / {m} übrig"},
+  es:{navHow:"Cómo funciona",navUse:"Casos de uso",navPricing:"Precios",navStart:"Iniciar un proyecto",heroTag:"Sistemas a medida. Listos para usar.",heroH1:"Operaciones complejas.<br>Sistemas a medida.",heroSub:"El software estándar se hace para todos. Nosotros construimos el tuyo: un sistema digital completo, diseñado en torno a cómo funciona realmente tu operación, entregado listo para usar.",heroStartBtn:"Iniciar un proyecto",heroHowBtn:"Ver cómo funciona",heroRightLabel:"Construido para operaciones como estas",indFleet:"Gestión de flotas",indHospitality:"Operaciones hoteleras",indMembership:"Servicios de membresía",indManufacturing:"Fabricación a medida",indProfessional:"Servicios profesionales",promiseH2:"Del brief al producto en vivo. En horas.",promiseP:"Dinos qué necesita tu operación. Diseñamos y construimos un sistema completo y funcional. Tú lo evalúas. Solo pagas si cumple tus requisitos.",offerLabel:"El modelo",offerH2:"Un sistema construido según tu brief. Evaluado antes de comprometerte.",offerP1:"La mayoría de los proveedores de software te piden suscribirte antes de saber si el producto encaja con tu operación. Nosotros trabajamos distinto. Tú describes lo que necesitas. Nosotros lo construimos. Recibes un sistema funcional y lo evalúas en contexto.",offerP2:"Si el sistema cumple tus requisitos, lo compras. Si no, se retira y el asunto queda cerrado. Sin facturas, sin más contacto, sin obligaciones.",offerP3:"Preferimos mostrarte un sistema funcional en lugar de describir uno. Este enfoque funciona porque nuestra cadena de producción entrega sistemas completos en horas, no en semanas.",offerHowLabel:"Cómo funciona",step1H:"Describes tu operación",step1P:"Dinos qué hace tu empresa, qué necesitas que gestione el sistema y cómo trabajan tu equipo y tus clientes. En lenguaje sencillo. No se requieren conocimientos técnicos.",step2H:"Lo diseñamos y construimos",step2P:"Nuestra cadena de producción convierte tu brief en un sistema completo: la interfaz que usarán tu equipo o tus clientes y la automatización que funciona detrás. Se completa una revisión humana antes de la entrega.",step3H:"Recibes un sistema funcional",step3P:"Una URL en vivo, entregada a tu correo. No es una demo ni un prototipo. Un sistema completo con infraestructura activa, listo para usar.",step4H:"Evalúas y luego decides",step4P:"Pruébalo con tu equipo o tus clientes. Si cumple tus necesidades, acordamos un precio y te lo quedas. Si no, se retira. Sin pago hasta que estés satisfecho.",ucLabel:"Lo que construimos",ucH2:"Sistemas para operaciones donde la precisión importa.",ucFleetInd:"Gestión de flotas",ucFleetH:"Portal de gestión de operaciones de flota",ucFleetP:"Programación de mantenimiento, asignación de tripulación, despacho de clientes, registros de viaje, registros de combustible. Un solo sistema para todo lo que un operador de flota necesita controlar.",ucHospInd:"Operaciones hoteleras",ucHospH:"Plataforma de reservas y conserjería",ucHospP:"Reserva de huéspedes, configuración de habitaciones, enrutamiento de solicitudes de conserjería, coordinación de proveedores, informes matutinos por correo. Construido en torno a tus estándares de servicio.",ucMemInd:"Servicios de membresía",ucMemH:"Portal de miembros",ucMemP:"Incorporación de miembros, reserva de eventos, acceso a contenido para miembros, plataforma de comunicación. Diseñado para clubes y redes con su propia lógica operativa.",ucMfgInd:"Fabricación a medida",ucMfgH:"Sistema de seguimiento de pedidos y producción",ucMfgP:"Recepción de pedidos, seguimiento de etapas de producción, coordinación de proveedores, notificaciones de entrega, portal de estado para el cliente. Cada pedido seguido del brief a la entrega.",ucProInd:"Servicios profesionales",ucProH:"Gestión de clientes y agenda",ucProP:"Reserva de citas, gestión de expedientes de clientes, entrega de documentos, flujos de facturación, seguimientos automatizados. Para despachos donde cada relación con el cliente es individual.",ucEvtInd:"Operaciones de eventos",ucEvtH:"Plataforma de coordinación de eventos",ucEvtP:"Gestión de invitados, coordinación de proveedores, seguimiento logístico, registro in situ, informes posteriores al evento. La infraestructura detrás de eventos donde no se puede pasar por alto ningún detalle.",pricingLabel:"Precios",pricingH2:"Pagas cuando estás satisfecho.",pricingP1:"Construimos tu sistema como un piloto funcional. No hablamos de precio hasta que hayas evaluado el resultado en contexto.",pricingP2:"Si el sistema cumple tus requisitos, acordamos un precio de proyecto según el alcance. Si no, no se emite factura. Dos vías de infraestructura disponibles, según tu preferencia de propiedad y alojamiento.",pcManagedName:"Totalmente gestionado",pcManagedDesc:"Nos encargamos de todo: alojamiento, dominio, infraestructura y despliegue. Recibes una URL funcional. Nada que configurar.",pcManagedCta:"Iniciar un proyecto",pcSelfName:"Autoalojado",pcSelfDesc:"Construimos y desplegamos en tu propia infraestructura. Tú proporcionas alojamiento, dominio y cuentas de servicio. Propiedad total desde el primer día.",pcSelfCta:"Ponte en contacto",briefLabel:"Iniciar un proyecto",briefH2:"Describe tu operación. Nosotros construimos el sistema.",briefSub:"Dinos qué hace tu empresa, qué necesitas que gestione el sistema y cómo trabaja tu equipo. Lo construiremos y te enviaremos un sistema funcional para evaluar.",briefYourBrief:"Tu brief",briefPh:"Describe tu operación y lo que necesitas que se construya. Cuanto más específico seas, mejor será el resultado. ¿Qué debe gestionar el sistema? ¿Quién lo usará? ¿Qué resultados importan a tu equipo?",briefEmailLabel:"Correo de entrega",emailPh:"tu@empresa.com",briefSubmit:"Enviar brief",briefNote:"Entregado a tu correo en cuestión de horas. Evalúas antes de cualquier conversación sobre el pago.",st1H:"Brief recibido",st1P:"Tu brief se ha enviado y está en revisión.",st2H:"Diseñando tu sistema",st2P:"La cadena de producción está trabajando a partir de tu brief.",st3H:"Construyendo",st3P:"Interfaz y automatización se ensamblan juntas.",st4H:"Revisión de calidad",st4P:"Revisión humana antes de que algo salga de nuestras manos.",st5H:"Última pasada",st5P:"Últimas comprobaciones antes de la entrega.",st6H:"Con nuestro equipo",st6P:"Despliegue y configuración en curso.",confH3:"Brief recibido",confPre:"Construiremos tu sistema y lo entregaremos a ",confEmailDefault:"tu correo",confPost:". Una URL funcional, lista para evaluar.",confAnother:"Enviar otro brief",gateTitle:"Acceso requerido",gateClose:"Cerrar",tabSub:"Suscribirse",tabCode:"Código de invitación",tabReq:"Solicitar acceso",subDesc:"Introduce tu correo para acceder a Feix con una suscripción activa.",btnAccessNow:"Acceder ahora",btnValidate:"Validar código",btnReqAccess:"Solicitar acceso",reqHint:"Revisamos cada solicitud y enviamos un código de invitación si hay encaje.",exhTitle:"No quedan envíos",exhP:"Tu asignación se ha utilizado. Solicita un nuevo código de invitación para continuar.",btnReqNew:"Solicitar nuevo acceso",msgInvalidEmail:"Introduce una dirección de correo válida.",msgNoSub:"No se encontró una suscripción activa para este correo.",msgConnErr:"Error de conexión. Inténtalo de nuevo.",msgEnterCode:"Introduce tu código de invitación.",msgAccessGranted:"Acceso concedido.",msgInvalidCode:"Código de invitación no válido.",msgRequestReceived:"Solicitud recibida.",msgSomethingWrong:"Algo salió mal.",msgSubActivated:"Suscripción activada. Introduce tu correo para acceder a Feix.",msgDescribeProject:"Describe tu proyecto.",msgTooShort:"Tu descripción es demasiado corta.",msgValidDelivery:"Proporciona un correo de entrega válido.",msgServerError:"Error del servidor: ",msgErrorOccurred:"Se produjo un error: ",usageRemaining:"{r} / {m} restantes"},
+  ja:{navHow:"仕組み",navUse:"活用例",navPricing:"料金",navStart:"プロジェクトを開始",heroTag:"カスタムシステム。すぐに使えます。",heroH1:"複雑な業務。<br>カスタムシステム。",heroSub:"標準ソフトウェアは万人向けに作られています。私たちはあなた専用のものを作ります。あなたの業務が実際にどう動いているかに合わせて設計された、すぐに使える完全なデジタルシステムです。",heroStartBtn:"プロジェクトを開始",heroHowBtn:"仕組みを見る",heroRightLabel:"このような業務のために構築",indFleet:"車両管理",indHospitality:"ホスピタリティ業務",indMembership:"会員サービス",indManufacturing:"オーダーメイド製造",indProfessional:"プロフェッショナルサービス",promiseH2:"ブリーフから稼働中の製品へ。数時間で。",promiseP:"あなたの業務に必要なものを教えてください。完全に機能するシステムを設計・構築します。あなたが評価します。要件を満たした場合にのみ、お支払いいただきます。",offerLabel:"モデル",offerH2:"あなたのブリーフに沿って構築されたシステム。コミットする前に評価。",offerP1:"多くのソフトウェアベンダーは、製品が業務に合うかどうかを知る前に契約を求めます。私たちのやり方は違います。必要なものを説明していただき、私たちが構築し、稼働するシステムを受け取って実際の文脈で評価していただきます。",offerP2:"システムが要件を満たせば購入。満たさなければ撤去し、それで終了です。請求書なし、その後の連絡なし、義務なし。",offerP3:"システムを説明するより、実際に動くものをお見せしたいと考えています。私たちの制作パイプラインは完全なシステムを数週間ではなく数時間で提供するため、この方法が成り立ちます。",offerHowLabel:"仕組み",step1H:"業務を説明していただきます",step1P:"あなたの事業内容、システムに処理してほしいこと、チームと顧客の働き方を教えてください。平易な言葉で。技術知識は不要です。",step2H:"私たちが設計・構築します",step2P:"私たちの制作パイプラインがあなたのブリーフを完全なシステムに変えます。チームや顧客が使うインターフェースと、その背後で動く自動化です。納品前に人による確認を行います。",step3H:"稼働するシステムを受け取ります",step3P:"稼働中のURLをメールでお届けします。デモでもプロトタイプでもありません。アクティブなインフラを備えた、すぐ使える完全なシステムです。",step4H:"評価して、それから決めます",step4P:"チームや顧客と一緒に試してください。ニーズを満たせば価格を合意し、引き取っていただきます。満たさなければ撤去します。ご満足いただくまでお支払いは不要です。",ucLabel:"私たちが構築するもの",ucH2:"精度が重要な業務のためのシステム。",ucFleetInd:"車両管理",ucFleetH:"車両運行管理ポータル",ucFleetP:"整備スケジュール、乗員割当、顧客配車、運行日誌、燃料記録。車両運行者が追跡すべきすべてを一つのシステムで。",ucHospInd:"ホスピタリティ業務",ucHospH:"予約・コンシェルジュプラットフォーム",ucHospP:"宿泊予約、客室構成、コンシェルジュ依頼の振り分け、サプライヤー調整、メールでの朝のブリーフィング。あなた独自のサービス基準に合わせて構築。",ucMemInd:"会員サービス",ucMemH:"会員ポータル",ucMemP:"会員オンボーディング、イベント予約、会員向けコンテンツへのアクセス、コミュニケーション基盤。独自の運営ロジックを持つクラブやネットワーク向けに設計。",ucMfgInd:"オーダーメイド製造",ucMfgH:"受注・生産追跡システム",ucMfgP:"顧客受注、生産工程の追跡、サプライヤー調整、配送通知、顧客向けステータスポータル。各注文をブリーフから納品まで追跡。",ucProInd:"プロフェッショナルサービス",ucProH:"顧客管理とスケジューリング",ucProP:"予約受付、顧客ファイル管理、書類送付、請求ワークフロー、自動フォローアップ。各顧客との関係が個別である業務向け。",ucEvtInd:"イベント運営",ucEvtH:"イベント調整プラットフォーム",ucEvtP:"ゲスト管理、ベンダー調整、ロジスティクス追跡、現地チェックイン、イベント後のレポート。どんな細部も見逃せないイベントを支えるインフラ。",pricingLabel:"料金",pricingH2:"ご満足いただいてからお支払い。",pricingP1:"あなたのシステムを稼働するパイロットとして構築します。実際の文脈で結果を評価いただくまで、料金の話はしません。",pricingP2:"システムが要件を満たせば、範囲に応じてプロジェクト価格を合意します。満たさなければ請求書は発行されません。所有とホスティングの希望に応じて、2つのインフラ方式をご用意しています。",pcManagedName:"フルマネージド",pcManagedDesc:"ホスティング、ドメイン、インフラ、デプロイまですべて私たちが対応します。稼働するURLをお届けします。設定は不要です。",pcManagedCta:"プロジェクトを開始",pcSelfName:"セルフホスト",pcSelfDesc:"あなた自身のインフラ上に構築・デプロイします。ホスティング、ドメイン、サービスアカウントはあなたが用意します。初日から完全な所有権を。",pcSelfCta:"お問い合わせ",briefLabel:"プロジェクトを開始",briefH2:"業務を説明してください。システムは私たちが構築します。",briefSub:"あなたの事業内容、システムに処理してほしいこと、チームの働き方を教えてください。構築して、評価用の稼働するシステムをお送りします。",briefYourBrief:"あなたのブリーフ",briefPh:"あなたの業務と、構築してほしいものを説明してください。具体的であるほど、結果は良くなります。システムは何を処理する必要がありますか？誰が使いますか？チームにとってどの成果物が重要ですか？",briefEmailLabel:"納品先メール",emailPh:"you@company.com",briefSubmit:"ブリーフを送信",briefNote:"数時間以内にメールでお届けします。お支払いの話が出る前に評価いただけます。",st1H:"ブリーフを受領",st1P:"あなたのブリーフが送信され、確認中です。",st2H:"システムを設計中",st2P:"制作パイプラインがあなたのブリーフから作業しています。",st3H:"構築中",st3P:"インターフェースと自動化を一体で組み立て中。",st4H:"品質レビュー",st4P:"何かが私たちの手を離れる前に、人によるレビュー。",st5H:"最終確認",st5P:"納品前の最終チェック。",st6H:"私たちのチームで対応中",st6P:"デプロイと設定を進行中。",confH3:"ブリーフを受領",confPre:"あなたのシステムを構築し、こちらにお届けします: ",confEmailDefault:"あなたのメール",confPost:"。評価できる、稼働するURLです。",confAnother:"別のブリーフを送信",gateTitle:"アクセスが必要です",gateClose:"閉じる",tabSub:"購読",tabCode:"招待コード",tabReq:"アクセスをリクエスト",subDesc:"有効な購読でFeixにアクセスするには、メールを入力してください。",btnAccessNow:"今すぐアクセス",btnValidate:"コードを検証",btnReqAccess:"アクセスをリクエスト",reqHint:"各リクエストを確認し、適合すれば招待コードをお送りします。",exhTitle:"残りの送信回数がありません",exhP:"割り当てを使い切りました。続けるには新しい招待コードをリクエストしてください。",btnReqNew:"新しいアクセスをリクエスト",msgInvalidEmail:"有効なメールアドレスを入力してください。",msgNoSub:"このメールの有効な購読が見つかりません。",msgConnErr:"接続エラー。もう一度お試しください。",msgEnterCode:"招待コードを入力してください。",msgAccessGranted:"アクセスが許可されました。",msgInvalidCode:"無効な招待コードです。",msgRequestReceived:"リクエストを受領しました。",msgSomethingWrong:"問題が発生しました。",msgSubActivated:"購読が有効になりました。Feixにアクセスするにはメールを入力してください。",msgDescribeProject:"プロジェクトを説明してください。",msgTooShort:"説明が短すぎます。",msgValidDelivery:"有効な納品先メールを入力してください。",msgServerError:"サーバーエラー: ",msgErrorOccurred:"エラーが発生しました: ",usageRemaining:"残り {r} / {m}"},
+  ru:{navHow:"Как это работает",navUse:"Примеры использования",navPricing:"Цены",navStart:"Начать проект",heroTag:"Системы на заказ. Готовы к использованию.",heroH1:"Сложные операции.<br>Системы на заказ.",heroSub:"Стандартное ПО создаётся для всех. Мы создаём ваше: полноценную цифровую систему, спроектированную под то, как ваша работа устроена на самом деле, и переданную готовой к использованию.",heroStartBtn:"Начать проект",heroHowBtn:"Посмотреть, как это работает",heroRightLabel:"Создано для таких операций",indFleet:"Управление автопарком",indHospitality:"Гостиничные операции",indMembership:"Членские сервисы",indManufacturing:"Изготовление на заказ",indProfessional:"Профессиональные услуги",promiseH2:"От брифа до работающего продукта. За часы.",promiseP:"Расскажите, что нужно вашей работе. Мы спроектируем и построим полноценную работающую систему. Вы её оцените. Вы платите, только если она отвечает вашим требованиям.",offerLabel:"Модель",offerH2:"Система, построенная по вашему брифу. Оценивается до обязательств.",offerP1:"Большинство поставщиков ПО просят оформить подписку до того, как вы узнаете, подходит ли продукт. Мы работаем иначе. Вы описываете, что нужно. Мы строим это. Вы получаете работающую систему и оцениваете её в контексте.",offerP2:"Если система отвечает вашим требованиям, вы её покупаете. Если нет — она удаляется, и вопрос закрыт. Без счетов, без дальнейших контактов, без обязательств.",offerP3:"Мы предпочитаем показать работающую систему, а не описывать её. Этот подход возможен потому, что наш производственный конвейер выдаёт готовые системы за часы, а не за недели.",offerHowLabel:"Как это работает",step1H:"Вы описываете свою работу",step1P:"Расскажите, чем занимается ваш бизнес, что должна делать система и как работают ваша команда и клиенты. Простым языком. Технические знания не нужны.",step2H:"Мы проектируем и строим её",step2P:"Наш производственный конвейер превращает ваш бриф в полноценную систему: интерфейс для вашей команды или клиентов и автоматизацию, работающую за ним. Перед передачей проводится проверка человеком.",step3H:"Вы получаете работающую систему",step3P:"Рабочий URL, отправленный на вашу почту. Не демо и не прототип. Полноценная система с действующей инфраструктурой, готовая к использованию.",step4H:"Вы оцениваете, затем решаете",step4P:"Протестируйте её с командой или клиентами. Если она отвечает вашим потребностям, мы согласуем цену и вы её забираете. Если нет — она удаляется. Никакой оплаты, пока вы не будете довольны.",ucLabel:"Что мы строим",ucH2:"Системы для операций, где важна точность.",ucFleetInd:"Управление автопарком",ucFleetH:"Портал управления операциями автопарка",ucFleetP:"Планирование обслуживания, назначение экипажей, диспетчеризация клиентов, журналы рейсов, учёт топлива. Единая система для всего, что нужно отслеживать оператору автопарка.",ucHospInd:"Гостиничные операции",ucHospH:"Платформа бронирования и консьерж-сервиса",ucHospP:"Бронирование гостей, конфигурация номеров, маршрутизация запросов консьержа, координация поставщиков, утренние сводки по почте. Построено под ваши стандарты обслуживания.",ucMemInd:"Членские сервисы",ucMemH:"Портал участников",ucMemP:"Онбординг участников, бронирование мероприятий, доступ к контенту для участников, коммуникационная платформа. Для клубов и сетей с собственной логикой работы.",ucMfgInd:"Изготовление на заказ",ucMfgH:"Система отслеживания заказов и производства",ucMfgP:"Приём заказов клиентов, отслеживание этапов производства, координация поставщиков, уведомления о доставке, клиентский портал статуса. Каждый заказ — от брифа до доставки.",ucProInd:"Профессиональные услуги",ucProH:"Управление клиентами и расписанием",ucProP:"Запись на приём, ведение клиентских дел, передача документов, биллинговые процессы, автоматические напоминания. Для практик, где каждые отношения с клиентом индивидуальны.",ucEvtInd:"Организация мероприятий",ucEvtH:"Платформа координации мероприятий",ucEvtP:"Управление гостями, координация подрядчиков, отслеживание логистики, регистрация на месте, отчётность после мероприятия. Инфраструктура за мероприятиями, где нельзя упустить ни одной детали.",pricingLabel:"Цены",pricingH2:"Вы платите, когда довольны.",pricingP1:"Мы строим вашу систему как работающий пилот. Никаких разговоров о цене, пока вы не оцените результат в контексте.",pricingP2:"Если система отвечает вашим требованиям, мы согласуем цену проекта по объёму. Если нет — счёт не выставляется. Доступны два варианта инфраструктуры в зависимости от ваших предпочтений по владению и хостингу.",pcManagedName:"Полностью управляемый",pcManagedDesc:"Мы берём на себя всё: хостинг, домен, инфраструктуру и развёртывание. Вы получаете работающий URL. Ничего настраивать не нужно.",pcManagedCta:"Начать проект",pcSelfName:"На вашем хостинге",pcSelfDesc:"Мы строим и разворачиваем на вашей собственной инфраструктуре. Вы предоставляете хостинг, домен и сервисные аккаунты. Полное владение с первого дня.",pcSelfCta:"Связаться с нами",briefLabel:"Начать проект",briefH2:"Опишите свою работу. Мы построим систему.",briefSub:"Расскажите, чем занимается ваш бизнес, что должна делать система и как работает ваша команда. Мы построим её и пришлём вам работающую систему для оценки.",briefYourBrief:"Ваш бриф",briefPh:"Опишите свою работу и то, что нужно построить. Чем конкретнее, тем лучше результат. Что должна обрабатывать система? Кто будет ею пользоваться? Какие результаты важны вашей команде?",briefEmailLabel:"Email для доставки",emailPh:"you@company.com",briefSubmit:"Отправить бриф",briefNote:"Доставляется на вашу почту в течение часов. Вы оцениваете до любого разговора об оплате.",st1H:"Бриф получен",st1P:"Ваш бриф отправлен и рассматривается.",st2H:"Проектируем вашу систему",st2P:"Производственный конвейер работает по вашему брифу.",st3H:"Строим",st3P:"Интерфейс и автоматизация собираются вместе.",st4H:"Проверка качества",st4P:"Проверка человеком, прежде чем что-либо покинет наши руки.",st5H:"Финальный проход",st5P:"Последние проверки перед доставкой.",st6H:"У нашей команды",st6P:"Идут развёртывание и настройка.",confH3:"Бриф получен",confPre:"Мы построим вашу систему и доставим её на ",confEmailDefault:"вашу почту",confPost:". Работающий URL, готовый к оценке.",confAnother:"Отправить ещё один бриф",gateTitle:"Требуется доступ",gateClose:"Закрыть",tabSub:"Подписка",tabCode:"Код приглашения",tabReq:"Запросить доступ",subDesc:"Введите email, чтобы получить доступ к Feix с активной подпиской.",btnAccessNow:"Войти сейчас",btnValidate:"Проверить код",btnReqAccess:"Запросить доступ",reqHint:"Мы рассматриваем каждый запрос и отправляем код приглашения при наличии соответствия.",exhTitle:"Отправок не осталось",exhP:"Ваш лимит использован. Запросите новый код приглашения, чтобы продолжить.",btnReqNew:"Запросить новый доступ",msgInvalidEmail:"Введите корректный адрес электронной почты.",msgNoSub:"Активная подписка для этого email не найдена.",msgConnErr:"Ошибка соединения. Попробуйте ещё раз.",msgEnterCode:"Введите ваш код приглашения.",msgAccessGranted:"Доступ предоставлен.",msgInvalidCode:"Неверный код приглашения.",msgRequestReceived:"Запрос получен.",msgSomethingWrong:"Что-то пошло не так.",msgSubActivated:"Подписка активирована. Введите email для доступа к Feix.",msgDescribeProject:"Опишите ваш проект.",msgTooShort:"Ваше описание слишком короткое.",msgValidDelivery:"Укажите корректный email для доставки.",msgServerError:"Ошибка сервера: ",msgErrorOccurred:"Произошла ошибка: ",usageRemaining:"осталось {r} / {m}"},
+  ar:{navHow:"كيف يعمل",navUse:"حالات الاستخدام",navPricing:"الأسعار",navStart:"ابدأ مشروعًا",heroTag:"أنظمة مخصّصة. جاهزة للاستخدام.",heroH1:"عمليات معقّدة.<br>أنظمة مخصّصة.",heroSub:"البرمجيات القياسية مصمّمة للجميع. نحن نبني نظامك: نظامًا رقميًا متكاملًا، مصمّمًا حول الطريقة التي تعمل بها عملياتك فعليًا، ويُسلَّم جاهزًا للاستخدام.",heroStartBtn:"ابدأ مشروعًا",heroHowBtn:"شاهد كيف يعمل",heroRightLabel:"مبني لعمليات مثل هذه",indFleet:"إدارة الأساطيل",indHospitality:"عمليات الضيافة",indMembership:"خدمات العضوية",indManufacturing:"التصنيع حسب الطلب",indProfessional:"الخدمات المهنية",promiseH2:"من الموجز إلى منتج حيّ. في ساعات.",promiseP:"أخبرنا بما تحتاجه عملياتك. نصمّم ونبني نظامًا متكاملًا وعاملًا. أنت تقيّمه. ولا تدفع إلا إذا لبّى متطلباتك.",offerLabel:"النموذج",offerH2:"نظام مبني وفق موجزك. يُقيَّم قبل أن تلتزم.",offerP1:"يطلب منك معظم مزوّدي البرمجيات الاشتراك قبل أن تعرف إن كان المنتج يناسب عملياتك. نحن نعمل بشكل مختلف. تصف ما تحتاجه، ونبنيه، وتتسلّم نظامًا عاملًا وتقيّمه في سياقه.",offerP2:"إذا لبّى النظام متطلباتك، تشتريه. وإن لم يلبِّها، يُزال وتُغلق المسألة. لا فواتير، ولا تواصل إضافي، ولا التزامات.",offerP3:"نفضّل أن نريك نظامًا عاملًا بدل أن نصفه. ينجح هذا النهج لأن خط إنتاجنا يسلّم أنظمة متكاملة في ساعات لا أسابيع.",offerHowLabel:"كيف يعمل",step1H:"تصف عملياتك",step1P:"أخبرنا بما يقوم به عملك، وما تريد أن يتولّاه النظام، وكيف يعمل فريقك وعملاؤك. بلغة بسيطة. لا حاجة لمعرفة تقنية.",step2H:"نصمّمه ونبنيه",step2P:"يحوّل خط إنتاجنا موجزك إلى نظام متكامل: الواجهة التي سيستخدمها فريقك أو عملاؤك، والأتمتة العاملة خلفها. تُجرى مراجعة بشرية قبل التسليم.",step3H:"تتسلّم نظامًا عاملًا",step3P:"رابط حيّ يُسلَّم إلى بريدك. ليس عرضًا توضيحيًا ولا نموذجًا أوليًا. نظام متكامل ببنية تحتية نشطة، جاهز للاستخدام.",step4H:"تقيّم ثم تقرّر",step4P:"جرّبه مع فريقك أو عملائك. إذا لبّى احتياجاتك، نتفق على سعر وتأخذه. وإن لم يلبِّها، يُزال. لا دفع حتى ترضى.",ucLabel:"ما نبنيه",ucH2:"أنظمة لعمليات تهمّ فيها الدقة.",ucFleetInd:"إدارة الأساطيل",ucFleetH:"بوابة إدارة عمليات الأسطول",ucFleetP:"جدولة الصيانة، وتعيين الطواقم، وإرسال العملاء، وسجلات الرحلات، وسجلات الوقود. نظام واحد لكل ما يحتاج مشغّل الأسطول إلى تتبّعه.",ucHospInd:"عمليات الضيافة",ucHospH:"منصّة الحجز والكونسيرج",ucHospP:"حجز الضيوف، وتهيئة الغرف، وتوجيه طلبات الكونسيرج، وتنسيق المورّدين، وإحاطات صباحية بالبريد. مبنية حول معايير خدمتك الخاصة.",ucMemInd:"خدمات العضوية",ucMemH:"بوابة الأعضاء",ucMemP:"انضمام الأعضاء، وحجز الفعاليات، والوصول إلى محتوى الأعضاء، ومنصّة التواصل. مصمّمة للأندية والشبكات ذات منطق التشغيل الخاص بها.",ucMfgInd:"التصنيع حسب الطلب",ucMfgH:"نظام تتبّع الطلبات والإنتاج",ucMfgP:"استقبال طلبات العملاء، وتتبّع مراحل الإنتاج، وتنسيق المورّدين، وإشعارات التسليم، وبوابة حالة موجّهة للعميل. كل طلب متابَع من الموجز إلى التسليم.",ucProInd:"الخدمات المهنية",ucProH:"إدارة العملاء والجدولة",ucProP:"حجز المواعيد، وإدارة ملفات العملاء، وتسليم المستندات، وسير عمل الفوترة، والمتابعات الآلية. للمكاتب التي تكون فيها كل علاقة بالعميل فردية.",ucEvtInd:"عمليات الفعاليات",ucEvtH:"منصّة تنسيق الفعاليات",ucEvtP:"إدارة الضيوف، وتنسيق المورّدين، وتتبّع اللوجستيات، وتسجيل الوصول في الموقع، وإعداد التقارير بعد الفعالية. البنية التحتية خلف الفعاليات التي لا يمكن إغفال أي تفصيل فيها.",pricingLabel:"الأسعار",pricingH2:"تدفع عندما تكون راضيًا.",pricingP1:"نبني نظامك كنسخة تجريبية عاملة. لا حديث عن السعر حتى تقيّم النتيجة في سياقها.",pricingP2:"إذا لبّى النظام متطلباتك، نتفق على سعر للمشروع بحسب النطاق. وإن لم يلبِّها، لا تُصدَر أي فاتورة. يتوفّر مساران للبنية التحتية حسب تفضيلك للملكية والاستضافة.",pcManagedName:"مُدار بالكامل",pcManagedDesc:"نتولّى كل شيء: الاستضافة، والنطاق، والبنية التحتية، والنشر. تتسلّم رابطًا عاملًا. لا شيء لتهيئته.",pcManagedCta:"ابدأ مشروعًا",pcSelfName:"استضافة ذاتية",pcSelfDesc:"نبني وننشر على بنيتك التحتية الخاصة. أنت توفّر الاستضافة والنطاق وحسابات الخدمة. ملكية كاملة من اليوم الأول.",pcSelfCta:"تواصل معنا",briefLabel:"ابدأ مشروعًا",briefH2:"صف عملياتك. وسنبني النظام.",briefSub:"أخبرنا بما يقوم به عملك، وما تريد أن يتولّاه النظام، وكيف يعمل فريقك. سنبنيه ونرسل إليك نظامًا عاملًا لتقيّمه.",briefYourBrief:"موجزك",briefPh:"صف عملياتك وما تحتاج إلى بنائه. كلما كنت أكثر تحديدًا، كانت النتيجة أفضل. ماذا يجب أن يتولّى النظام؟ من سيستخدمه؟ ما المخرجات التي تهمّ فريقك؟",briefEmailLabel:"بريد التسليم",emailPh:"you@company.com",briefSubmit:"إرسال الموجز",briefNote:"يُسلَّم إلى بريدك خلال ساعات. تقيّم قبل أن يُطرح أي نقاش حول الدفع.",st1H:"تم استلام الموجز",st1P:"تم إرسال موجزك وهو قيد المراجعة.",st2H:"نصمّم نظامك",st2P:"خط الإنتاج يعمل انطلاقًا من موجزك.",st3H:"قيد البناء",st3P:"يجري تجميع الواجهة والأتمتة معًا.",st4H:"مراجعة الجودة",st4P:"مراجعة بشرية قبل أن يغادر أي شيء أيدينا.",st5H:"المرور الأخير",st5P:"فحوص أخيرة قبل التسليم.",st6H:"لدى فريقنا",st6P:"جارٍ النشر والتهيئة.",confH3:"تم استلام الموجز",confPre:"سنبني نظامك ونسلّمه إلى ",confEmailDefault:"بريدك",confPost:". رابط عامل، جاهز للتقييم.",confAnother:"إرسال موجز آخر",gateTitle:"الوصول مطلوب",gateClose:"إغلاق",tabSub:"اشترك",tabCode:"رمز الدعوة",tabReq:"اطلب الوصول",subDesc:"أدخل بريدك للوصول إلى Feix باشتراك نشط.",btnAccessNow:"ادخل الآن",btnValidate:"تحقّق من الرمز",btnReqAccess:"اطلب الوصول",reqHint:"نراجع كل طلب ونرسل رمز دعوة إذا كان هناك توافق.",exhTitle:"لا توجد إرسالات متبقية",exhP:"تم استخدام حصتك. اطلب رمز دعوة جديدًا للمتابعة.",btnReqNew:"اطلب وصولًا جديدًا",msgInvalidEmail:"يرجى إدخال عنوان بريد إلكتروني صالح.",msgNoSub:"لم يُعثر على اشتراك نشط لهذا البريد.",msgConnErr:"خطأ في الاتصال. يرجى المحاولة مرة أخرى.",msgEnterCode:"يرجى إدخال رمز الدعوة.",msgAccessGranted:"تم منح الوصول.",msgInvalidCode:"رمز دعوة غير صالح.",msgRequestReceived:"تم استلام الطلب.",msgSomethingWrong:"حدث خطأ ما.",msgSubActivated:"تم تفعيل الاشتراك. أدخل بريدك للوصول إلى Feix.",msgDescribeProject:"يرجى وصف مشروعك.",msgTooShort:"وصفك قصير جدًا.",msgValidDelivery:"يرجى تقديم بريد تسليم صالح.",msgServerError:"خطأ في الخادم: ",msgErrorOccurred:"حدث خطأ: ",usageRemaining:"المتبقي {r} / {m}"}
+  };
+  var curLang;
+  try{curLang=localStorage.getItem('feix-lang')||(navigator.language||'en').slice(0,2).toLowerCase();}catch(e){curLang='en';}
+  if(!STRINGS[curLang])curLang='en';
+  function T(k){var d=STRINGS[curLang]||STRINGS.en;return d[k]!=null?d[k]:(STRINGS.en[k]!=null?STRINGS.en[k]:k);}
+  function applyI18n(){
+    document.documentElement.lang=curLang;
+    document.documentElement.dir=(curLang==='ar')?'rtl':'ltr';
+    document.querySelectorAll('[data-i18n]').forEach(function(el){el.textContent=T(el.getAttribute('data-i18n'));});
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el){el.innerHTML=T(el.getAttribute('data-i18n-html'));});
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){el.setAttribute('placeholder',T(el.getAttribute('data-i18n-ph')));});
+    document.querySelectorAll('[data-i18n-aria]').forEach(function(el){el.setAttribute('aria-label',T(el.getAttribute('data-i18n-aria')));});
+    if(typeof refreshUsageBadgeText==='function')refreshUsageBadgeText();
+  }
+
+  const API_BASE='https://api.llulllab.com';
+  const ENDPOINTS={generate:API_BASE+'/generate-workflow-and-frontend',validate:API_BASE+'/invite-validate',request:API_BASE+'/hrz-access-request',subscribeAccess:API_BASE+'/subscribe-access'};
+  const hamburger=document.getElementById('hamburger'),navLinks=document.getElementById('navLinks'),promptInput=document.getElementById('promptInput'),charCounter=document.getElementById('charCounter'),btnGenerate=document.getElementById('btnGenerate'),stepperSection=document.getElementById('stepperSection'),confirmationSection=document.getElementById('confirmationSection'),confirmationEmail=document.getElementById('confirmationEmail'),btnNewRequest=document.getElementById('btnNewRequest'),errorToast=document.getElementById('errorToast'),steps=document.querySelectorAll('.step'),deliveryEmailInput=document.getElementById('deliveryEmailInput'),gateOverlay=document.getElementById('gateOverlay'),gateBox=document.getElementById('gateBox'),exhaustedBox=document.getElementById('exhaustedBox'),btnCloseGate=document.getElementById('btnCloseGate'),gateTabs=document.querySelectorAll('.gate-tab'),gatePanels=document.querySelectorAll('.gate-panel'),subEmailInput=document.getElementById('subEmailInput'),btnSubAccess=document.getElementById('btnSubAccess'),subFeedback=document.getElementById('subFeedback'),inviteCodeInput=document.getElementById('inviteCodeInput'),btnValidateCode=document.getElementById('btnValidateCode'),codeFeedback=document.getElementById('codeFeedback'),requestEmailInput=document.getElementById('requestEmailInput'),btnRequestAccess=document.getElementById('btnRequestAccess'),requestFeedback=document.getElementById('requestFeedback'),exhaustedEmailInput=document.getElementById('exhaustedEmailInput'),btnExhaustedRequest=document.getElementById('btnExhaustedRequest'),exhaustedFeedback=document.getElementById('exhaustedFeedback'),usageBadge=document.getElementById('usageBadge'),usageText=document.getElementById('usageText');
+  let sessionToken=null,remainingUses=0,pendingSubmit=false,lastMaxUses=0;
+  function saveToken(t){sessionToken=t;try{localStorage.setItem('horizon_token',t)}catch(e){}}
+  function loadToken(){try{return localStorage.getItem('horizon_token')}catch(e){return null}}
+  function clearToken(){sessionToken=null;try{localStorage.removeItem('horizon_token')}catch(e){}}
+  function saveSubEmail(e){try{localStorage.setItem('feix_sub_email',e)}catch(x){}}
+  function loadSubEmail(){try{return localStorage.getItem('feix_sub_email')}catch(e){return null}}
+  var lastRemaining=null;
+  function updateUsageBadge(remaining,maxUses){if(typeof remaining!=='number')return;if(maxUses!=null)lastMaxUses=maxUses;lastRemaining=remaining;usageText.textContent=T('usageRemaining').replace('{r}',remaining).replace('{m}',(lastMaxUses||'?'));usageBadge.classList.remove('hidden','warning','depleted');if(remaining<=0)usageBadge.classList.add('depleted');else if(remaining===1)usageBadge.classList.add('warning')}
+  function refreshUsageBadgeText(){if(lastRemaining!=null&&!usageBadge.classList.contains('hidden'))usageText.textContent=T('usageRemaining').replace('{r}',lastRemaining).replace('{m}',(lastMaxUses||'?'));}
+  function resetGateFeedback(){[subFeedback,codeFeedback,requestFeedback,exhaustedFeedback].forEach(el=>{el.className='gate-msg';el.textContent=''})}
+  function showFeedback(el,msg,type){el.className='gate-msg '+type;el.textContent=msg}
+  function setLoading(btn,loading){if(loading){btn.classList.add('loading');btn.disabled=true}else{btn.classList.remove('loading');btn.disabled=false}}
+  function openGate(){gateBox.classList.remove('hidden');exhaustedBox.classList.add('hidden');gateOverlay.classList.add('visible');setTimeout(()=>subEmailInput.focus(),100)}
+  function openExhausted(){gateBox.classList.add('hidden');exhaustedBox.classList.remove('hidden');gateOverlay.classList.add('visible');clearToken()}
+  function closeGate(){gateOverlay.classList.remove('visible');pendingSubmit=false;resetGateFeedback()}
+  btnCloseGate.addEventListener('click',closeGate);
+  gateOverlay.addEventListener('click',e=>{if(e.target===gateOverlay)closeGate()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&gateOverlay.classList.contains('visible'))closeGate()});
+  const feixPanelMap={subscribe:'panelSubscribe',code:'panelCode',request:'panelRequest'};
+  gateTabs.forEach(tab=>{tab.addEventListener('click',()=>{gateTabs.forEach(t=>t.classList.remove('active'));gatePanels.forEach(p=>p.classList.remove('active'));tab.classList.add('active');document.getElementById(feixPanelMap[tab.dataset.panel]||'panelSubscribe').classList.add('active');resetGateFeedback()})});
+  async function checkSubscribeAccess(email){const res=await fetch(ENDPOINTS.subscribeAccess,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,product:'feix'})});const data=await res.json();if(res.ok&&data.token){saveToken(data.token);saveSubEmail(email);remainingUses=data.remaining_uses||0;updateUsageBadge(data.remaining_uses,data.max_uses);return true}return false}
+  btnSubAccess.addEventListener('click',async()=>{const email=subEmailInput.value.trim().toLowerCase();if(!email||!email.includes('@')||!email.includes('.')){showFeedback(subFeedback,T('msgInvalidEmail'),'error');subEmailInput.focus();return}setLoading(btnSubAccess,true);subFeedback.className='gate-msg';try{const ok=await checkSubscribeAccess(email);if(ok){if(pendingSubmit){setTimeout(()=>{closeGate();doSubmit()},600)}else{setTimeout(closeGate,800)}}else{showFeedback(subFeedback,T('msgNoSub'),'error')}}catch(e){showFeedback(subFeedback,T('msgConnErr'),'error')}finally{setLoading(btnSubAccess,false)}});
+  subEmailInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();btnSubAccess.click()}});
+  async function validateCode(){const code=inviteCodeInput.value.trim().toUpperCase();if(!code){showFeedback(codeFeedback,T('msgEnterCode'),'error');inviteCodeInput.focus();return}setLoading(btnValidateCode,true);resetGateFeedback();try{const res=await fetch(ENDPOINTS.validate,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({invite_code:code})});const data=await res.json();if(res.ok&&data.token){saveToken(data.token);remainingUses=data.remaining_uses||0;updateUsageBadge(data.remaining_uses,data.max_uses);showFeedback(codeFeedback,T('msgAccessGranted'),'success');if(pendingSubmit){setTimeout(()=>{closeGate();doSubmit()},700)}else{setTimeout(closeGate,900)}}else{showFeedback(codeFeedback,data.message||T('msgInvalidCode'),'error')}}catch(err){showFeedback(codeFeedback,T('msgConnErr'),'error')}finally{setLoading(btnValidateCode,false)}}
+  btnValidateCode.addEventListener('click',validateCode);
+  inviteCodeInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();validateCode()}});
+  async function handleAccessRequest(emailInput,btn,feedbackEl){const email=emailInput.value.trim();if(!email||!email.includes('@')||!email.includes('.')){showFeedback(feedbackEl,T('msgInvalidEmail'),'error');emailInput.focus();return}setLoading(btn,true);try{const res=await fetch(ENDPOINTS.request,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});const data=await res.json();if(res.ok){showFeedback(feedbackEl,T('msgRequestReceived'),'success');emailInput.value=''}else{showFeedback(feedbackEl,data.message||T('msgSomethingWrong'),'error')}}catch(err){showFeedback(feedbackEl,T('msgConnErr'),'error')}finally{setLoading(btn,false)}}
+  btnRequestAccess.addEventListener('click',()=>handleAccessRequest(requestEmailInput,btnRequestAccess,requestFeedback));
+  requestEmailInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();btnRequestAccess.click()}});
+  btnExhaustedRequest.addEventListener('click',()=>handleAccessRequest(exhaustedEmailInput,btnExhaustedRequest,exhaustedFeedback));
+  exhaustedEmailInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();btnExhaustedRequest.click()}});
+  async function checkSession(){
+    const token=loadToken();
+    if(token){sessionToken=token;try{const res=await fetch(ENDPOINTS.validate,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token})});const data=await res.json();if(res.ok&&typeof data.remaining_uses==='number'&&data.remaining_uses>0){remainingUses=data.remaining_uses;updateUsageBadge(data.remaining_uses,data.max_uses);return}else{clearToken()}}catch(err){clearToken()}}
+    const storedEmail=loadSubEmail();
+    if(storedEmail){try{const ok=await checkSubscribeAccess(storedEmail);if(ok&&subEmailInput)subEmailInput.value=storedEmail;return}catch(e){}}
+    if(window.location.search.includes('sub=activated')){showFeedback(subFeedback,T('msgSubActivated'),'success');history.replaceState(null,'',window.location.pathname)}
+  }
+  checkSession();
+  async function refreshUsage(){if(!sessionToken)return;try{const res=await fetch(ENDPOINTS.validate,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:sessionToken})});const data=await res.json();if(res.ok){remainingUses=data.remaining_uses||0;updateUsageBadge(data.remaining_uses,data.max_uses);if(data.remaining_uses<=0)openExhausted()}}catch(e){}}
+  hamburger.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');hamburger.classList.toggle('active');hamburger.setAttribute('aria-expanded',String(open));navLinks.setAttribute('aria-hidden',String(!open))});
+  navLinks.querySelectorAll('a').forEach(a=>{a.addEventListener('click',()=>{navLinks.classList.remove('open');hamburger.classList.remove('active');hamburger.setAttribute('aria-expanded','false');navLinks.setAttribute('aria-hidden','true')})});
+  promptInput.addEventListener('input',()=>{charCounter.textContent=promptInput.value.length+' / 10000'});
+  const fadeEls=document.querySelectorAll('.fade-in');
+  const fadeObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');fadeObs.unobserve(e.target)}})},{threshold:0.1});
+  fadeEls.forEach(el=>fadeObs.observe(el));
+  function setStep(index){steps.forEach((step,i)=>{step.classList.remove('active','completed');if(i<index)step.classList.add('completed');else if(i===index)step.classList.add('active')})}
+  function resetStepper(){steps.forEach(s=>s.classList.remove('active','completed'))}
+  let errorTimeout;
+  function showError(msg){errorToast.textContent=msg;errorToast.classList.add('visible');clearTimeout(errorTimeout);errorTimeout=setTimeout(()=>errorToast.classList.remove('visible'),5000)}
+  function validateForm(){const prompt=promptInput.value.trim();if(!prompt){showError(T('msgDescribeProject'));promptInput.focus();return false}if(prompt.length<10){showError(T('msgTooShort'));promptInput.focus();return false}const email=deliveryEmailInput.value.trim();if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showError(T('msgValidDelivery'));deliveryEmailInput.focus();return false}return true}
+  async function doSubmit(){if(remainingUses<=0){openExhausted();return}const prompt=promptInput.value.trim(),deliveryEmail=deliveryEmailInput.value.trim();btnGenerate.classList.add('loading');btnGenerate.disabled=true;confirmationSection.classList.remove('visible');stepperSection.classList.add('visible');stepperSection.scrollIntoView({behavior:'smooth',block:'center'});resetStepper();setStep(0);const stepTimers=[];stepTimers.push(setTimeout(()=>setStep(1),1500));stepTimers.push(setTimeout(()=>setStep(2),8000));stepTimers.push(setTimeout(()=>setStep(3),15000));stepTimers.push(setTimeout(()=>setStep(4),22000));try{const payload={token:sessionToken,prompt,package:'managed',deliveryEmail};const response=await fetch(ENDPOINTS.generate,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});if(!response.ok){let errorMsg=T('msgServerError')+response.status;try{const errData=await response.json();if(errData.message)errorMsg=errData.message}catch(e){}if(response.status===401||response.status===403)clearToken();throw new Error(errorMsg)}const data=await response.json();stepTimers.forEach(clearTimeout);for(let i=0;i<=4;i++){setStep(i);await new Promise(r=>setTimeout(r,300))}setStep(5);steps[5].classList.remove('active');steps[5].classList.add('completed');confirmationEmail.textContent=data.deliveryEmail||deliveryEmail;confirmationSection.classList.add('visible');setTimeout(()=>confirmationSection.scrollIntoView({behavior:'smooth',block:'start'}),400);remainingUses=Math.max(0,remainingUses-1);updateUsageBadge(remainingUses,null);if(remainingUses<=0){openExhausted();return}await refreshUsage()}catch(err){stepTimers.forEach(clearTimeout);resetStepper();stepperSection.classList.remove('visible');showError(T('msgErrorOccurred')+err.message)}finally{btnGenerate.classList.remove('loading');btnGenerate.disabled=false}}
+  btnGenerate.addEventListener('click',()=>{if(!validateForm())return;if(!sessionToken){pendingSubmit=true;openGate();return}if(remainingUses<=0){openExhausted();return}doSubmit()});
+  promptInput.addEventListener('keydown',(e)=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();btnGenerate.click()}});
+  btnNewRequest.addEventListener('click',()=>{promptInput.value='';charCounter.textContent='0 / 10000';deliveryEmailInput.value='';confirmationSection.classList.remove('visible');stepperSection.classList.remove('visible');resetStepper();promptInput.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>promptInput.focus(),400)});
+  function handleNavVisibility(){if(window.innerWidth>=1024){navLinks.removeAttribute('aria-hidden');navLinks.classList.remove('open');hamburger.classList.remove('active');hamburger.setAttribute('aria-expanded','false')}else{if(!navLinks.classList.contains('open'))navLinks.setAttribute('aria-hidden','true')}}
+  window.addEventListener('resize',handleNavVisibility);handleNavVisibility();
+
+  // ═══ UI language wiring ═══
+  var uiLangSelect=document.getElementById('uiLangSelect');
+  if(uiLangSelect){uiLangSelect.value=curLang;uiLangSelect.addEventListener('change',function(){curLang=this.value;try{localStorage.setItem('feix-lang',curLang)}catch(e){}applyI18n()});}
+  applyI18n();
+})();
+</script>
+</body>
+</html>
