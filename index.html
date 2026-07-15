@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feix — Complex operations. Custom systems.</title>
+<title>Feix. Complex operations, custom systems.</title>
 <meta name="description" content="We build complete digital systems for complex operations. From brief to live product, in hours. You evaluate before you pay.">
 <link rel="canonical" href="https://feix.app/">
 <link rel="icon" type="image/jpeg" href="https://feix.app/logo.jpg">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://feix.app/">
-<meta property="og:title" content="Feix — Complex operations. Custom systems.">
+<meta property="og:title" content="Feix. Complex operations, custom systems.">
 <meta property="og:description" content="We build complete digital systems for complex operations. From brief to live product, in hours. You evaluate before you pay.">
 <meta property="og:image" content="https://feix.app/logo.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Feix — Complex operations. Custom systems.">
+<meta name="twitter:title" content="Feix. Complex operations, custom systems.">
 <meta name="twitter:description" content="We build complete digital systems for complex operations. From brief to live product, in hours. You evaluate before you pay.">
 <meta name="twitter:image" content="https://feix.app/logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -518,6 +518,19 @@ a:hover{text-decoration:underline}
 /* FADE IN */
 .fade-in{opacity:0;transform:translateY(16px);transition:opacity 700ms ease,transform 700ms ease}
 .fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* DATA & PRIVACY BAND */
+.dp-band{padding:clamp(64px,9vw,110px) clamp(24px,5vw,48px);border-top:1px solid var(--border);background:linear-gradient(180deg,rgba(107,184,255,0.03),transparent)}
+.dp-inner{max-width:1080px;margin:0 auto}
+.dp-title{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.12;letter-spacing:-0.01em;margin:14px 0 14px;color:var(--text-1)}
+.dp-lead{color:var(--text-2);max-width:680px;font-size:1.02rem;margin-bottom:36px}
+.dp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.dp-item{background:var(--navy);padding:22px 24px;display:flex;flex-direction:column;gap:7px}
+.dp-k{font-weight:600;font-size:0.95rem;color:var(--accent)}
+.dp-v{font-size:0.9rem;color:var(--text-2);line-height:1.55}
+.dp-links{margin-top:26px;font-size:0.9rem}
+.dp-links span{color:var(--text-3);margin:0 6px}
+@media(max-width:720px){.dp-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -529,6 +542,7 @@ a:hover{text-decoration:underline}
     Feix
   </div>
   <ul class="nav-links" id="navLinks" aria-hidden="true" role="list">
+    <li><a href="#data-privacy">Data &amp; privacy</a></li>
     <li><a href="#offer" data-i18n="navHow">How it works</a></li>
     <li><a href="#usecases" data-i18n="navUse">Use cases</a></li>
     <li><a href="#pricing" data-i18n="navPricing">Pricing</a></li>
@@ -806,12 +820,26 @@ a:hover{text-decoration:underline}
 <div class="error-toast" id="errorToast" role="alert" aria-live="assertive"></div>
 
 <!-- FOOTER -->
+<section class="dp-band fade-in" id="data-privacy" aria-label="Data and privacy">
+  <div class="dp-inner">
+    <span class="section-label">Data and privacy</span>
+    <h2 class="dp-title">Built in the EU, and kept there.</h2>
+    <p class="dp-lead">For Feix-managed deployments, your brief and the generation process are processed within the European Union, and your system runs on EU-based infrastructure. Your content is not used to train models, and the underlying model vendor does not receive it.</p>
+    <div class="dp-grid">
+      <div class="dp-item"><span class="dp-k">EU processing</span><span class="dp-v">Generation and hosting run within the EU. Systems we build for managed hosting use EU model processing.</span></div>
+      <div class="dp-item"><span class="dp-k">Yours to keep</span><span class="dp-v">Your system and its data belong to you and are exportable at any time. No vendor lock-in.</span></div>
+      <div class="dp-item"><span class="dp-k">Deleted if unused</span><span class="dp-v">If the pilot ends without adoption, or on request, your data is removed from active systems immediately and expires from encrypted backups within two days.</span></div>
+      <div class="dp-item"><span class="dp-k">Honest about the edges</span><span class="dp-v">Transactional email uses a non-EU provider under standard clauses, carrying your address and a request identifier, not your content.</span></div>
+    </div>
+    <p class="dp-links"><a href="https://feix.app/privacy/">Privacy policy</a> <span aria-hidden="true">·</span> <a href="https://feix.app/terms/">Terms of service</a></p>
+  </div>
+</section>
 <footer>
   <div class="site-footer">
     <span class="footer-brand">Feix by Llull Lab, Paris</span>
     <div class="footer-links">
-      <a href="https://llulllab.com/privacy-policy.html" target="_blank" rel="noopener">Privacy</a>
-      <a href="https://llulllab.com/mentions-legales.html" target="_blank" rel="noopener">Legal</a>
+      <a href="https://feix.app/privacy/">Privacy</a>
+      <a href="https://feix.app/terms/">Terms</a>
       <a href="https://llulllab.com" target="_blank" rel="noopener">Llull Lab</a>
     </div>
     <span class="footer-brand">Conçu et développé en France</span>
